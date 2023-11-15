@@ -11,11 +11,6 @@ public class DevSearchServiceImpl implements DevSearchService{
 	@Autowired
 	private DevDAO devDAO;
  
-	@Override
-	public DevDTO getDev( int d_no) {
-		DevDTO dev = this.devDAO.getDev(d_no);
-		return dev;
-	}
 	
 	@Override
 	public DevDTO getDevDetail(String dev_uid) throws Exception {

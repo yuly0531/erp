@@ -1968,7 +1968,7 @@ function searchDev(){
               </select>
               <input type="text" name="keyword2" >
               <input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
-              <input type="button" onClick="searchDev()" name="ㄴearch" class="search" value="검색">
+              <input type="button" onClick="searchDev()" name="earch" class="search" value="검색">
             </td>
           </tr>
           <div class="button_box">

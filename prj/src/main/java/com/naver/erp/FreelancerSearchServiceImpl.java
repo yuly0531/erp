@@ -12,12 +12,6 @@ public class FreelancerSearchServiceImpl implements FreelancerSearchService{
 	private FreelancerDAO freelancerDAO;
  
 	@Override
-	public FreelancerDTO getFreelancer( int f_no) {
-		FreelancerDTO free = this.freelancerDAO.getFreelancer(f_no);
-		return free;
-	}
-
-	@Override
 	public FreelancerDTO getFreeDetail(String free_uid) throws Exception {
 		FreelancerDTO free = this.freelancerDAO.getFreeDetail(free_uid);
 		return free;

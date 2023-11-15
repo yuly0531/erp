@@ -8,7 +8,6 @@ public interface DevService {
 	int deleteDevInfo(DevDTO devDTO) throws Exception;
 	 
 	int updateDevInfo(DevDTO devDTO) throws Exception;
-	List<String> getDevComName(DevSearchDTO devSearchDTO);
 }
 
 

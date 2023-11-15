@@ -7,15 +7,59 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/mainpage.css">
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
+google.charts.load("current", {packages:["corechart"]});
+google.charts.setOnLoadCallback(drawChart);
+
+
 $(function(){init();})
 
 function init(){ 
     search(); 
    gyeoljae();
 }
+
+function drawChart() {
+	var data1 = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['파견 중',  ${requestScope.mainListMap.mainList[0].on_dispatch_dev}],
+        ['파견 예정', ${requestScope.mainListMap.mainList[0].due_dispatch_dev}],
+        ['파견가능',  ${requestScope.mainListMap.mainList[0].can_dispatch_dev}]
+      ]);
+  var data2 = google.visualization.arrayToDataTable([
+	  ['Task', 'Hours per Day'],
+      ['파견 중',  ${requestScope.mainListMap.mainList[0].on_dispatch_free}],
+      ['파견 예정', ${requestScope.mainListMap.mainList[0].due_dispatch_free}],
+      ['파견가능',  ${requestScope.mainListMap.mainList[0].can_dispatch_free}]
+    ]);
+  var data3 = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['진행 예정', ${requestScope.mainListMap.mainList[0].due_prj}],
+      ['진행 중',  ${requestScope.mainListMap.mainList[0].on_prj}],
+      ['진행 완료', ${requestScope.mainListMap.mainList[0].end_prj}]
+    ]);
+
+  var options = {
+    pieHole: 0.4,
+    colors: ['#58ACFA', '#A9BCF5', '#5882FA'],
+    pieSliceTextStyle: {
+        color: 'black',
+      }
+  };
+
+	var chart1 = new google.visualization.PieChart(document.getElementById('donutchart_dev'));
+		chart1.draw(data1, options);
+		
+	var chart2 = new google.visualization.PieChart(document.getElementById('donutchart_free'));
+		chart2.draw(data2, options);
+	
+	var chart3 = new google.visualization.PieChart(document.getElementById('donutchart_prj'));
+		chart3.draw(data3, options);
+	
+}
+
 
 function show_all(){
     $(".search_list_all").show();
@@ -76,6 +120,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
 }
 
 </script>
+
 <title>메인</title>
 </head>
 <body>
@@ -121,18 +166,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
       </div>
       <small class="list_notice">통계기준은 24시간을 기준으로 반영됩니다.</small>
         <div class="list">
-          <div>
-            파견 중
-            <div>${requestScope.mainListMap.mainList[0].on_dispatch_dev}</div>
-          </div>
-          <div>
-            파견 예정
-            <div>${requestScope.mainListMap.mainList[0].due_dispatch_dev}</div>
-          </div>
-          <div>
-            파견 가능
-            <div>${requestScope.mainListMap.mainList[0].can_dispatch_dev}</div>
-          </div>
+          <div id="donutchart_dev" style="width: 900px; height: 300px;"></div>
         </div>
     </div>
     
@@ -147,19 +181,9 @@ function goGyeoljaeDetailForm(gyeoljae_num){
           ${requestScope.mainListMap.mainList[0].free_count}<small>명</small>
         </div>
         <small class="list_notice">통계기준은 24시간을 기준으로 반영됩니다.</small>
+          
         <div class="list">
-          <div>
-            파견 중
-            <div>${requestScope.mainListMap.mainList[0].on_dispatch_free}</div>
-          </div>
-          <div>
-            파견 예정
-            <div>${requestScope.mainListMap.mainList[0].due_dispatch_free}</div>
-          </div>
-          <div>
-            파견 가능
-            <div>${requestScope.mainListMap.mainList[0].can_dispatch_free}</div>
-          </div>
+        <div id="donutchart_free" style="width: 900px; height: 300px;"></div>
          </div>
     </div>
     
@@ -176,18 +200,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
         <small class="list_notice">통계기준은 24시간을 기준으로 반영됩니다.</small>
 
         <div class="list">
-          <div>
-            진행 예정
-            <div>${requestScope.mainListMap.mainList[0].due_prj}</div>
-          </div>
-          <div>
-            진행 중
-            <div>${requestScope.mainListMap.mainList[0].on_prj}</div>
-          </div>
-          <div>
-            진행 완료
-            <div>${requestScope.mainListMap.mainList[0].end_prj}</div>
-          </div>
+        <div id="donutchart_prj" style="width: 900px; height: 300px;"></div>
          </div>
          </div>
       </div>

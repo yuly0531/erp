@@ -229,10 +229,4 @@ public class DevServiceImpl implements DevService {
       return updateDevCnt;
    }   
    
-   @Override
-   public List<String> getDevComName(DevSearchDTO devSearchDTO) {
-      List<String> getDevComName = null;
-      getDevComName = this.devDAO.getDevComName(devSearchDTO);
-      return getDevComName;
-   }
 }
