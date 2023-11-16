@@ -93,6 +93,11 @@
 				<div>
 					<div class="gyeoljae_progress">결재상태 : ${gyeoljaeDTO.gyeoljae_progress}</div>
 				</div>
+				<c:if test="${gyeoljaeDTO.gyeoljae_progress!='미결'}">
+					<div>
+						<div> 결재일시 : ${gyeoljaeDTO.gyeoljae_progress_date}</div>
+					</div>
+					</c:if>
 				<div>
 					<div class="writer">요청자 : ${gyeoljaeDTO.writer}</div>
 				</div>
@@ -100,13 +105,9 @@
 					<div class="title">제목 : ${gyeoljaeDTO.title}</div>
 				</div>
 				<div>
-					<textarea name="content" class="content" style="border: 1px solid lightgrey; padding: 15px;" readonly>내용 : ${gyeoljaeDTO.content}</textarea>
+					<textarea name="content" class="content" style="border: 1px solid lightgrey; padding: 15px;" readonly>${gyeoljaeDTO.content}</textarea>
 				</div>
-					<c:if test="${gyeoljaeDTO.gyeoljae_progress!='미결'}">
-					<div>
-						<div> 결재일시 : ${gyeoljaeDTO.gyeoljae_progress_date}</div>
-					</div>
-					</c:if>
+					
 			</div>
 					
 			<div>
