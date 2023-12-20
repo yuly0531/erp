@@ -20,31 +20,31 @@ public class MainController {
 	private MainDAO mainDAO;
 	
 	
-	@RequestMapping( value="/mainpage.do")
-	public ModelAndView mainpage(
+	@RequestMapping( value="/stuList.do")
+	public ModelAndView stuList(
 	){
-		Map<String, Object> mainListMap = getMainListMap();
+		Map<String, Object> stuListMap = getstuListMap();
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("mainpage.jsp");
-	      mav.addObject("mainListMap", mainListMap);
+		mav.setViewName("stuList.jsp");
+	      mav.addObject("stuListMap", stuListMap);
 		return mav;}
 
-	   public Map<String, Object> getMainListMap() {
+	   public Map<String, Object> getstuListMap() {
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
-		 List<Map<String, String>> mainList; 
+		 List<Map<String, String>> stuList; 
 		 
 		 
-		 mainList = this.mainDAO.getMainList();
+		 stuList = this.mainDAO.getStuList();
 		 
-		 resultMap.put("mainList", mainList); 
+		 resultMap.put("stuList", stuList); 
 
 		 return resultMap; 
 		 }
 	
-	@RequestMapping( value="/registFreeDev.do")
-	public ModelAndView registFreeDev(){
+	@RequestMapping( value="/registStu.do")
+	public ModelAndView registStu(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("registFreeDev.jsp");
+		mav.setViewName("registStu.jsp");
 		return mav;}
 	
 	@RequestMapping( value="/registDev.do")

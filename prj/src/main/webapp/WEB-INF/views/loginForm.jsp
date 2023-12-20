@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
 				,$("[name='loginForm']")
 				,function(idCnt){
 					if( idCnt==1 ){
-						location.replace("/mainpage.do");
+						location.replace("/stuList.do");
 					} else {
 						alert("로그인 실패! 아이디 또는 암호가 틀립니다. 재입력해 주십시요!");
 						return;
@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
   <div class="main">
 		<form name="loginForm">
 			<table>
-        <div class="title">Welcome,<br>DEVGRU INC</div>
+        <div class="title">Welcome</div>
 				<tr>
 					<td>
 						<input type="text" name="mid" placeholder="아이디" class="mid">

@@ -4,7 +4,13 @@
 <mapper namespace="com.naver.erp.LoginDAO">
 
    <select id="getLoginIdCnt" parameterType="hashmap" resultType="int">
-      select count(*) from dev_employee d where id=#{mid} and pwd=#{pwd}
-      and  d.dev_num not in (select dev_num from dev_retire_list)
+		select count(*) from 
+		  (select emp_id as id, emp_pwd as pwd from employee 
+		  union all
+		  select stu_id, stu_pwd from student
+		  union all
+		  select tea_id, tea_pwd from teacher
+		  ) sub
+		where sub.id=#{mid} and sub.pwd=#{pwd}
    </select>
 </mapper>
