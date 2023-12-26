@@ -162,12 +162,6 @@ body > form.header:last-of-type {
 .save:hover {
   box-shadow: 0 0 10px rgba(18, 18, 32, 0.20);
 }
-.categoty{
-	padding: 10px 0 10px !important;
-	border-top: 1px solid lightgray;
-	border-bottom: 1px solid lightgray;
-}
-
 .title {
   font-weight: bold;
   font-size: 12px;

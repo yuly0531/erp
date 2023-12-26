@@ -19,17 +19,23 @@ public class MainController {
 	@Autowired
 	private MainDAO mainDAO;
 	
+	@RequestMapping( value="/adminMain.do")
+	public ModelAndView adminMain(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminMain.jsp");
+		return mav;
+	}
 	
 	@RequestMapping( value="/stuList.do")
 	public ModelAndView stuList(
 	){
-		Map<String, Object> stuListMap = getstuListMap();
+		Map<String, Object> stuListMap = getStuListMap();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("stuList.jsp");
 	      mav.addObject("stuListMap", stuListMap);
 		return mav;}
 
-	   public Map<String, Object> getstuListMap() {
+	   public Map<String, Object> getStuListMap() {
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 List<Map<String, String>> stuList; 
 		 
@@ -40,6 +46,47 @@ public class MainController {
 
 		 return resultMap; 
 		 }
+	   
+	   @RequestMapping( value="/teaList.do")
+		public ModelAndView teaList(
+		){
+			Map<String, Object> teaListMap = getTeaListMap();
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("teaList.jsp");
+		      mav.addObject("teaListMap", teaListMap);
+			return mav;}
+
+		   public Map<String, Object> getTeaListMap() {
+			 Map<String, Object> resultMap = new HashMap<String, Object>();
+			 List<Map<String, String>> teaList; 
+			 
+			 
+			 teaList = this.mainDAO.getTeaList();
+			 
+			 resultMap.put("teaList", teaList); 
+
+			 return resultMap; 
+			 }
+		   @RequestMapping( value="/classList.do")
+			public ModelAndView classList(
+			){
+				Map<String, Object> classListMap = getClassListMap();
+				ModelAndView mav = new ModelAndView();
+				mav.setViewName("classList.jsp");
+			      mav.addObject("classListMap", classListMap);
+				return mav;}
+
+			   public Map<String, Object> getClassListMap() {
+				 Map<String, Object> resultMap = new HashMap<String, Object>();
+				 List<Map<String, String>> classList; 
+				 
+				 
+				 classList = this.mainDAO.getClassList();
+				 
+				 resultMap.put("classList", classList); 
+
+				 return resultMap; 
+				 }
 	
 	@RequestMapping( value="/registStu.do")
 	public ModelAndView registStu(){
@@ -47,17 +94,17 @@ public class MainController {
 		mav.setViewName("registStu.jsp");
 		return mav;}
 	
-	@RequestMapping( value="/registDev.do")
-		public ModelAndView registDev(
+	@RequestMapping( value="/registTea.do")
+		public ModelAndView registTea(
 				){
 					ModelAndView mav = new ModelAndView();
-					mav.setViewName("registDev.jsp");
+					mav.setViewName("registTea.jsp");
 					return mav;}
-	@RequestMapping( value="/registPrj.do")
-	public ModelAndView registPrj( 
+	@RequestMapping( value="/registClass.do")
+	public ModelAndView registClass( 
 			){
 				ModelAndView mav = new ModelAndView();
-				mav.setViewName("registPrj.jsp");
+				mav.setViewName("registClass.jsp");
 				return mav;}
 	
 	@RequestMapping( value="/gyeoljaeRegForm.do")

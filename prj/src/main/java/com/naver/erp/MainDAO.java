@@ -10,4 +10,6 @@ import org.mybatis.spring.annotation.MapperScan;
 @Mapper
 public interface MainDAO {
 	List<Map<String,String>> getStuList();
+	List<Map<String,String>> getTeaList();
+	List<Map<String,String>> getClassList();
 }

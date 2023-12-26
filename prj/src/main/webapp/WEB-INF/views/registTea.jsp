@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>학생 등록 화면</title>
+  <title>강사 등록 화면</title>
   <script src="js/registFreeDev.js"></script>
   <link href="css/registStu.css" rel="stylesheet">
 
@@ -103,8 +103,8 @@ function saveData(){
       </div>
       <table>
           <tr class="cate_box">
-			<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
-			<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
+			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+			<td class="main_cate active" onclick="location.replace('/teaList.do')">강사 관리</td>
 			<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
 			<td class="main_cate" onclick="location.replace('/gyeoljaeList.do')">결재 관리</td>
           </tr>
@@ -121,10 +121,10 @@ function saveData(){
   </form>
    <form name="freelancerRegForm" class="boardForm">
     <header>
-      <div>학생 등록</div>
+      <div>강사 등록</div>
     </header>
       <div class="inform">
-      <div class="title">학생 기본 정보</div>
+      <div class="title">강사 기본 정보</div>
       <div class="dev_user">
                     <td>아이디</td>
                     <td>
@@ -186,9 +186,18 @@ function saveData(){
                         <input type="tel" name="emergency_phone"  maxlength="11"> 
                     </td>
                 </div>  
+                <div>
+		        <tr>
+		          <th>경력 사항 : </th>
+		          <input type="text" name="career_name">
+		          <input type="date" name="career_start_date">
+		          <input type="date" name="career_end_date">
+		          
+		        </tr>
+		      </div>
      	      <div>
 		        <tr>
-		          <th>수강 수업 : </th>
+		          <th>담당 수업 : </th>
 		          <select name="joinClass">
 		             <option value=""></option>
 		             <option value="1">어쩌구</option>

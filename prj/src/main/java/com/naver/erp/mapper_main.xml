@@ -8,4 +8,14 @@
 	    stu_name "stu_name"
 	FROM student
 	</select>
+	<select id="getTeaList" resultType="java.util.Map">
+	   SELECT
+	    tea_name "tea_name"
+	FROM teacher
+	</select>
+	<select id="getClassList" resultType="java.util.Map">
+	   SELECT
+	    class_name "class_name"
+	FROM class
+	</select>
 </mapper>

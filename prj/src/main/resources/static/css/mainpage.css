@@ -111,14 +111,12 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 3%;
-  padding: 20px 0;
-  margin: 0 0 25px;
-  height: 510px;
+  padding: 20px;
 }
 .main_info > div {
   background: #fff;
   border-radius: 7px;
-  width: 48%; height: 100%;
+  width: 50%; height: 200px;
   box-shadow: 0 0 10px rgb(0 , 0, 0, .05);
   overflow: hidden;
 }
@@ -132,7 +130,7 @@ body {
 .main_info_stats > div {
   background: #fff;
   border-radius: 7px;
-  width: 48%; height: 100%;
+  width: 50%; height: 60%;
   box-shadow: 0 0 10px rgb(0 , 0, 0, .05);
   overflow: hidden;
 }

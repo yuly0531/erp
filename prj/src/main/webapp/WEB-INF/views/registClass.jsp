@@ -6,9 +6,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>학생 등록 화면</title>
+  <title>수업 등록 화면</title>
   <script src="js/registFreeDev.js"></script>
-  <link href="css/registStu.css" rel="stylesheet">
+  <link href="css/registClass.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
@@ -103,9 +103,9 @@ function saveData(){
       </div>
       <table>
           <tr class="cate_box">
-			<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
+			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
-			<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
+			<td class="main_cate active" onclick="location.replace('/classList.do')">수업 관리</td>
 			<td class="main_cate" onclick="location.replace('/gyeoljaeList.do')">결재 관리</td>
           </tr>
       </table>
@@ -121,87 +121,38 @@ function saveData(){
   </form>
    <form name="freelancerRegForm" class="boardForm">
     <header>
-      <div>학생 등록</div>
+      <div>수업 등록</div>
     </header>
       <div class="inform">
-      <div class="title">학생 기본 정보</div>
+      <div class="title">수업 기본 정보</div>
       <div class="dev_user">
-                    <td>아이디</td>
-                    <td>
-                        <input type="text" name="id" maxlength="20">
-                    </td>
-               <td>암호</td>
-                    <td>
-                        <input type="password" name="pwd" maxlength="20"> 
-                    </td>
-                    <td>암호확인</td>
-                    <td colspan="2">
-                        <input type="password" name="rePwd" maxlength="20">
-                    </td>
-                    </div>
              <div> 
-                    <td>이름</td>
+                    <td>수업명</td>
                     <td>
                         <input type="text" name="name"> 
                     </td>
-                    <td>주민번호</td>
+                    <td>개강일</td>
                     <td>
-                        <input type="text" name="jumin_num1" maxlength="6">-
-                        <input type="text" name="jumin_num2" maxlength="7">
+                        <input type="date" name="start_date">
+                    </td>
+                    <td>종강일</td>
+                    <td>
+                        <input type="date" name="end_date">
                     </td>
                     </div>
                     <div>
-                    <td>핸드폰</td>
-                    <td colspan="2">
-                        <input type="text" name="phone" maxlength="11"> (-없이 입력)
+                    <td>담당 강사명</td>
+                        <input type="text" name="tea_name">
+                    </td>
+                    <td>담당 강사 휴대폰 번호</td>
+                        <input type="text" name="tea_phone" maxlength="11"> (-없이 입력)
                     </td>
                 </div>
-            
-                <div class="categoty">
-                    <td>긴급연락처(사고 대비)</td>
-                 </div>
-                 <div>
-                    <td>연락 받을 사람 이름 :&nbsp;
-                        <input type="text" name="emergency_name" size="10"> 
-                    </td>
-                 </div>
-                 <div>
-                    <td>
-                        관계 :
-                    </td>
-                    <td>
-                        <select name="emergency_relation">
-                            <option value=""></option>
-                            <option value="1">부모</option>
-                            <option value="2">자식</option>
-                            <option value="3">형제</option>
-                            <option value="4">친척</option>
-                            <option value="5">지인</option>
-                        </select> (부모,자식,형제,친척,지인)
-                    </td>
-                    </div>
-                    <div style="border-bottom: 1px solid lightgray;">
-                    <td>전화번호 :</td>
-                    <td>
-                        <input type="tel" name="emergency_phone"  maxlength="11"> 
-                    </td>
-                </div>  
-     	      <div>
-		        <tr>
-		          <th>수강 수업 : </th>
-		          <select name="joinClass">
-		             <option value=""></option>
-		             <option value="1">어쩌구</option>
-		             <option value="2">어쩌구</option>
-		             <option value="3">어쩌구</option>
-		          </select>
-		          
-		        </tr>
-		      </div>
 		      <div>
-		        <div>기타</div>
+		        <div>수업 내용</div>
 		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
-		      </div>  
+		      </div> 
+		      수업 듣는 학생 목록.. 을 어케하지..
     <span onclick="location.replace('/stuList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>

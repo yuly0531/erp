@@ -49,13 +49,17 @@ input[type=password] {
 input[type=text] {
   margin: 0 0 5px;
 }
-.auto_box {
-  display: flex;
+.stu,
+.tea,
+.admin,
+.role_box {
   align-items: center;
   gap: 5px;
   margin: 10px 0 0;
 }
-.autoTxt {
+.stuTxt,
+.teaTxt,
+.adminTxt {
   color: dimgray;
   font-size: 14px;
 }

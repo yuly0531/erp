@@ -181,6 +181,6 @@ body > form.header:last-of-type {
 .dumP_form {
   position: absolute;
 }
-.inform > div{
+.inform > div > div{
 	padding: 0 0 10;
 }

@@ -176,7 +176,7 @@ body > div > div {
   border-bottom: 1px solid lightgray;
   padding: 0 0 12px;
 }
-input[type='button']:not(.stuSearch, .search) {
+input[type='button']:not(.classSearch, .search) {
   border: none;
   background: initial;
   color: dimgrey;
@@ -205,12 +205,12 @@ input[type='button']:not(.stuSearch, .search) {
   color: rgba(255, 150, 208, 0.471);
   border-radius: 5px;
 }
-.desc_btn.stuSearch {
+.desc_btn.classSearch {
   color: #fff;
   background: rgba(255, 150, 208, 0.471);
   border: 1px solid initial
 }
-.desc_btn.stuSearch:hover {
+.desc_btn.classSearch:hover {
   box-shadow: 0 0 10px rgba(18, 18, 32, 0.20);
 }
 .resultCate {

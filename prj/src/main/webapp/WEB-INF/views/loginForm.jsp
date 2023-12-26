@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
   <div class="main">
 		<form name="loginForm">
 			<table>
-        <div class="title">Welcome</div>
+        <div class="title">Welcome, ERP</div>
 				<tr>
 					<td>
 						<input type="text" name="mid" placeholder="아이디" class="mid">
@@ -71,9 +71,13 @@ pageEncoding="UTF-8"%>
 					</td> 
 				</tr> 
 			</table>
-      <div class="auto_box">
-        <input type="checkbox" name="autoLogin" value="yes" class="autoLogin">
-        <span class="autoTxt">자동 로그인</span>
+      <div class="role_box">
+	        <input type="checkbox" name="stu" value="stu" class="stu">
+	        <span class="stuTxt">학생</span>
+	        <input type="checkbox" name="tea" value="tea" class="tea">
+	        <span class="teaTxt">강사</span>
+	        <input type="checkbox" name="admin" value="admin" class="admin">
+	        <span class="adminTxt">관리자</span>
       </div>
       <div class="button_box">
         <input type="button" value="Login" class="loginBtn" onclick="checkLoginForm()">

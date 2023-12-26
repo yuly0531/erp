@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>학생 검색 화면</title>
-<link href="css/stuList.css" rel="stylesheet">
+<link href="css/teaList.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -34,177 +34,177 @@
 		} 
 	
 	function sortSelect1(){
-		var ascDesc =$("[name='stuSort1']").val();
+		var ascDesc =$("[name='teaSort1']").val();
 		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='stuSortTag1']").val('fName')
+			$("[name='teaSortTag1']").val('fName')
 		}
 		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='stuSortTag1']").val('age')
+			$("[name='teaSortTag1']").val('age')
 		}
 		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='stuSortTag1']").val('highestLevel_edu')
+			$("[name='teaSortTag1']").val('highestLevel_edu')
 		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-			$("[name='stuSortTag1']").val('yeoncha')
+		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+			$("[name='teaSortTag1']").val('yeoncha')
 		}
 		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='stuSortTag1']").val('can_dispatch_date')
+			$("[name='teaSortTag1']").val('can_dispatch_date')
 		}
 		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='stuSortTag1']").val('consultation_time')
+			$("[name='teaSortTag1']").val('consultation_time')
 		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-			$("[name='stuSortTag1']").val('dev_year_standard_date')
+		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+			$("[name='teaSortTag1']").val('dev_year_standard_date')
 		}
 		search();
 		}
 	function sortSelect2(){
-		var ascDesc =$("[name='stuSort2']").val();
+		var ascDesc =$("[name='teaSort2']").val();
 		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='stuSortTag2']").val('fName')
+			$("[name='teaSortTag2']").val('fName')
 		}
 		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='stuSortTag2']").val('age')
+			$("[name='teaSortTag2']").val('age')
 		}
 		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='stuSortTag2']").val('highestLevel_edu')
+			$("[name='teaSortTag2']").val('highestLevel_edu')
 		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-			$("[name='stuSortTag2']").val('yeoncha')
+		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+			$("[name='teaSortTag2']").val('yeoncha')
 		}
 		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='stuSortTag2']").val('can_dispatch_date')
+			$("[name='teaSortTag2']").val('can_dispatch_date')
 		}
 		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='stuSortTag2']").val('consultation_time')
+			$("[name='teaSortTag2']").val('consultation_time')
 		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-			$("[name='stuSortTag2']").val('dev_year_standard_date')
+		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+			$("[name='teaSortTag2']").val('dev_year_standard_date')
 		}
 		search();
 	}
 	function sortSelect3(){
-		var ascDesc =	$("[name='stuSort3']").val();
+		var ascDesc =	$("[name='teaSort3']").val();
 		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='stuSortTag3']").val('fName')
+			$("[name='teaSortTag3']").val('fName')
 		}
 		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='stuSortTag3']").val('age')
+			$("[name='teaSortTag3']").val('age')
 		}
 		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='stuSortTag3']").val('highestLevel_edu')
+			$("[name='teaSortTag3']").val('highestLevel_edu')
 		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-			$("[name='stuSortTag3']").val('yeoncha')
+		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+			$("[name='teaSortTag3']").val('yeoncha')
 		}
 		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='stuSortTag3']").val('can_dispatch_date')
+			$("[name='teaSortTag3']").val('can_dispatch_date')
 		}
 		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='stuSortTag3']").val('consultation_time')
+			$("[name='teaSortTag3']").val('consultation_time')
 		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-			$("[name='stuSortTag3']").val('dev_year_standard_date')
+		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+			$("[name='teaSortTag3']").val('dev_year_standard_date')
 		}
 		search();
 	}
 	function sortSelect4(){
-		var ascDesc =	$("[name='stuSort4']").val();
+		var ascDesc =	$("[name='teaSort4']").val();
 		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='stuSortTag4']").val('fName')
+			$("[name='teaSortTag4']").val('fName')
 		}
 		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='stuSortTag4']").val('age')
+			$("[name='teaSortTag4']").val('age')
 		}
 		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='stuSortTag4']").val('highestLevel_edu')
+			$("[name='teaSortTag4']").val('highestLevel_edu')
 		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-			$("[name='stuSortTag4']").val('yeoncha')
+		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+			$("[name='teaSortTag4']").val('yeoncha')
 		}
 		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='stuSortTag4']").val('can_dispatch_date')
+			$("[name='teaSortTag4']").val('can_dispatch_date')
 		}
 		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='stuSortTag4']").val('consultation_time')
+			$("[name='teaSortTag4']").val('consultation_time')
 		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-			$("[name='stuSortTag4']").val('dev_year_standard_date')
+		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+			$("[name='teaSortTag4']").val('dev_year_standard_date')
 		}
 		search();
 	}
 	function sortSelect5(){
-		var ascDesc =$("[name='stuSort5']").val();
+		var ascDesc =$("[name='teaSort5']").val();
 		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='stuSortTag5']").val('fName')
+			$("[name='teaSortTag5']").val('fName')
 		}
 		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='stuSortTag5']").val('age')
+			$("[name='teaSortTag5']").val('age')
 		}
 		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='stuSortTag5']").val('highestLevel_edu')
+			$("[name='teaSortTag5']").val('highestLevel_edu')
 		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-			$("[name='stuSortTag5']").val('yeoncha')
+		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+			$("[name='teaSortTag5']").val('yeoncha')
 		}
 		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='stuSortTag5']").val('can_dispatch_date')
+			$("[name='teaSortTag5']").val('can_dispatch_date')
 		}
 		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='stuSortTag5']").val('consultation_time')
+			$("[name='teaSortTag5']").val('consultation_time')
 		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-			$("[name='stuSortTag5']").val('dev_year_standard_date')
+		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+			$("[name='teaSortTag5']").val('dev_year_standard_date')
 		}
 		search();
 	}
 	function sortSelect6(){
-		var ascDesc = $("[name='stuSort6']").val();
+		var ascDesc = $("[name='teaSort6']").val();
 		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='stuSortTag6']").val('fName')
+			$("[name='teaSortTag6']").val('fName')
 		}
 		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='stuSortTag6']").val('age')
+			$("[name='teaSortTag6']").val('age')
 		}
 		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='stuSortTag6']").val('highestLevel_edu')
+			$("[name='teaSortTag6']").val('highestLevel_edu')
 		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-			$("[name='stuSortTag6']").val('yeoncha')
+		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+			$("[name='teaSortTag6']").val('yeoncha')
 		}
 		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='stuSortTag6']").val('can_dispatch_date')
+			$("[name='teaSortTag6']").val('can_dispatch_date')
 		}
 		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='stuSortTag6']").val('consultation_time')
+			$("[name='teaSortTag6']").val('consultation_time')
 		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-			$("[name='stuSortTag6']").val('dev_year_standard_date')
+		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+			$("[name='teaSortTag6']").val('dev_year_standard_date')
 		}
 		search();
 	}
 	function sortSelect7(){
-		var ascDesc = $("[name='stuSort7']").val();
+		var ascDesc = $("[name='teaSort7']").val();
 			if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-				$("[name='stuSortTag7']").val('fName')
+				$("[name='teaSortTag7']").val('fName')
 			}
 			if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-				$("[name='stuSortTag7']").val('age')
+				$("[name='teaSortTag7']").val('age')
 			}
 			if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-				$("[name='stuSortTag7']").val('highestLevel_edu')
+				$("[name='teaSortTag7']").val('highestLevel_edu')
 			}
-			if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM stu_YEAR_INFO fy WHERE f.stu_NUM = fy.stu_NUM), '0') desc"){
-				$("[name='stuSortTag7']").val('yeoncha')
+			if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM tea_YEAR_INFO fy WHERE f.tea_NUM = fy.tea_NUM), '0') desc"){
+				$("[name='teaSortTag7']").val('yeoncha')
 			}
 			if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-				$("[name='stuSortTag7']").val('can_dispatch_date')
+				$("[name='teaSortTag7']").val('can_dispatch_date')
 			}
 			if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-				$("[name='stuSortTag7']").val('consultation_time')
+				$("[name='teaSortTag7']").val('consultation_time')
 			}
-			if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM stu_YEAR_INFO FYI2 WHERE f.stu_num = FYI2.stu_num) desc"){
-				$("[name='stuSortTag7']").val('dev_year_standard_date')
+			if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM tea_YEAR_INFO FYI2 WHERE f.tea_num = FYI2.tea_num) desc"){
+				$("[name='teaSortTag7']").val('dev_year_standard_date')
 			}
 			search();
 	}
@@ -239,10 +239,10 @@ function dateNow() {
 };
 
 function deleteInfo(){
-		var formObj = $("[name='deletestuInFo']")
+		var formObj = $("[name='deleteteaInFo']")
 		if( confirm("정말 삭제하시겠습니까?")==false ) { return; }
 		ajax(
-				"/deletestuInfo.do"
+				"/deleteteaInfo.do"
 				,"post"
 				,formObj
 				,function( boardDelCnt ){
@@ -275,7 +275,7 @@ function checkSpace(obj){
 };
 
 function closePopup(){
-	var getHead = $('.stuRegForm').find('header');
+	var getHead = $('.teaRegForm').find('header');
 	
 		getHead.text('프리랜서 개발자 상세 정보');
 		$('.save').text('수정');
@@ -285,131 +285,131 @@ function closePopup(){
 		$('.popup').hide();
 }
 
-function showPopup(stu_num){
-	$('.stuRegForm').find('input').css('pointer-events', 'none');
-	$('.stuRegForm').find('textarea').css('pointer-events', 'none');
-	$('.stuRegForm').find('select').css('pointer-events', 'none');
+function showPopup(tea_num){
+	$('.teaRegForm').find('input').css('pointer-events', 'none');
+	$('.teaRegForm').find('textarea').css('pointer-events', 'none');
+	$('.teaRegForm').find('select').css('pointer-events', 'none');
 	$('.alterBtn').css('pointer-events', 'none');
 	$('input[type=radio]').prop('checked', false);
 	$(".popup_main").animate({ scrollTop: 0 }, "fast");
-	$('.stu_uid').val(stu_num);
-	$('.del_stu_uid, .upd_stu_uid').val(stu_num.replace('F',''));
+	$('.tea_uid').val(tea_num);
+	$('.del_tea_uid, .upd_tea_uid').val(tea_num.replace('F',''));
 
 		ajax(
-			"/searchstuDevDetail.do"
+			"/searchteaDevDetail.do"
 			,"post"
-			,$("[name='searchstuDevDetailForm']")
+			,$("[name='searchteaDevDetailForm']")
 			,function(json){
-				var data = json.stuList[0];
+				var data = json.teaList[0];
 				
-			$('.stuRegForm').find('[name="fName"]').val(data.fName);
-			$('.stuRegForm').find('.email').val(data.email);
-			$('.stuRegForm').find('.phone').val(data.phone);
-			$('.stuRegForm').find('.birth_year').val(data.birth_year);
-			$('.stuRegForm').find('.graduate_date').val(data.graduate_date);
-			$('.stuRegForm').find('[name="call_notice"]').val(data.call_notice);
-			$('.stuRegForm').find('[name="etc_want"]').val(data.etc_want);
-			$('.stuRegForm').find('[name="etc_opinion"]').val(data.etc_opinion);
-			$('.stuRegForm').find('.can_dispatch_date').val(data.can_dispatch_date);
-			$('.stuRegForm').find('.consultation_time ').val(data.consultation_time);
-			$('.stuRegForm').find('.min_dev_cost').val(data.min_dev_cost);
-	         $('.stuRegForm').find('.max_dev_cost').val(data.max_dev_cost);
-			$('.stuRegForm').find('.min_operate_cost').val(data.min_operate_cost);
-			$('.stuRegForm').find('.max_operate_cost').val(data.min_operate_cost);
-			$('.stuRegForm').find('.dev_year_standard_date').val(data.dev_year_standard_date);
+			$('.teaRegForm').find('[name="fName"]').val(data.fName);
+			$('.teaRegForm').find('.email').val(data.email);
+			$('.teaRegForm').find('.phone').val(data.phone);
+			$('.teaRegForm').find('.birth_year').val(data.birth_year);
+			$('.teaRegForm').find('.graduate_date').val(data.graduate_date);
+			$('.teaRegForm').find('[name="call_notice"]').val(data.call_notice);
+			$('.teaRegForm').find('[name="etc_want"]').val(data.etc_want);
+			$('.teaRegForm').find('[name="etc_opinion"]').val(data.etc_opinion);
+			$('.teaRegForm').find('.can_dispatch_date').val(data.can_dispatch_date);
+			$('.teaRegForm').find('.consultation_time ').val(data.consultation_time);
+			$('.teaRegForm').find('.min_dev_cost').val(data.min_dev_cost);
+	         $('.teaRegForm').find('.max_dev_cost').val(data.max_dev_cost);
+			$('.teaRegForm').find('.min_operate_cost').val(data.min_operate_cost);
+			$('.teaRegForm').find('.max_operate_cost').val(data.min_operate_cost);
+			$('.teaRegForm').find('.dev_year_standard_date').val(data.dev_year_standard_date);
 
-				if(data.how_dev_cost==1)  $('.stuRegForm').find('[name="how_dev_cost"]:nth-child(1)').prop('checked', true);
-				if(data.how_dev_cost==2)  $('.stuRegForm').find('[name="how_dev_cost"]:nth-child(2)').prop('checked', true);
-				if(data.how_operate_cost==1)  $('.stuRegForm').find('[name="how_operate_cost"]:nth-child(1)').prop('checked', true);
-				if(data.how_operate_cost==2)  $('.stuRegForm').find('[name="how_operate_cost"]:nth-child(2)').prop('checked', true);
-				if(data.dispatch_role==1) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(1)').prop('checked', true);
-				if(data.dispatch_role==2) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(2)').prop('checked', true);
-				if(data.dispatch_role==3) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(3)').prop('checked', true);
-				if(data.dispatch_role==4) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(4)').prop('checked', true);
-				if(data.dispatch_role==5) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(5)').prop('checked', true);
-				if(data.dispatch_role==6) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(6)').prop('checked', true);
-				if(data.dispatch_role==7) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(7)').prop('checked', true);
-				if(data.dispatch_role==8) $('.stuRegForm').find('[name="dispatch_role_code"]:nth-of-type(8)').prop('checked', true);
-				if(data.job==1) $('.stuRegForm').find('[name="job"]:nth-of-type(1)').prop('checked', true);
-				if(data.job==2) $('.stuRegForm').find('[name="job"]:nth-of-type(2)').prop('checked', true);
-				if(data.job==3) $('.stuRegForm').find('[name="job"]:nth-of-type(3)').prop('checked', true);
-				if(data.fix_dispatch_date==1) $('.stuRegForm').find('[name="fix_dispatch_date"]').prop('checked', true);
-				if(data.gender==1)  $('.stuRegForm').find('.gender_m').prop('checked', true);
-				if(data.gender==2)  $('.stuRegForm').find('.gender_w').prop('checked', true);
-				if(data.have_notebook==1) $('.stuRegForm').find('[name="have_notebook"]').prop('checked', true);
-				if(data.highestLevel_edu==1) $('.stuRegForm').find('#highestLevel_edu').val(1);
-				if(data.highestLevel_edu==2) $('.stuRegForm').find('#highestLevel_edu').val(2);
-				if(data.highestLevel_edu==3) $('.stuRegForm').find('#highestLevel_edu').val(3);
-				if(data.highestLevel_edu==4) $('.stuRegForm').find('#highestLevel_edu').val(4);
-				if(data.highestLevel_edu==5) $('.stuRegForm').find('#highestLevel_edu').val(5);
-				if(data.abode==1) $('.stuRegForm').find('[name="abode"]').val(1);
-				if(data.abode==2) $('.stuRegForm').find('[name="abode"]').val(2);
-				if(data.abode==3) $('.stuRegForm').find('[name="abode"]').val(3);
-				if(data.abode==4) $('.stuRegForm').find('[name="abode"]').val(4);
-				if(data.abode==5)$('.stuRegForm').find('[name="abode"]').val(5);
-				if(data.abode==6) $('.stuRegForm').find('[name="abode"]').val(6);
-				if(data.abode==7)$('.stuRegForm').find('[name="abode"]').val(7);
-				if(data.abode==8)$('.stuRegForm').find('[name="abode"]').val(8);
-				if(data.abode==9) $('.stuRegForm').find('[name="abode"]').val(9);
-				if(data.abode==10) $('.stuRegForm').find('[name="abode"]').val(10);
+				if(data.how_dev_cost==1)  $('.teaRegForm').find('[name="how_dev_cost"]:nth-child(1)').prop('checked', true);
+				if(data.how_dev_cost==2)  $('.teaRegForm').find('[name="how_dev_cost"]:nth-child(2)').prop('checked', true);
+				if(data.how_operate_cost==1)  $('.teaRegForm').find('[name="how_operate_cost"]:nth-child(1)').prop('checked', true);
+				if(data.how_operate_cost==2)  $('.teaRegForm').find('[name="how_operate_cost"]:nth-child(2)').prop('checked', true);
+				if(data.dispatch_role==1) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(1)').prop('checked', true);
+				if(data.dispatch_role==2) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(2)').prop('checked', true);
+				if(data.dispatch_role==3) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(3)').prop('checked', true);
+				if(data.dispatch_role==4) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(4)').prop('checked', true);
+				if(data.dispatch_role==5) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(5)').prop('checked', true);
+				if(data.dispatch_role==6) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(6)').prop('checked', true);
+				if(data.dispatch_role==7) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(7)').prop('checked', true);
+				if(data.dispatch_role==8) $('.teaRegForm').find('[name="dispatch_role_code"]:nth-of-type(8)').prop('checked', true);
+				if(data.job==1) $('.teaRegForm').find('[name="job"]:nth-of-type(1)').prop('checked', true);
+				if(data.job==2) $('.teaRegForm').find('[name="job"]:nth-of-type(2)').prop('checked', true);
+				if(data.job==3) $('.teaRegForm').find('[name="job"]:nth-of-type(3)').prop('checked', true);
+				if(data.fix_dispatch_date==1) $('.teaRegForm').find('[name="fix_dispatch_date"]').prop('checked', true);
+				if(data.gender==1)  $('.teaRegForm').find('.gender_m').prop('checked', true);
+				if(data.gender==2)  $('.teaRegForm').find('.gender_w').prop('checked', true);
+				if(data.have_notebook==1) $('.teaRegForm').find('[name="have_notebook"]').prop('checked', true);
+				if(data.highestLevel_edu==1) $('.teaRegForm').find('#highestLevel_edu').val(1);
+				if(data.highestLevel_edu==2) $('.teaRegForm').find('#highestLevel_edu').val(2);
+				if(data.highestLevel_edu==3) $('.teaRegForm').find('#highestLevel_edu').val(3);
+				if(data.highestLevel_edu==4) $('.teaRegForm').find('#highestLevel_edu').val(4);
+				if(data.highestLevel_edu==5) $('.teaRegForm').find('#highestLevel_edu').val(5);
+				if(data.abode==1) $('.teaRegForm').find('[name="abode"]').val(1);
+				if(data.abode==2) $('.teaRegForm').find('[name="abode"]').val(2);
+				if(data.abode==3) $('.teaRegForm').find('[name="abode"]').val(3);
+				if(data.abode==4) $('.teaRegForm').find('[name="abode"]').val(4);
+				if(data.abode==5)$('.teaRegForm').find('[name="abode"]').val(5);
+				if(data.abode==6) $('.teaRegForm').find('[name="abode"]').val(6);
+				if(data.abode==7)$('.teaRegForm').find('[name="abode"]').val(7);
+				if(data.abode==8)$('.teaRegForm').find('[name="abode"]').val(8);
+				if(data.abode==9) $('.teaRegForm').find('[name="abode"]').val(9);
+				if(data.abode==10) $('.teaRegForm').find('[name="abode"]').val(10);
 
 				if(data.is_black!=null) {
 					var blacks = data.is_black.split(',');
 
-				if(blacks[0]==1) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(1)').prop('checked', true);
-				if(blacks[0]==2) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(2)').prop('checked', true);
-				if(blacks[0]==3) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(3)').prop('checked', true);
-				if(blacks[0]==4) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
-				if(blacks[0]==5) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
-				if(blacks[0]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
-				if(blacks[1]==2) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(2)').prop('checked', true);
-				if(blacks[1]==3) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(3)').prop('checked', true);
-				if(blacks[1]==4) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
-				if(blacks[1]==5) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
-				if(blacks[1]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
-				if(blacks[2]==3) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(3)').prop('checked', true);
-				if(blacks[2]==4) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
-				if(blacks[2]==5) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
-				if(blacks[2]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
-				if(blacks[3]==4) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
-				if(blacks[3]==5) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
-				if(blacks[3]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
-				if(blacks[4]==5) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
-				if(blacks[4]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
-				if(blacks[5]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
+				if(blacks[0]==1) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(1)').prop('checked', true);
+				if(blacks[0]==2) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(2)').prop('checked', true);
+				if(blacks[0]==3) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(3)').prop('checked', true);
+				if(blacks[0]==4) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
+				if(blacks[0]==5) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
+				if(blacks[0]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
+				if(blacks[1]==2) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(2)').prop('checked', true);
+				if(blacks[1]==3) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(3)').prop('checked', true);
+				if(blacks[1]==4) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
+				if(blacks[1]==5) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
+				if(blacks[1]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
+				if(blacks[2]==3) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(3)').prop('checked', true);
+				if(blacks[2]==4) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
+				if(blacks[2]==5) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
+				if(blacks[2]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
+				if(blacks[3]==4) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(4)').prop('checked', true);
+				if(blacks[3]==5) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
+				if(blacks[3]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
+				if(blacks[4]==5) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(5)').prop('checked', true);
+				if(blacks[4]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
+				if(blacks[5]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-of-type(6)').prop('checked', true);
 				}
 
 				if(data.skill!=null) {
 					var skills = data.skill.split(',');
 					for(var i=0; i<skills.length; i++) {
-					if(skills[i]==1) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(1)').prop('checked', true); 
-					if(skills[i]==2) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(2)').prop('checked', true); 
-					if(skills[i]==3) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(3)').prop('checked', true); 
-					if(skills[i]==4) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(4)').prop('checked', true); 
-					if(skills[i]==5) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(5)').prop('checked', true); 
-					if(skills[i]==6) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(6)').prop('checked', true); 
-					if(skills[i]==7) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(7)').prop('checked', true); 
-					if(skills[i]==8) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(8)').prop('checked', true); 
-					if(skills[i]==9) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(9)').prop('checked', true); 
-					if(skills[i]==10) $('.stuRegForm').find('[name="skill_category_code"]:nth-of-type(10)').prop('checked', true); 
+					if(skills[i]==1) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(1)').prop('checked', true); 
+					if(skills[i]==2) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(2)').prop('checked', true); 
+					if(skills[i]==3) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(3)').prop('checked', true); 
+					if(skills[i]==4) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(4)').prop('checked', true); 
+					if(skills[i]==5) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(5)').prop('checked', true); 
+					if(skills[i]==6) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(6)').prop('checked', true); 
+					if(skills[i]==7) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(7)').prop('checked', true); 
+					if(skills[i]==8) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(8)').prop('checked', true); 
+					if(skills[i]==9) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(9)').prop('checked', true); 
+					if(skills[i]==10) $('.teaRegForm').find('[name="skill_category_code"]:nth-of-type(10)').prop('checked', true); 
 					}
 				}
 
 				if(data.can_work_location!=null) {
 					var locations = data.can_work_location.split(',');
 					for(var i=0; i<locations.length; i++) {
-					if(locations[i]==1) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(1)').prop('checked', true); 
-					if(locations[i]==2) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(2)').prop('checked', true); 
-					if(locations[i]==3) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(3)').prop('checked', true); 
-					if(locations[i]==4) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(4)').prop('checked', true); 
-					if(locations[i]==5) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(5)').prop('checked', true); 
-					if(locations[i]==6) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(6)').prop('checked', true); 
-					if(locations[i]==7) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(7)').prop('checked', true); 
-					if(locations[i]==8) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(8)').prop('checked', true); 
-					if(locations[i]==9) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(9)').prop('checked', true); 
-					if(locations[i]==10) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(10)').prop('checked', true); 
-					if(locations[i]==11) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(11)').prop('checked', true); 
-					if(locations[i]==12) $('.stuRegForm').find('[name="stu_can_work_location"]:nth-of-type(12)').prop('checked', true); 
+					if(locations[i]==1) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(1)').prop('checked', true); 
+					if(locations[i]==2) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(2)').prop('checked', true); 
+					if(locations[i]==3) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(3)').prop('checked', true); 
+					if(locations[i]==4) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(4)').prop('checked', true); 
+					if(locations[i]==5) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(5)').prop('checked', true); 
+					if(locations[i]==6) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(6)').prop('checked', true); 
+					if(locations[i]==7) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(7)').prop('checked', true); 
+					if(locations[i]==8) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(8)').prop('checked', true); 
+					if(locations[i]==9) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(9)').prop('checked', true); 
+					if(locations[i]==10) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(10)').prop('checked', true); 
+					if(locations[i]==11) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(11)').prop('checked', true); 
+					if(locations[i]==12) $('.teaRegForm').find('[name="tea_can_work_location"]:nth-of-type(12)').prop('checked', true); 
 					}
 				}
 
@@ -417,21 +417,21 @@ function showPopup(stu_num){
 					var favorites = data.favorite_part.split(',');
 					for(var i=0; i<favorites.length; i++) {
 					
-					if(favorites[i]==1) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(1)').prop('checked', true); 
-					if(favorites[i]==2) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(2)').prop('checked', true); 
-					if(favorites[i]==3) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(3)').prop('checked', true); 
-					if(favorites[i]==4) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(4)').prop('checked', true); 
-					if(favorites[i]==5) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(5)').prop('checked', true); 
-					if(favorites[i]==6) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(6)').prop('checked', true); 
-					if(favorites[i]==7) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(7)').prop('checked', true); 
-					if(favorites[i]==8) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(8)').prop('checked', true); 
-					if(favorites[i]==9) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(9)').prop('checked', true); 
-					if(favorites[i]==10) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(10)').prop('checked', true); 
-					if(favorites[i]==11) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(11)').prop('checked', true); 
-					if(favorites[i]==12) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(12)').prop('checked', true); 
-					if(favorites[i]==13) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(13)').prop('checked', true); 
-					if(favorites[i]==14) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(14)').prop('checked', true); 
-					if(favorites[i]==15) $('.stuRegForm').find('[name="favorite_part_code"]:nth-of-type(15)').prop('checked', true); 
+					if(favorites[i]==1) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(1)').prop('checked', true); 
+					if(favorites[i]==2) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(2)').prop('checked', true); 
+					if(favorites[i]==3) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(3)').prop('checked', true); 
+					if(favorites[i]==4) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(4)').prop('checked', true); 
+					if(favorites[i]==5) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(5)').prop('checked', true); 
+					if(favorites[i]==6) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(6)').prop('checked', true); 
+					if(favorites[i]==7) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(7)').prop('checked', true); 
+					if(favorites[i]==8) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(8)').prop('checked', true); 
+					if(favorites[i]==9) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(9)').prop('checked', true); 
+					if(favorites[i]==10) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(10)').prop('checked', true); 
+					if(favorites[i]==11) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(11)').prop('checked', true); 
+					if(favorites[i]==12) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(12)').prop('checked', true); 
+					if(favorites[i]==13) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(13)').prop('checked', true); 
+					if(favorites[i]==14) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(14)').prop('checked', true); 
+					if(favorites[i]==15) $('.teaRegForm').find('[name="favorite_part_code"]:nth-of-type(15)').prop('checked', true); 
 					}
 				}
 
@@ -445,19 +445,19 @@ function showPopup(stu_num){
 				if(data.black!=null) {
 					var blacks = data.black.split(',');
 					for(var i=0; i<license.length; i++) {
-					if(blacks[i]==1) $('.stuRegForm').find('[name="black_reason_name"]:nth-child(1)').prop('checked', true); 
-					if(blacks[i]==2) $('.stuRegForm').find('[name="black_reason_name"]:nth-child(2)').prop('checked', true); 
-					if(blacks[i]==3) $('.stuRegForm').find('[name="black_reason_name"]:nth-child(3)').prop('checked', true); 
-					if(blacks[i]==4) $('.stuRegForm').find('[name="black_reason_name"]:nth-child(4)').prop('checked', true); 
-					if(blacks[i]==5) $('.stuRegForm').find('[name="black_reason_name"]:nth-child(5)').prop('checked', true); 
-					if(blacks[i]==6) $('.stuRegForm').find('[name="black_reason_name"]:nth-child(6)').prop('checked', true); 
+					if(blacks[i]==1) $('.teaRegForm').find('[name="black_reason_name"]:nth-child(1)').prop('checked', true); 
+					if(blacks[i]==2) $('.teaRegForm').find('[name="black_reason_name"]:nth-child(2)').prop('checked', true); 
+					if(blacks[i]==3) $('.teaRegForm').find('[name="black_reason_name"]:nth-child(3)').prop('checked', true); 
+					if(blacks[i]==4) $('.teaRegForm').find('[name="black_reason_name"]:nth-child(4)').prop('checked', true); 
+					if(blacks[i]==5) $('.teaRegForm').find('[name="black_reason_name"]:nth-child(5)').prop('checked', true); 
+					if(blacks[i]==6) $('.teaRegForm').find('[name="black_reason_name"]:nth-child(6)').prop('checked', true); 
 					}
 				}
 
-				$('.stuRegForm').find('.resume_dev_year').val(data.yeoncha.substring(0, 2));
-				$('.stuRegForm').find('.resume_dev_month').val(data.yeoncha.substring(2,4));
+				$('.teaRegForm').find('.resume_dev_year').val(data.yeoncha.substring(0, 2));
+				$('.teaRegForm').find('.resume_dev_month').val(data.yeoncha.substring(2,4));
 				if(data.calc_yeoncha.substring(0,1)=='0') data.calc_yeoncha = data.calc_yeoncha.replace(0, '');
-				$('.stuRegForm').find('[name="yeoncha"]').html(data.calc_yeoncha);
+				$('.teaRegForm').find('[name="yeoncha"]').html(data.calc_yeoncha);
 			} 
 		);
 
@@ -465,14 +465,14 @@ function showPopup(stu_num){
 }
 
 function alterInfo(e) {
-	var getHead = $('.stuRegForm').find('header'),
+	var getHead = $('.teaRegForm').find('header'),
 			value = $('.alter_name').val();
 	
 	$(".popup_main").animate({ scrollTop: 0 }, "fast");
 	getHead.text('학생 정보 수정');
-	$('.stuRegForm').find('input').css('pointer-events', 'all');
-	$('.stuRegForm').find('textarea').css('pointer-events', 'all');
-	$('.stuRegForm').find('select').css('pointer-events', 'all');
+	$('.teaRegForm').find('input').css('pointer-events', 'all');
+	$('.teaRegForm').find('textarea').css('pointer-events', 'all');
+	$('.teaRegForm').find('select').css('pointer-events', 'all');
 	$('.alterBtn').css('pointer-events', 'all');
 	$('.alter_name').focus();
 	$('.alter_name').val('');
@@ -484,7 +484,7 @@ function alterInfo(e) {
 function update() {
 
 		ajax(
-				"/updatestuInfo.do"
+				"/updateteaInfo.do"
 				,"post"
 				,formObj
 				,function( boardDelCnt ){
@@ -500,7 +500,7 @@ function update() {
 		function pageNoClick(
 					clickPageNo      
 		){
-			var formObj=$("[name='searchstuDevForm']");
+			var formObj=$("[name='searchteaDevForm']");
 			formObj.find("[name='selectPageNo']").val(clickPageNo);
 			search();
 		}
@@ -508,9 +508,9 @@ function update() {
 		function search(){
 		
 			ajax(
-						"/searchstuDev.do"
+						"/searchteaDev.do"
 						,"post"
-						,$("[name='searchstuDevForm']")
+						,$("[name='searchteaDevForm']")
 						,function(responseHtml){
 							
 								var obj = $(responseHtml);
@@ -518,13 +518,13 @@ function update() {
 								var searchResultCnt = obj.find(".searchResultCnt").html();
 								var searchResult = obj.find(".searchResult");
 								var pageNos = obj.find(".pageNos").html();
-								var ascDesc1 =$("[name='stuSort1']").val();
-								var ascDesc2 =$("[name='stuSort2']").val();
-								var ascDesc3 =$("[name='stuSort3']").val();
-								var ascDesc4 =$("[name='stuSort4']").val();
-								var ascDesc5 =$("[name='stuSort5']").val();
-								var ascDesc6 =$("[name='stuSort6']").val();
-								var ascDesc7 =$("[name='stuSort7']").val();
+								var ascDesc1 =$("[name='teaSort1']").val();
+								var ascDesc2 =$("[name='teaSort2']").val();
+								var ascDesc3 =$("[name='teaSort3']").val();
+								var ascDesc4 =$("[name='teaSort4']").val();
+								var ascDesc5 =$("[name='teaSort5']").val();
+								var ascDesc6 =$("[name='teaSort6']").val();
+								var ascDesc7 =$("[name='teaSort7']").val();
 								$(".sort").html(sort);
 								var html = 
 						'<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>검색 결과가 없습니다.</div>';
@@ -533,13 +533,13 @@ function update() {
 						$(".searchResult").html(searchResult);
 						$(".pageNos").html(pageNos);
 						$('.pageNos').show();
-						$("[name='stuSort1']").val(ascDesc1);
-						$("[name='stuSort2']").val(ascDesc2);
-						$("[name='stuSort3']").val(ascDesc3);
-						$("[name='stuSort4']").val(ascDesc4);
-						$("[name='stuSort5']").val(ascDesc5);
-						$("[name='stuSort6']").val(ascDesc6);
-						$("[name='stuSort7']").val(ascDesc7);
+						$("[name='teaSort1']").val(ascDesc1);
+						$("[name='teaSort2']").val(ascDesc2);
+						$("[name='teaSort3']").val(ascDesc3);
+						$("[name='teaSort4']").val(ascDesc4);
+						$("[name='teaSort5']").val(ascDesc5);
+						$("[name='teaSort6']").val(ascDesc6);
+						$("[name='teaSort7']").val(ascDesc7);
 								
 
 						if($('.impect').text() == 0 || $('.impect').text() == '0') {
@@ -553,7 +553,7 @@ function update() {
 
 		</script>
 		<body>
-				<form name="stuSearch" class="header">
+				<form name="teaSearch" class="header">
 						<div class="header_box">
 							<div class="logo" onclick="location.replace('/adminMain.do')">
 								<img src="">
@@ -563,8 +563,8 @@ function update() {
 							</div>
 							<table>
 								<tr class="cate_box">
-              						<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
-									<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
+              						<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+									<td class="main_cate active" onclick="location.replace('/teaList.do')">강사 관리</td>
 									<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
 									<td class="main_cate" onclick="location.replace('/gyeoljaeList.do')">결재 관리</td>
 								</tr>
@@ -582,9 +582,9 @@ function update() {
 			</form>
 
 			<div onscroll="checkScroll(this)">
-				<form name="searchstuForm" class="boardForm">
+				<form name="searchteaForm" class="boardForm">
 					<header>
-						<div>학생 검색</div>
+						<div>강사 검색</div>
 					</header>
 							<div class="search_bar_box">
 								<tr>
@@ -601,7 +601,7 @@ function update() {
 								</tr>
 								<div class="button_box">
 									<input type="button" onClick="reSearch4()"  name="reSearch" class="desc_btn" value="초기화 후 전부검색">
-									<input type="button" name="stuSearch" class="stuSearch desc_btn"  onclick="location.replace('/registStu.do')" value="학생 등록">
+									<input type="button" name="teaSearch" class="teaSearch desc_btn"  onclick="location.replace('/registTea.do')" value="강사 등록">
 									<span class='filter' onclick="showDesc(this)"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
 								</div>
 							</div>
@@ -617,13 +617,23 @@ function update() {
 							</div>
 								<div>
 									<tr>
-												<div class="title">등록일</div>
+												<div class="title">입사일</div>
 															<td>
 																<input type="date" name="min_regist_date"> ~
 																<input type="date" name="max_regist_date">
 																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
 															</td>
 									</tr>  
+								</div>
+								<div>
+									<tr>
+												<div class="title" >경력</div>
+															<td>
+																<input type="number" name="min_career"> 년 ~
+																<input type="number" name="max_career"> 년
+																<input onclick="dateEmpty(this, 'number')" type="button" name="age_reset" value="비움">
+															</td>
+									</tr>
 								</div>
 								<div>
 									<tr>
@@ -639,18 +649,18 @@ function update() {
 								
 					</div>
 					<input type="hidden" name="selectPageNo" value="1">
-					<input type="hidden" name="stuSort_fName">
-					<input type="hidden" name="stuSort_age">
-					<input type="hidden" name="stuSort_level_edu">
-					<input type="hidden" name="stuSort_yeoncha">
-					<input type="hidden" name="stuSort_can_dispatch_date">
-					<input type="hidden" name="stuSort_consultation_date">
-					<input type="hidden" name="stuSort_dev_year_standard_date">
+					<input type="hidden" name="teaSort_fName">
+					<input type="hidden" name="teaSort_age">
+					<input type="hidden" name="teaSort_level_edu">
+					<input type="hidden" name="teaSort_yeoncha">
+					<input type="hidden" name="teaSort_can_dispatch_date">
+					<input type="hidden" name="teaSort_consultation_date">
+					<input type="hidden" name="teaSort_dev_year_standard_date">
 							<table>
 										<section>
 											<section class="count_desc">
 													<section class="searchResultCnt">
-														검색개수 : <span class="accent impect">${stuListMap.stuListCnt}</span> 
+														검색개수 : <span class="accent impect">${teaListMap.teaListCnt}</span> 
 														개
 													</section>
 												
@@ -678,16 +688,16 @@ function update() {
 		</div>
 			<div class="SearchResult_box">
 			<div>
-<c:forEach var="stuList" items="${stuListMap.stuList}" varStatus="vs">
-		<div class="searchDetail" onclick="showPopup('${stuList.stu_num}')">
-				<div>${stuListMap.begin_serialNo_desc-vs.index}</div>
-				<div class = "List_skill">${stuList.skill}</div>
-				<div>${stuList.fName}</div>
-				<div>${stuList.gender}</div>
-				<div>${stuList.age}</div>
-				<div>${stuList.level_edu}</div>
-				<div>${stuList.yeoncha}</div>
-				<div>${stuList.can_dispatch_date}</div>
+<c:forEach var="teaList" items="${teaListMap.teaList}" varStatus="vs">
+		<div class="searchDetail" onclick="showPopup('${teaList.tea_num}')">
+				<div>${teaListMap.begin_serialNo_desc-vs.index}</div>
+				<div class = "List_skill">${teaList.skill}</div>
+				<div>${teaList.fName}</div>
+				<div>${teaList.gender}</div>
+				<div>${teaList.age}</div>
+				<div>${teaList.level_edu}</div>
+				<div>${teaList.yeoncha}</div>
+				<div>${teaList.can_dispatch_date}</div>
 			</div>
 			</c:forEach>
 			</div>
@@ -695,20 +705,20 @@ function update() {
 	</div>
 	<span class="pageNos"> 
 		<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-			<c:forEach var="pageNo" begin="${requestScope.stuListMap.begin_pageNo}" end="${requestScope.stuListMap.end_pageNo}">
-				<c:if test="${requestScope.stuListMap.selectPageNo==pageNo}">
+		<span onClick="pageNoClick(${requestScope.teaListMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+			<c:forEach var="pageNo" begin="${requestScope.teaListMap.begin_pageNo}" end="${requestScope.teaListMap.end_pageNo}">
+				<c:if test="${requestScope.teaListMap.selectPageNo==pageNo}">
 					<span class='isSelect'>
 						${pageNo}
 					</span>
 				</c:if>
-			<c:if test="${requestScope.stuListMap.selectPageNo!=pageNo}">
+			<c:if test="${requestScope.teaListMap.selectPageNo!=pageNo}">
 				<span style="cursor:pointer" onClick="pageNoClick(${pageNo})">[${pageNo}]</span>
 			</c:if>  
 	</c:forEach> 
 
-		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-		<span onClick="pageNoClick(${requestScope.stuListMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+		<span onClick="pageNoClick(${requestScope.teaListMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+		<span onClick="pageNoClick(${requestScope.teaListMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 	</div>    
 			</form>
 		</div> 
@@ -716,14 +726,14 @@ function update() {
 		<div class='popup'>
 			<div class="dim">
 					<div class='popup_main'>
-						<form name="stuRegForm" class="boardForm stuRegForm">
+						<form name="teaRegForm" class="boardForm teaRegForm">
 						<header>프리랜서 개발자 상세 정보</header>
 						<div class="inform">
 						<div class="title">프리랜서 기본 정보</div>
 						<div>
 								<div class='flex'>
 									<div class='desc_title'>이름</div>
-									<input type='text' class='alter_name ' name="fName" value="${getstuListDetailMap.getstuListDetailList.fname}" onkeydown="checkSpace(this)"/>
+									<input type='text' class='alter_name ' name="fName" value="${getteaListDetailMap.getteaListDetailList.fname}" onkeydown="checkSpace(this)"/>
 								</div>
 								<div class='flex'>
 									<div class='desc_title'>성별</div>
@@ -734,15 +744,15 @@ function update() {
 								</div>
 								<div class='flex'>
 									<div class='desc_title'>이메일</div>
-									<input type="email" name="email" class="email" size="10" maxlength="30" onkeyup="checkSpace(this)" value="${stuListDetailMap.email}">
+									<input type="email" name="email" class="email" size="10" maxlength="30" onkeyup="checkSpace(this)" value="${teaListDetailMap.email}">
 								</div>
 								<div class='flex'>
 									<div class='desc_title'>핸드폰</div>
-									<input type="text" name="phone" class="phone" size="10" maxlength="11" onkeyup="checkSpace(this)" value="${stuListDetailMap.phone}">
+									<input type="text" name="phone" class="phone" size="10" maxlength="11" onkeyup="checkSpace(this)" value="${teaListDetailMap.phone}">
 								</div>
 								<div class='flex'>
 									<div class='desc_title'>출생년도</div>
-									<input type="number" name="birth_year" class="birth_year" size="10" maxlength="4" onkeyup="checkSpace(this)" value="${stuListDetailMap.birth_year}"> 년생
+									<input type="number" name="birth_year" class="birth_year" size="10" maxlength="4" onkeyup="checkSpace(this)" value="${teaListDetailMap.birth_year}"> 년생
 								</div>
 								<div class='flex'>
 									<div class='desc_title'>최종학력</div>
@@ -872,7 +882,7 @@ function update() {
 						<div class="flex">
 								<tr>
 									<div class="desc_title">파견가능일</div>
-									<input type="date" name="can_dispatch_date" class="can_dispatch_date" value="${stuListDetailMap.can_dispatch_day}">
+									<input type="date" name="can_dispatch_date" class="can_dispatch_date" value="${teaListDetailMap.can_dispatch_day}">
 									<input type="checkbox" name="fix_dispatch_date" value="1"> 확정
 								</tr>
 						</div>
@@ -916,18 +926,18 @@ function update() {
 						<div class="flex">
 								<tr>
 									<div class="desc_title">선호지역</div>
-									<input type="checkbox" name="stu_can_work_location" class="first_loc" value="1"> 서울
-									<input type="checkbox" name="stu_can_work_location" value="2"> 인천
-									<input type="checkbox" name="stu_can_work_location" value="3"> 경기
-									<input type="checkbox" name="stu_can_work_location" value="4"> 강원
-									<input type="checkbox" name="stu_can_work_location" value="5"> 충북
-									<input type="checkbox" name="stu_can_work_location" value="6"> 충남
-									<input type="checkbox" name="stu_can_work_location" value="7"> 전북
-									<input type="checkbox" name="stu_can_work_location" value="8"> 전남
-									<input type="checkbox" name="stu_can_work_location" value="9"> 경북
-									<input type="checkbox" name="stu_can_work_location" value="10"> 경남
-									<input type="checkbox" name="stu_can_work_location" value="11"> 제주
-									<input type="checkbox" name="stu_can_work_location" value="12"> 국외
+									<input type="checkbox" name="tea_can_work_location" class="first_loc" value="1"> 서울
+									<input type="checkbox" name="tea_can_work_location" value="2"> 인천
+									<input type="checkbox" name="tea_can_work_location" value="3"> 경기
+									<input type="checkbox" name="tea_can_work_location" value="4"> 강원
+									<input type="checkbox" name="tea_can_work_location" value="5"> 충북
+									<input type="checkbox" name="tea_can_work_location" value="6"> 충남
+									<input type="checkbox" name="tea_can_work_location" value="7"> 전북
+									<input type="checkbox" name="tea_can_work_location" value="8"> 전남
+									<input type="checkbox" name="tea_can_work_location" value="9"> 경북
+									<input type="checkbox" name="tea_can_work_location" value="10"> 경남
+									<input type="checkbox" name="tea_can_work_location" value="11"> 제주
+									<input type="checkbox" name="tea_can_work_location" value="12"> 국외
 								</tr>
 						</div>
 						<div class="flex">
@@ -980,19 +990,19 @@ function update() {
 						<span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
 						<span onclick="deleteInfo()" name="delete" class="delete">삭제</span>
 						<span onclick="alterInfo(this)" name="save" class="save">수정</span>
-						<input type="hidden" name="del_stu_uid" class="del_stu_uid">
+						<input type="hidden" name="del_tea_uid" class="del_tea_uid">
 					</form>
 					</div>
 			</div>
 	</div>
 
 	<div class="none">
-		<form name="searchstuDevDetailForm" action="/stuDetailForm.do" post="post">
-			<input type="hidden" name="stu_uid" class="stu_uid" value="">
+		<form name="searchteaDevDetailForm" action="/teaDetailForm.do" post="post">
+			<input type="hidden" name="tea_uid" class="tea_uid" value="">
 		</form>
 
-		<form name="deletestuInFo" action="/deletestuInFo.do" post="post">
-			<input type="hidden" name="del_stu_uid" class="del_stu_uid">
+		<form name="deleteteaInFo" action="/deleteteaInFo.do" post="post">
+			<input type="hidden" name="del_tea_uid" class="del_tea_uid">
 		</form>
 	</div>
 </body>
