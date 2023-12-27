@@ -67,6 +67,8 @@ public class MainController {
 
 			 return resultMap; 
 			 }
+		   
+		   
 		   @RequestMapping( value="/classList.do")
 			public ModelAndView classList(
 			){

@@ -144,16 +144,12 @@ function saveData(){
                     <td>담당 강사명</td>
                         <input type="text" name="tea_name">
                     </td>
-                    <td>담당 강사 휴대폰 번호</td>
-                        <input type="text" name="tea_phone" maxlength="11"> (-없이 입력)
-                    </td>
                 </div>
 		      <div>
 		        <div>수업 내용</div>
 		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
 		      </div> 
-		      수업 듣는 학생 목록.. 을 어케하지..
-    <span onclick="location.replace('/stuList.do')" name="cancel" class="cancel">취소</span>
+    <span onclick="location.replace('/classList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>
   <form name="freelancerSearchForm" class="no dumP_form" method="post" action="/searchFreeDev.do"></form>

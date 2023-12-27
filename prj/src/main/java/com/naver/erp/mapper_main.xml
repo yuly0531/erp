@@ -18,4 +18,9 @@
 	    class_name "class_name"
 	FROM class
 	</select>
+	<select id="getManaList" resultType="java.util.Map">
+	   SELECT
+	    mana_name "mana_name"
+	FROM manager
+	</select>
 </mapper>

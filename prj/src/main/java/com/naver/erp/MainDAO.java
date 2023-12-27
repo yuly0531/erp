@@ -12,4 +12,5 @@ public interface MainDAO {
 	List<Map<String,String>> getStuList();
 	List<Map<String,String>> getTeaList();
 	List<Map<String,String>> getClassList();
+	List<Map<String,String>> getManaList();
 }

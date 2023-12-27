@@ -1,5 +1,6 @@
 package com.naver.erp;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 	@Autowired
 	private LoginDAO loginDAO;   
+	
 	@RequestMapping( value="/loginForm.do")
 	public ModelAndView loginForm(
 			HttpSession session){
-		session.removeAttribute("mid");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "loginForm.jsp" );
 		return mav;
@@ -35,19 +36,22 @@ public class LoginController {
 	)
 	@ResponseBody
 	public int loginProc( 
-			@RequestParam( value="mid" ) String mid
-			,@RequestParam( value="pwd" ) String pwd
+			@RequestParam( value="mid") String mid
+			,@RequestParam( value="pwd") String pwd
+			,@RequestParam( value="role") String role
 			,@RequestParam( value="autoLogin", required=false  ) String autoLogin
 			,HttpSession session
 			,HttpServletResponse response
 	){
+
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("mid", mid);
 		map.put("pwd", pwd);
-		int loginIdCnt = this.loginDAO.getLoginIdCnt(map);
+		map.put("role", role);	
+		int loginIdCnt = this.loginDAO.loginIdCnt(map);
 		if(loginIdCnt==1){
 			session.setAttribute( "mid", mid );
-			if(autoLogin==null){
+			if(autoLogin==null ||  autoLogin == ""){
 				Cookie cookie1 = new Cookie("mid",null);
 				cookie1.setMaxAge(0);
 				Cookie cookie2 = new Cookie("pwd",null);
@@ -66,4 +70,5 @@ public class LoginController {
 		}
 		return loginIdCnt;
 	}
+		
 }

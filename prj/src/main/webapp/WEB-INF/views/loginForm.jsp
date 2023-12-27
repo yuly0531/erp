@@ -19,7 +19,7 @@ pageEncoding="UTF-8"%>
 		$("[name='autoLogin']").prop("checked", ${empty cookie.mid.value?false:true} );
 	}
 	
-	function checkLoginForm(){	
+	function checkLoginForm(){			
 		var mid = $("[name='mid']").val();
 		if( typeof(mid)!="string" ) { mid=""; }
 		mid = $.trim(mid);
@@ -27,7 +27,9 @@ pageEncoding="UTF-8"%>
 		var pwd = $("[name='pwd']").val();
 		if( typeof(pwd)!="string" ) { pwd=""; }
 		pwd = $.trim(pwd);
-	
+
+		var role = $("[name='role']:checked").val();
+		
 		if( mid=="" ){
 			alert("아이디가 비어 있음! 입력 바람");
 			return;
@@ -44,7 +46,15 @@ pageEncoding="UTF-8"%>
 				,$("[name='loginForm']")
 				,function(idCnt){
 					if( idCnt==1 ){
-						location.replace("/stuList.do");
+						if(role=="student"){
+							location.replace("/stuMain.do");
+						}
+						else if(role=="teacher"){
+							location.replace("/teaMain.do");
+						}
+						else if(role=="manager"){
+							location.replace("/adminMain.do");
+						}
 					} else {
 						alert("로그인 실패! 아이디 또는 암호가 틀립니다. 재입력해 주십시요!");
 						return;
@@ -72,11 +82,11 @@ pageEncoding="UTF-8"%>
 				</tr> 
 			</table>
       <div class="role_box">
-	        <input type="checkbox" name="stu" value="stu" class="stu">
+	        <input type="radio" name="role" value="student" class="stu">
 	        <span class="stuTxt">학생</span>
-	        <input type="checkbox" name="tea" value="tea" class="tea">
+	        <input type="radio" name="role" value="teacher" class="tea">
 	        <span class="teaTxt">강사</span>
-	        <input type="checkbox" name="admin" value="admin" class="admin">
+	        <input type="radio" name="role" value="manager" class=mana>
 	        <span class="adminTxt">관리자</span>
       </div>
       <div class="button_box">
@@ -86,7 +96,6 @@ pageEncoding="UTF-8"%>
   </div>
 </body>
 </html>
-
 
 
 

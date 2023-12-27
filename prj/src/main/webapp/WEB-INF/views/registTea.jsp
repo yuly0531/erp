@@ -185,13 +185,36 @@ function saveData(){
                     <td>
                         <input type="tel" name="emergency_phone"  maxlength="11"> 
                     </td>
-                </div>  
+                </div> 
+		          <div class="compan_div">
+              <div class="category">회사 경력
+              </div>
+              <div class="compan">
+                <div>회사명/업무</div>
+                <div>연봉</div>
+                <div>입사일/퇴사일</div>
+              </div>
+              
+              
+              	<div class="compan_desc">
+                <div class="compan_name">
+                  <input type="text" name="past_company_name" placeholder="회사명">
+                </div>
                 <div>
-		        <tr>
-		          <th>경력 사항 : </th>
-		          <input type="text" name="career_name">
-		          <input type="date" name="career_start_date">
-		          <input type="date" name="career_end_date">
+                  <input type="text" name="salary">
+                </div>
+                <div>
+                  <div>
+                    <span>입사일 : </span>
+                    <input type="month" name="hire_date">
+                  </div>
+                  <div>
+                    <span>퇴사일 : </span>
+                    <input type="month" name="fire_date">
+                  </div>
+                </div>
+              </div>
+
 		          
 		        </tr>
 		      </div>
@@ -211,7 +234,7 @@ function saveData(){
 		        <div>기타</div>
 		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
 		      </div>  
-    <span onclick="location.replace('/stuList.do')" name="cancel" class="cancel">취소</span>
+    <span onclick="location.replace('/teaList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>
   <form name="freelancerSearchForm" class="no dumP_form" method="post" action="/searchFreeDev.do"></form>
