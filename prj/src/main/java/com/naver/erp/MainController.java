@@ -26,6 +26,13 @@ public class MainController {
 		return mav;
 	}
 	
+	@RequestMapping( value="/registExample.do")
+	public ModelAndView registExample(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registExample.jsp");
+		return mav;
+	}
+	
 	@RequestMapping( value="/stuList.do")
 	public ModelAndView stuList(
 	){
