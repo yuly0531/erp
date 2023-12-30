@@ -33,181 +33,7 @@
 			$('.filter').toggleClass('active');
 		} 
 	
-	function sortSelect1(){
-		var ascDesc =$("[name='classSort1']").val();
-		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='classSortTag1']").val('fName')
-		}
-		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='classSortTag1']").val('age')
-		}
-		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='classSortTag1']").val('highestLevel_edu')
-		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-			$("[name='classSortTag1']").val('yeoncha')
-		}
-		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='classSortTag1']").val('can_dispatch_date')
-		}
-		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='classSortTag1']").val('consultation_time')
-		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-			$("[name='classSortTag1']").val('dev_year_standard_date')
-		}
-		search();
-		}
-	function sortSelect2(){
-		var ascDesc =$("[name='classSort2']").val();
-		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='classSortTag2']").val('fName')
-		}
-		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='classSortTag2']").val('age')
-		}
-		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='classSortTag2']").val('highestLevel_edu')
-		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-			$("[name='classSortTag2']").val('yeoncha')
-		}
-		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='classSortTag2']").val('can_dispatch_date')
-		}
-		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='classSortTag2']").val('consultation_time')
-		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-			$("[name='classSortTag2']").val('dev_year_standard_date')
-		}
-		search();
-	}
-	function sortSelect3(){
-		var ascDesc =	$("[name='classSort3']").val();
-		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='classSortTag3']").val('fName')
-		}
-		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='classSortTag3']").val('age')
-		}
-		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='classSortTag3']").val('highestLevel_edu')
-		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-			$("[name='classSortTag3']").val('yeoncha')
-		}
-		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='classSortTag3']").val('can_dispatch_date')
-		}
-		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='classSortTag3']").val('consultation_time')
-		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-			$("[name='classSortTag3']").val('dev_year_standard_date')
-		}
-		search();
-	}
-	function sortSelect4(){
-		var ascDesc =	$("[name='classSort4']").val();
-		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='classSortTag4']").val('fName')
-		}
-		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='classSortTag4']").val('age')
-		}
-		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='classSortTag4']").val('highestLevel_edu')
-		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-			$("[name='classSortTag4']").val('yeoncha')
-		}
-		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='classSortTag4']").val('can_dispatch_date')
-		}
-		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='classSortTag4']").val('consultation_time')
-		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-			$("[name='classSortTag4']").val('dev_year_standard_date')
-		}
-		search();
-	}
-	function sortSelect5(){
-		var ascDesc =$("[name='classSort5']").val();
-		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='classSortTag5']").val('fName')
-		}
-		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='classSortTag5']").val('age')
-		}
-		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='classSortTag5']").val('highestLevel_edu')
-		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-			$("[name='classSortTag5']").val('yeoncha')
-		}
-		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='classSortTag5']").val('can_dispatch_date')
-		}
-		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='classSortTag5']").val('consultation_time')
-		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-			$("[name='classSortTag5']").val('dev_year_standard_date')
-		}
-		search();
-	}
-	function sortSelect6(){
-		var ascDesc = $("[name='classSort6']").val();
-		if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-			$("[name='classSortTag6']").val('fName')
-		}
-		if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-			$("[name='classSortTag6']").val('age')
-		}
-		if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-			$("[name='classSortTag6']").val('highestLevel_edu')
-		}
-		if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-			$("[name='classSortTag6']").val('yeoncha')
-		}
-		if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-			$("[name='classSortTag6']").val('can_dispatch_date')
-		}
-		if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-			$("[name='classSortTag6']").val('consultation_time')
-		}
-		if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-			$("[name='classSortTag6']").val('dev_year_standard_date')
-		}
-		search();
-	}
-	function sortSelect7(){
-		var ascDesc = $("[name='classSort7']").val();
-			if(ascDesc=='fName asc' || ascDesc=='fName desc'){
-				$("[name='classSortTag7']").val('fName')
-			}
-			if(ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) asc" || ascDesc=="TO_CHAR(sysdate, 'YYYY') - TO_CHAR(birth_year) desc"){
-				$("[name='classSortTag7']").val('age')
-			}
-			if(ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') asc" || ascDesc=="DECODE(highestLevel_edu,1,'고졸',2,'전문대졸',3,'일반대학사졸',4,'일반대석사졸','일반대박사졸') desc"){
-				$("[name='classSortTag7']").val('highestLevel_edu')
-			}
-			if(ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') asc" || ascDesc=="NVL((SELECT SUBSTR(fy.resume_dev_year, 1,2) FROM class_YEAR_INFO fy WHERE f.class_NUM = fy.class_NUM), '0') desc"){
-				$("[name='classSortTag7']").val('yeoncha')
-			}
-			if(ascDesc=='can_dispatch_date asc' || ascDesc=='can_dispatch_date desc'){
-				$("[name='classSortTag7']").val('can_dispatch_date')
-			}
-			if(ascDesc=='consultation_time asc' || ascDesc=='consultation_time desc'){
-				$("[name='classSortTag7']").val('consultation_time')
-			}
-			if(ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) asc" || ascDesc=="(SELECT FYI2.dev_year_standard_date FROM class_YEAR_INFO FYI2 WHERE f.class_num = FYI2.class_num) desc"){
-				$("[name='classSortTag7']").val('dev_year_standard_date')
-			}
-			search();
-	}
+	
 
 
 	// 비움 버튼
@@ -657,34 +483,30 @@ function update() {
 					
 							
 						
-	<div name="searchResult" class="searchResult" >
-		<div class="resultCate">
-			<div>번호</div>
-			<div>이름</div>
-			<div>성별</div>
-			<div>나이</div>
-			<div>학력</div>
-			<div>수업시작일</div>
-			<div>핸드폰</div>
-			<div>이메일</div>
-		</div>
-			<div class="SearchResult_box">
-			<div>
+   <div name="searchResult" class="searchResult" >
+      <div class="resultCate">
+         <div>번호</div>
+         <div>수업명</div>
+         <div>개강일</div>
+         <div>종강일</div>
+         <div>담당 강사명</div>
+         <div>내용</div>
+      </div>
+         <div class="SearchResult_box">
+         <div>
 <c:forEach var="classList" items="${classListMap.classList}" varStatus="vs">
-		<div class="searchDetail" onclick="showPopup('${classList.class_num}')">
-				<div>${classListMap.begin_serialNo_desc-vs.index}</div>
-				<div class = "List_skill">${classList.skill}</div>
-				<div>${classList.fName}</div>
-				<div>${classList.gender}</div>
-				<div>${classList.age}</div>
-				<div>${classList.level_edu}</div>
-				<div>${classList.yeoncha}</div>
-				<div>${classList.can_dispatch_date}</div>
-			</div>
-			</c:forEach>
-			</div>
-	</div> 
-	</div>
+      <div class="searchDetail" onclick="showPopup('${classList.class_num}')">
+            <div>${classListMap.begin_serialNo_desc-vs.index}</div>
+            <div>${classList.class_name}</div>
+            <div>${classList.class_start_date}</div>
+            <div>${classList.class_end_date}</div>
+            <div>${classList.take_charge_tea}</div>
+            <div>${classList.class_subject}</div>
+         </div>
+         </c:forEach>
+         </div>
+   </div> 
+   </div>
 	<span class="pageNos"> 
 		<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
 		<span onClick="pageNoClick(${requestScope.classListMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>

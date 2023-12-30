@@ -100,7 +100,7 @@ body > form.header:last-of-type {
 }
 .main_cate:hover,
 .main_cate.active {
-  color: rgba(255, 150, 208, 0.271);
+  color: #000000;
   font-weight: bold;
 }
 .logo {

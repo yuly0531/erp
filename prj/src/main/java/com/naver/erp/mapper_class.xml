@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.erp.AdminDAO">
+    
+	  <insert id="insertClassInfo" parameterType="com.naver.erp.AdminDTO" >
+      insert into class (
+           class_id
+           ,class_name
+           ,class_start_date
+           ,class_end_date
+           ,take_charge_tea
+           ,class_subject
+      ) values( 
+      (select (nvl(max(class_id),0)+1) from class)
+         ,#{class_name}
+         ,to_date(#{class_start_date},'yyyy-mm-dd')
+         ,to_date(#{class_end_date},'yyyy-mm-dd')
+         ,#{take_charge_tea}
+         ,#{class_subject}
+       )
+   </insert> 
+   
+   
+   <select id="getClassListCnt" resultType="int" >
+	     select
+	       count(*)
+	          from class
+	          where 1=1
+          </select> 
+     <select id="getClassListCntAll" resultType="int" >
+	     select
+	       count(*)
+	          from class
+          </select>
+          
+	  <select id="getClassList" resultType="java.util.Map" >
+	     select
+	       
+	           CLASS_ID                           "CLASS_ID"
+	         , CLASS_NAME                        "CLASS_NAME"
+	          ,CLASS_START_DATE                "CLASS_START_DATE"
+	          ,CLASS_END_DATE                  "CLASS_END_DATE"
+	          ,TAKE_CHARGE_TEA                 "TAKE_CHARGE_TEA"
+	          ,CLASS_SUBJECT                      "CLASS_SUBJECT" 
+	          
+	          from class
+	          where 1=1
+          </select> 
+</mapper>

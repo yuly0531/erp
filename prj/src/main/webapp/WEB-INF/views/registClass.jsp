@@ -12,8 +12,8 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
-  $(function(){init();});
-  
+  /* $(function(){init();}); */
+/*   
   function checkRadio(e) {
     $(e).siblings('input').prop('checked', false);
   }
@@ -50,9 +50,6 @@
 	  $('.consultation_time').val(formattedDate)
 	};
 
-  function goFreelancerSearchForm(){
-      document.freelancerSearchForm.submit();
-  }
 
   function checkSpace(obj){ 
     var a = $(obj),             
@@ -69,21 +66,28 @@
     };
   };
    
-    
-function init(){
-  var formObj = $("[name='freelancerRegForm']");   
+     */
+
+ function goClassListForm(){
+      document.classListForm.submit();
 }
 
+
 function saveData(){
-     
+
+
+ 	var formObj = $("[name='registClassForm']"); 
+ 	
+   // 이 부분 소민언니 구현  
    ajax(
-      "/registFreeDevProc.do"
+      "/registClassProc.admin.do"
       ,"post"
       ,formObj
       ,function(responseJson){
-         if(freelancerRegCnt>=1) {
-            alert("프리랜서 정보가 등록되었습니다.");
-            goFreelancerSearchForm();
+    	  var classRegCnt = responseJson["classRegCnt"];
+         if(classRegCnt>=1) {
+            alert("수업 정보가 등록되었습니다.");
+            goClassListForm();
          }
          else{
             alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
@@ -119,7 +123,7 @@ function saveData(){
       
     </div>
   </form>
-   <form name="freelancerRegForm" class="boardForm">
+   <form name="registClassForm" class="boardForm">
     <header>
       <div>수업 등록</div>
     </header>
@@ -129,29 +133,37 @@ function saveData(){
              <div> 
                     <td>수업명</td>
                     <td>
-                        <input type="text" name="name"> 
+                        <input type="text" name="class_name"> 
                     </td>
                     <td>개강일</td>
                     <td>
-                        <input type="date" name="start_date">
+                        <input type="date" name="class_start_date">
                     </td>
                     <td>종강일</td>
                     <td>
-                        <input type="date" name="end_date">
+                        <input type="date" name="class_end_date">
                     </td>
                     </div>
                     <div>
                     <td>담당 강사명</td>
-                        <input type="text" name="tea_name">
+                        <select name="take_charge_tea">
+				     	    <option value="">	
+							<option value="asd">권웅순
+							<option value="asd">권웅순
+							<option value="asd">권웅순
+							<option value="asd">권웅순
+							<option value="asd">권웅순
+							<option value="asd">권웅순
+						</select>
                     </td>
                 </div>
 		      <div>
 		        <div>수업 내용</div>
-		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
+		        <textarea name="class_subject" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
 		      </div> 
     <span onclick="location.replace('/classList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>
-  <form name="freelancerSearchForm" class="no dumP_form" method="post" action="/searchFreeDev.do"></form>
+  <form name="classListForm" class="no dumP_form" method="post" action="/classList.do"></form>
 </body>
 </html>

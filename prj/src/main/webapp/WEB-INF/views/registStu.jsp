@@ -50,8 +50,8 @@
 	  $('.consultation_time').val(formattedDate)
 	};
 
-  function goFreelancerSearchForm(){
-      document.freelancerSearchForm.submit();
+  function goStuListForm(){
+      document.stuListForm.submit();
   }
 
   function checkSpace(obj){ 
@@ -70,20 +70,20 @@
   };
    
     
-function init(){
-  var formObj = $("[name='freelancerRegForm']");   
+function init(){ 
 }
 
 function saveData(){
-     
+	  var formObj = $("[name='stuRegForm']");  
    ajax(
-      "/registFreeDevProc.do"
+      "/registStuProc.admin.do"
       ,"post"
       ,formObj
       ,function(responseJson){
-         if(freelancerRegCnt>=1) {
-            alert("프리랜서 정보가 등록되었습니다.");
-            goFreelancerSearchForm();
+    	  var stuRegCnt = responseJson["stuRegCnt"];
+         if(stuRegCnt>=1) {
+            alert("학생 정보가 등록되었습니다.");
+            goStuListForm();
          }
          else{
             alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
@@ -119,7 +119,7 @@ function saveData(){
       
     </div>
   </form>
-   <form name="freelancerRegForm" class="boardForm">
+   <form name="stuRegForm" class="boardForm">
     <header>
       <div>학생 등록</div>
     </header>
@@ -172,12 +172,13 @@ function saveData(){
                     <td>
                         <select name="emergency_relation">
                             <option value=""></option>
-                            <option value="1">부모</option>
-                            <option value="2">자식</option>
-                            <option value="3">형제</option>
-                            <option value="4">친척</option>
-                            <option value="5">지인</option>
-                        </select> (부모,자식,형제,친척,지인)
+                            <option value="부모">부모</option>
+                            <option value="배우자">배우자</option>
+                            <option value="자식">자식</option>
+                            <option value="형제">형제</option>
+                            <option value="친척">친척</option>
+                            <option value="지인">지인</option>
+                        </select>
                     </td>
                     </div>
                     <div style="border-bottom: 1px solid lightgray;">
@@ -205,6 +206,6 @@ function saveData(){
     <span onclick="location.replace('/stuList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>
-  <form name="freelancerSearchForm" class="no dumP_form" method="post" action="/searchFreeDev.do"></form>
+  <form name="stuListForm" class="no dumP_form" method="post" action="/stuList.do"></form>
 </body>
 </html>

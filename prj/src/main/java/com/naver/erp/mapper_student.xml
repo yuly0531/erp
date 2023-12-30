@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.erp.AdminDAO">
+	<sql id="stuListWhere">
+         <if test="min_regist_date!=null and min_regist_date.length()>0 and max_regist_date!=null and max_regist_date.length()>0">
+		     and
+		     regist_date between to_date(#{min_regist_date}, 'yyyy-mm-dd') and to_date('${max_regist_date} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+     	</if>
+     	<if test="min_regist_date!=null and min_regist_date.length()>0">
+		     and
+		     regist_date >= to_date(#{min_regist_date}, 'yyyy-mm-dd')
+     	</if>
+     	<if test="min_age!=null and min_age.length()>0 and max_age!=null and max_age.length()>0">
+		     and
+		     to_number(to_char(sysdate,'yyyy'))-
+			 to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2)) +1
+			 between ${min_age} and ${max_age}
+     	</if>
+     	<if test="min_age!=null and min_age.length()>0">
+		     and
+		     to_number(to_char(sysdate,'yyyy'))-
+			 to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2)) +1
+			 >= ${min_age}
+     	</if>
+     	<if test="gender!= null and gender.size()!=2 and gender.size()==1 and gender[0]==1">
+         and
+          ((substr(jumin_num, 7, 1) = 1) or (substr(jumin_num, 7, 1) = 3))
+		</if>    
+		<if test="gender!= null and gender.size()!=2 and gender.size()==1 and gender[0]==2">
+		   and
+		    ((substr(jumin_num, 7, 1) = 2) or (substr(jumin_num, 7, 1) = 4))
+		</if>
+	</sql>
+	<select id="getStuListCnt" resultType="int" >
+	     select
+	       count(*)
+         from student
+         where 1=1
+         <include refid="stuListWhere"/>
+    </select> 
+    <select id="getStuListCntAll" resultType="int" >
+	     select
+	       count(*)
+	     from student
+    </select>
+          
+	<select id="getStuList" resultType="java.util.Map" >
+	     select
+	     	  stu_id											"stu_id"
+	          ,stu_name               			 				"stu_name"
+	          ,decode( substr(jumin_num,7,1)
+					,'1', '남', '2', '여', '3', '남', '4', '여')  	"gender"
+			  ,to_number(to_char(sysdate,'yyyy'))-
+			    to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2))
+					+1||'세' 						 			"age"
+	          ,phone_num                      					"phone_num" 
+	          ,to_char(regist_date,'yyyy-mm-dd')  				"regist_date" 
+	          ,etc                      						"etc" 
+          from student
+          where 1=1
+         <include refid="stuListWhere"/>
+    </select> 
+    <select id="getStuDetailInfo" parameterType="com.naver.erp.AdminDTO" resultType="java.util.Map" >
+	     select
+              stu_id                                                "stu_id"
+              ,stu_pwd                                            	"stu_pwd"
+              ,stu_name                                            	"stu_name"
+              ,substr(jumin_num,1,6)                            	"jumin_num1"
+              ,substr(jumin_num,7)                                	"jumin_num2"
+              ,phone_num                                         	"phone_num" 
+              ,etc                                             		"etc"
+              ,(select emergency_name from stu_emergency_info sei where sei.stu_id= s.stu_id)   	"emergency_name" 
+              ,(select emergency_relation from stu_emergency_info sei where sei.stu_id= s.stu_id)   "emergency_relation"
+              ,(select emergency_phone from stu_emergency_info sei where sei.stu_id= s.stu_id)   	"emergency_phone"     
+              ,(select class_id from class_join_stu cjs where cjs.stu_id= s.stu_id)   				"class_id"
+         from student s
+         where stu_id = #{id}
+    </select> 
+  
+	  <insert id="insertStuInfo" parameterType="com.naver.erp.AdminDTO" >
+      insert into student (
+          		stu_id
+          		,stu_pwd
+          		,stu_name
+          		,jumin_num
+          		,phone_num
+      ) values( 
+      		#{id}
+      		,#{pwd}
+      		,#{name}
+      		,#{jumin_num1}||#{jumin_num2}
+      		,#{phone}	
+       	)   	
+   </insert> 
+   
+   <insert id = "insertStuEmegency" parameterType="com.naver.erp.AdminDTO">
+ 
+ 	insert into STU_EMERGENCY_INFO(
+ 			stu_id 
+ 			,EMERGENCY_NAME
+ 			,EMERGENCY_RELATION
+ 			,EMERGENCY_PHONE	
+ 	)values(
+ 			#{id}
+ 			,#{emergency_name}
+ 			,#{emergency_relation}
+ 			,#{emergency_phone}
+ 		)
+ </insert>
+   
+  <insert id = "insertClassJoinStu" parameterType="com.naver.erp.AdminDTO">
+   
+    	insert into CLASS_JOIN_STU(
+    		class_id
+    		,stu_id
+    	)values(
+    			#{joinClass}
+    			,#{id}
+    	)
+    </insert>
+    
+    
+  <delete id = "deleteStuInfo" parameterType="com.naver.erp.AdminDTO" >
+  		delete from student
+			where stu_id= #{id}
+  </delete>  
+    
+  <delete id = "deleteStuEmegency" parameterType="com.naver.erp.AdminDTO">
+  		delete from STU_EMERGENCY_INFO
+  			where stu_id= #{id}
+  </delete>
+  
+  <delete id = "deleteClassJoinStu" parameterType="com.naver.erp.AdminDTO">
+  		delete from CLASS_JOIN_STU
+  			where stu_id= #{id}
+  </delete> 
+  
+  <update id="upStuInfo" parameterType="com.naver.erp.AdminDTO">
+  	update
+  		 student
+  	set 
+ 		stu_pwd=#{pwd}
+       ,stu_name=#{name}
+       ,jumin_num=#{jumin_num1}||#{jumin_num2}
+       ,phone_num=#{phone}
+  	where
+  		stu_id=#{id}	 		
+  </update>
+  
+  <update id="upStuEmegency" parameterType="com.naver.erp.AdminDTO">
+  	update 
+  			STU_EMERGENCY_INFO
+  	set
+  		 EMERGENCY_NAME		=#{emergency_name}
+ 		,EMERGENCY_RELATION =#{emergency_relation}
+ 		,EMERGENCY_PHONE	=#{emergency_phone}
+ 	where 			
+  		stu_id=#{id}
+  </update>
+    
+	<update id="upClassJoinStu" parameterType="com.naver.erp.AdminDTO">
+	  	update
+	  			CLASS_JOIN_STU
+	  	set 	
+	  			class_id=#{joinClass}
+	  	where
+	  			stu_id=#{id}
+ 	 </update>
+  
+</mapper>

@@ -15,28 +15,36 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int insertStuInfo(AdminDTO adminDTO)  throws Exception {
 		int stuRegCnt  = 0;
-		// insert 테이블이 여러 개 나오면 추후 더 추가
 		stuRegCnt = this.adminDAO.insertStuInfo(adminDTO);
+		stuRegCnt = this.adminDAO.insertStuEmegency(adminDTO);
+		stuRegCnt = this.adminDAO.insertClassJoinStu(adminDTO);
 		
 		return stuRegCnt;
 	}
 
 
 	@Override
-	public int deleteStuInfo(String stu_no) {
+	public int deleteStuInfo(AdminDTO adminDTO) {
 		int deleteStuCnt = 0;
-		// delete 테이블이 여러 개 나오면 추후 더 추가
-		deleteStuCnt = this.adminDAO.deleteStuInfo(stu_no);
+		
+		if(adminDTO.getJoinClass()!=null) {
+			deleteStuCnt = this.adminDAO.deleteClassJoinStu(adminDTO);
+		}
+		if(adminDTO.getEmergency_name()!=null) {
+			deleteStuCnt = this.adminDAO.deleteStuEmegency(adminDTO);
+		}
+		deleteStuCnt = this.adminDAO.deleteStuInfo(adminDTO);
 		
 		return deleteStuCnt;
 	}
 
 	
 	@Override
-	public int updateStuInfo(String stu_no) {
+	public int updateStuInfo(AdminDTO adminDTO) {
 		int updateStuCnt = 0;
-		// update 테이블이 여러 개 나오면 추후 더 추가
-		updateStuCnt = this.adminDAO.updateStuInfo( stu_no );
+		updateStuCnt = this.adminDAO.upStuInfo( adminDTO );
+		updateStuCnt = this.adminDAO.upStuEmegency( adminDTO );
+		updateStuCnt = this.adminDAO.upClassJoinStu( adminDTO );
 		
 		return updateStuCnt;
 	}

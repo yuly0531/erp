@@ -90,18 +90,18 @@ public class AdminClassController {
 	@ResponseBody
 	public Map<String, Object> classDetail(
 			AdminDTO adminDTO,
-			@RequestParam(value="class_no") String class_no
+			@RequestParam(value="id") String id
 	){
 
-		Map<String, Object> classDetailMap = getClassDetailMap(class_no);
+		Map<String, Object> classDetailMap = getClassDetailMap(id);
 		return classDetailMap;
 	}
 
-	public Map<String, Object> getClassDetailMap(String class_no){
+	public Map<String, Object> getClassDetailMap(String id){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, String>> classList;
 		
-		classList = this.adminDAO.getClassDetailInfo(class_no);
+		classList = this.adminDAO.getClassDetailInfo(id);
 
 		resultMap.put("classList", classList);
 		
@@ -117,13 +117,13 @@ public class AdminClassController {
 	@ResponseBody
 	public int deleteClassInfo(
 			AdminDTO adminDTO,
-			@RequestParam(value="class_no") String class_no
+			@RequestParam(value="class_no") String id
 			) throws Exception {
 
 		int deleteClassCnt = 0;
 				
 		try {
-			deleteClassCnt = this.adminService.deleteClassInfo(class_no);
+			deleteClassCnt = this.adminService.deleteClassInfo(id);
 		} catch (Exception e) {
 			deleteClassCnt = -1;
 		}
@@ -140,13 +140,13 @@ public class AdminClassController {
 	@ResponseBody
 	public int updateClassInfo(
 			AdminDTO adminDTO,
-			@RequestParam(value="class_no") String class_no
+			@RequestParam(value="id") String id
 			) throws Exception {
 				
 		int updateClassCnt = 0;
 		
 		try {
-			updateClassCnt = this.adminService.updateClassInfo(class_no);
+			updateClassCnt = this.adminService.updateClassInfo(id);
 		} catch (Exception e) {
 			updateClassCnt = -1;
 		}

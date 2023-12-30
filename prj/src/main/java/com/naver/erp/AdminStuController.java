@@ -27,14 +27,14 @@ public class AdminStuController {
 
 	
 	// 학생 관리(리스트) 접속, 검색
-	@RequestMapping( value="/stuList.admin.do")
+	@RequestMapping( value="/stuList.do")
 	public ModelAndView searchFreeDev(
 			AdminDTO adminDTO
 			,HttpSession session
 	){
 		Map<String,Object> stuListMap = getStuListMap( adminDTO );
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName( "stuListAdmin.jsp" );
+		mav.setViewName( "stuList.jsp" );
 		mav.addObject(   "stuListMap" , stuListMap     );
 		
 		return  mav;
@@ -65,7 +65,6 @@ public class AdminStuController {
 			
 			
 			stuList       =  this.adminDAO.getStuList( adminDTO  );
-
 			resultMap.put(  "stuList"       , stuList        );
 			resultMap.put(  "stuListCnt"    , stuListCnt     );
 			resultMap.put(  "stuListCntAll" , stuListCntAll  );
@@ -83,25 +82,24 @@ public class AdminStuController {
 
 	// 학생 상세 정보
 	@RequestMapping(
-		 value="/stuDetail.admin.do",
+		 value="/stuDetail.do",
 		 method = RequestMethod.POST,
 		 produces ="application/json;charset=UTF-8"
 	)
 	@ResponseBody
 	public Map<String, Object> stuDetail(
-			AdminDTO adminDTO,
-			@RequestParam(value="stu_no") String stu_no
+			AdminDTO adminDTO
 	){
 
-		Map<String, Object> stuDetailMap = getStuDetailMap( stu_no );
+		Map<String, Object> stuDetailMap = getStuDetailMap(adminDTO);
 		return stuDetailMap;
 	}
 
-	public Map<String, Object> getStuDetailMap(String stu_no){
+	public Map<String, Object> getStuDetailMap(AdminDTO adminDTO){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, String>> stuList;
 		
-		stuList = this.adminDAO.getStuDetailInfo(stu_no);
+		stuList = this.adminDAO.getStuDetailInfo(adminDTO);
 
 		resultMap.put("stuList", stuList);
 		
@@ -110,21 +108,19 @@ public class AdminStuController {
  
 	// 학생 삭제
 	@RequestMapping(
-			value="/deleteStuInfo.admin.do"
+			value="/deleteStuInfo.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
 	@ResponseBody
 	public int deleteStuInfo(
-			AdminDTO adminDTO,
-			@RequestParam(value="stu_no") String stu_no
+			AdminDTO adminDTO
 			) throws Exception {
-
 		int deleteStuCnt = 0;
-				
 		try {
-			deleteStuCnt = this.adminService.deleteStuInfo(stu_no);
-		} catch (Exception e) {
+			deleteStuCnt = this.adminService.deleteStuInfo(adminDTO);
+		} 
+		catch (Exception e) {
 			deleteStuCnt = -1;
 		}
 		
@@ -133,21 +129,21 @@ public class AdminStuController {
  
 	// 학생 수정
 	@RequestMapping(
-			value="/updateStuInfo.admin.do"
+			value="/updateStuInfo.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
 	@ResponseBody
 	public int updateStuInfo(
-			AdminDTO adminDTO,
-			@RequestParam(value="stu_no") String stu_no
+			AdminDTO adminDTO
 			) throws Exception {
 				
 		int updateStuCnt = 0;
 		
 		try {
-			updateStuCnt = this.adminService.updateStuInfo(stu_no);
-		} catch (Exception e) {
+			updateStuCnt = this.adminService.updateStuInfo(adminDTO);
+		} 
+		catch (Exception e) {
 			updateStuCnt = -1;
 		}
 

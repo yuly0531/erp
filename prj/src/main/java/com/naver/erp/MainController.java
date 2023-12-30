@@ -25,6 +25,36 @@ public class MainController {
 		mav.setViewName("adminMain.jsp");
 		return mav;
 	}
+	@RequestMapping( value="/checkGrade.do")
+	public ModelAndView checkGrade(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("checkGrade.jsp");
+		return mav;
+	}
+	@RequestMapping( value="/holiday.do")
+	public ModelAndView holiday(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("holiday.jsp");
+		return mav;
+	}
+	@RequestMapping( value="/mark.do")
+	public ModelAndView mark(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("mark.jsp");
+		return mav;
+	}
+	@RequestMapping( value="/teaMain.do")
+	public ModelAndView teaMain(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("teaMain.jsp");
+		return mav;
+	}
+	@RequestMapping( value="/stuMain.do")
+	public ModelAndView stuMain(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("stuMain.jsp");
+		return mav;
+	}
 	
 	@RequestMapping( value="/registExample.do")
 	public ModelAndView registExample(){
@@ -32,27 +62,12 @@ public class MainController {
 		mav.setViewName("registExample.jsp");
 		return mav;
 	}
-	
-	@RequestMapping( value="/stuList.do")
-	public ModelAndView stuList(
-	){
-		Map<String, Object> stuListMap = getStuListMap();
+	@RequestMapping( value="/dayOff.do")
+	public ModelAndView dayOff(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("stuList.jsp");
-	      mav.addObject("stuListMap", stuListMap);
-		return mav;}
-
-	   public Map<String, Object> getStuListMap() {
-		 Map<String, Object> resultMap = new HashMap<String, Object>();
-		 List<Map<String, String>> stuList; 
-		 
-		 
-		 stuList = this.mainDAO.getStuList();
-		 
-		 resultMap.put("stuList", stuList); 
-
-		 return resultMap; 
-		 }
+		mav.setViewName("dayOff.jsp");
+		return mav;
+	}
 	   
 	   @RequestMapping( value="/teaList.do")
 		public ModelAndView teaList(

@@ -29,7 +29,7 @@ header small {
   color: dimgray;
 }
 header > small small {
-  color:rgba(255, 150, 208, 0.271);
+  color:#A4A4A4;
   font-weight: bold;
 }
 select,
@@ -45,7 +45,7 @@ input {
 select:focus,
 textarea:focus,
 input:focus {
-  border: 1px solid rgba(255, 150, 208, 0.271);
+  border: 1px solid #A4A4A4;
 }
 body {
   display: flex;
@@ -61,7 +61,7 @@ body > form:first-child {
 }
 body > div {
   width: 85%;
-  background: rgba(255, 150, 208, 0.08);
+  background: #F2F2F2;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -84,6 +84,11 @@ body > div > div {
 .boardForm > div:first-child {
   padding: 0 0 20px;
 }
+.categoty{
+	padding: 10px 0 10px !important;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
 .header_box {
   height: 100%;
   position: relative;
@@ -105,7 +110,7 @@ body > div > div {
 }
 .main_cate:hover,
 .main_cate.active {
-  color: rgba(255, 150, 208, 0.271);
+  color: #000000;
   font-weight: bold;
 }
 .logo {
@@ -153,13 +158,13 @@ body > div > div {
   font-size: 14px;
   padding: 0 10px;
   transition: .25s;
-  color: rgba(255, 150, 208, 0.471);
+  color: #A4A4A4;
   background: #fff;
   margin-right: 10px;
   cursor: pointer;
 }
 .save {
-  background-color: rgba(255, 150, 208, 0.271);
+  background-color: #A4A4A4;
   color: #fff;
 }
 .delete,
@@ -202,12 +207,12 @@ input[type='button']:not(.stuSearch, .search) {
   transition: .25s;
   margin-right: 10px;
   cursor: pointer;
-  color: rgba(255, 150, 208, 0.471);
+  color: #A4A4A4;
   border-radius: 5px;
 }
 .desc_btn.stuSearch {
   color: #fff;
-  background: rgba(255, 150, 208, 0.471);
+  background: #A4A4A4;
   border: 1px solid initial
 }
 .desc_btn.stuSearch:hover {
@@ -215,13 +220,14 @@ input[type='button']:not(.stuSearch, .search) {
 }
 .resultCate {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   border-bottom: 1px solid lightgray;
-  border: 1px solid rgba(255, 150, 208, 0.271);
-  box-shadow: 0 6px 10px -2px rgb(255, 150, 208, .25);
+  border: 1px solid #A4A4A4;
+  box-shadow: 0 3px 3px -2px #A4A4A4;
 }
 .searchDetail,
 .resultCate > div {
+  justify-content: space-around;
   display: flex;
   align-items: center;
   text-align: center;
@@ -234,20 +240,13 @@ input[type='button']:not(.stuSearch, .search) {
   padding: 10px 5px;
   justify-content: center;
 }
-.resultCate > div:first-child {
-  border-left: 7px solid rgba(255, 150, 208, 0.271);
-}
-.searchResult_box {
-  background: rgba(223, 223, 255, 0.3);
-}
 .searchDetail {
-	justify-content: space-between;
+  justify-content: space-around;
   padding: 10px 0;
   border: 1px solid #ffffff00;
   transition: .15s;
 }
-.searchDetail > div:not(.List_skill) {
-  border-right: 1px solid lightgray;
+.searchDetail > div {
   height: 30px;
   display: flex;
   align-items: center;
@@ -258,7 +257,7 @@ input[type='button']:not(.stuSearch, .search) {
   white-space: nowrap;
 }
 .searchDetail:hover {
-  border: 1px solid rgba(255, 150, 208, 0.271);
+  border: 1px solid #A4A4A4;
 
 }
 .searchDetail > div:last-child {
@@ -287,7 +286,7 @@ input[type='button']:not(.stuSearch, .search) {
   border-radius: 3px;
 }
 .isClick {
-  background: rgba(255, 150, 208, 0.271);
+  background: #A4A4A4;
   color: #fff;
 }
 .unClick {
@@ -295,11 +294,11 @@ input[type='button']:not(.stuSearch, .search) {
 }
 .unClick:hover {
   font-weight: bold;
-  color: rgba(255, 150, 208, 0.271);
+  color: #A4A4A4;
 }
 
 .cntSearch {
-  border-right: 1px solid rgba(255, 150, 208, 0.471);
+  border-right: 1px solid #A4A4A4;
   padding: 0 10px 0 0;
 }
 .rownum {

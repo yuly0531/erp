@@ -13,27 +13,36 @@ public interface AdminDAO {
 	int getStuListCnt(AdminDTO adminDTO);
 	int getStuListCntAll();
 	List<Map<String,String>> getStuList(AdminDTO adminDTO);
-	List<Map<String,String>> getStuDetailInfo(String stu_no);
+	List<Map<String,String>> getStuDetailInfo(AdminDTO adminDTO);
+	
 	int insertStuInfo(AdminDTO adminDTO);
-	int deleteStuInfo(String stu_no);
-	int updateStuInfo(String stu_no);
+	int insertStuEmegency(AdminDTO adminDTO);
+	int insertClassJoinStu(AdminDTO adminDTO);
+	
+	int deleteStuInfo(AdminDTO adminDTO);
+	int deleteStuEmegency(AdminDTO adminDTO);
+	int deleteClassJoinStu(AdminDTO adminDTO);
+	
+	int upStuInfo(AdminDTO adminDTO);
+	int upStuEmegency(AdminDTO adminDTO);
+	int upClassJoinStu(AdminDTO adminDTO);
 
 	// 강사
 	int getTeaListCnt(AdminDTO adminDTO);
 	int getTeaListCntAll();
 	List<Map<String,String>> getTeaList(AdminDTO adminDTO);
-	List<Map<String,String>> getTeaDetailInfo(String tea_no);
+	List<Map<String,String>> getTeaDetailInfo(String id);
 	int insertTeaInfo(AdminDTO adminDTO);
-	int deleteTeaInfo(String tea_no);
-	int updateTeaInfo(String tea_no);
+	int deleteTeaInfo(String id);
+	int updateTeaInfo(String id);
 
 	// 수업
 	int getClassListCnt(AdminDTO adminDTO);
 	int getClassListCntAll();
 	List<Map<String,String>> getClassList(AdminDTO adminDTO);
-	List<Map<String,String>> getClassDetailInfo(String class_no);
+	List<Map<String,String>> getClassDetailInfo(String id);
 	int insertClassInfo(AdminDTO adminDTO);
-	int deleteClassInfo(String class_no);
-	int updateClassInfo(String class_no);
+	int deleteClassInfo(String id);
+	int updateClassInfo(String id);
 
 }

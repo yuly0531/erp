@@ -92,7 +92,7 @@ body > form:last-of-type {
 }
 .main_cate:hover,
 .main_cate.active {
-  color: #0000CD;
+  color: #000000;
   font-weight: bold;
 }
 .logo {
