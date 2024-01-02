@@ -157,7 +157,7 @@ function saveData(){
                     </td>
                 </div>
             
-                <div class="categoty">
+                <div class="category">
                     <td>긴급연락처(사고 대비)</td>
                  </div>
                  <div>

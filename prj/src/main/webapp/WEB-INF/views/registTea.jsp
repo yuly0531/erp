@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common.jsp"%>
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>강사 등록 화면</title>
   <script src="js/registFreeDev.js"></script>
-  <link href="css/registStu.css" rel="stylesheet">
+  <link href="css/registTea.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
@@ -157,7 +158,7 @@ function saveData(){
                     </td>
                 </div>
             
-                <div class="categoty">
+                <div class="category">
                     <td>긴급연락처(사고 대비)</td>
                  </div>
                  <div>
@@ -180,44 +181,33 @@ function saveData(){
                         </select> (부모,자식,형제,친척,지인)
                     </td>
                     </div>
-                    <div style="border-bottom: 1px solid lightgray;">
+                    <div>
                     <td>전화번호 :</td>
                     <td>
                         <input type="tel" name="emergency_phone"  maxlength="11"> 
                     </td>
                 </div> 
-		          <div class="compan_div">
-              <div class="category">회사 경력
+		    <div class="category">회사 경력
               </div>
-              <div class="compan">
+              <div class="company">
+              <div class="flex">
                 <div>회사명/업무</div>
                 <div>연봉</div>
-                <div>입사일/퇴사일</div>
+                <div>입사일</div>
+                <div>퇴사일</div>
               </div>
               
               
-              	<div class="compan_desc">
-                <div class="compan_name">
+              <div class="flex">
                   <input type="text" name="past_company_name" placeholder="회사명">
-                </div>
-                <div>
-                  <input type="text" name="salary">
-                </div>
-                <div>
-                  <div>
-                    <span>입사일 : </span>
-                    <input type="month" name="hire_date">
-                  </div>
-                  <div>
-                    <span>퇴사일 : </span>
+                  <input type="text" name="salary" placeholder="연봉">
+                    <input type="month" name="hire_date" >
                     <input type="month" name="fire_date">
                   </div>
-                </div>
               </div>
 
 		          
 		        </tr>
-		      </div>
      	      <div>
 		        <tr>
 		          <th>담당 수업 : </th>

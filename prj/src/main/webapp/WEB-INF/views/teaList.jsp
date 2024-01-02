@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common.jsp"%>
 
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>학생 검색 화면</title>
@@ -539,271 +539,98 @@ function update() {
 		
 		<div class='popup'>
 			<div class="dim">
-					<div class='popup_main'>
-						<form name="teaRegForm" class="boardForm teaRegForm">
-						<header>프리랜서 개발자 상세 정보</header>
-						<div class="inform">
-						<div class="title">프리랜서 기본 정보</div>
-						<div>
-								<div class='flex'>
-									<div class='desc_title'>이름</div>
-									<input type='text' class='alter_name ' name="fName" value="${getteaListDetailMap.getteaListDetailList.fname}" onkeydown="checkSpace(this)"/>
-								</div>
-								<div class='flex'>
-									<div class='desc_title'>성별</div>
-									<div class='gender_box'>
-										<input type="checkbox" name="gender" value="1" class="gender_m">남
-										<input type="checkbox" name="gender" value="2" class="gender_w">여
-									</div>
-								</div>
-								<div class='flex'>
-									<div class='desc_title'>이메일</div>
-									<input type="email" name="email" class="email" size="10" maxlength="30" onkeyup="checkSpace(this)" value="${teaListDetailMap.email}">
-								</div>
-								<div class='flex'>
-									<div class='desc_title'>핸드폰</div>
-									<input type="text" name="phone" class="phone" size="10" maxlength="11" onkeyup="checkSpace(this)" value="${teaListDetailMap.phone}">
-								</div>
-								<div class='flex'>
-									<div class='desc_title'>출생년도</div>
-									<input type="number" name="birth_year" class="birth_year" size="10" maxlength="4" onkeyup="checkSpace(this)" value="${teaListDetailMap.birth_year}"> 년생
-								</div>
-								<div class='flex'>
-									<div class='desc_title'>최종학력</div>
-									<select name="highestLevel_edu" id="highestLevel_edu">
-											<option value=""></option>
-											<option value="1">고졸</option>
-											<option value="2">전문대졸</option>
-											<option value="3">일반대학사졸</option>
-											<option value="4">일반대석사졸</option>
-											<option value="5">일반대박사졸</option>
-									</select>
-								</div>
-								<div class='flex'>
-									<div class='desc_title'>졸업년도</div>
-									<input type="month" name="graduate_date" class="graduate_date" min="1930-01" max="2023-12">
-								</div>
-						</div>
-						</div>
-					<div class="career">
-						<div class="title">프리랜서 기본 년차</div>
-						<div class="flex">
-								<tr>
-									<div class="dec_title">추정 개발년차</div>
-									<span><span name="yeoncha">0</span> 년차</span>
-								</tr>
-								</div>
-								<div>
-								<div class="flex">
-									<div class="dec_title">이력서 상 개발년차</div>
-									<select name="resume_dev_year" class="resume_dev_year">
-									<option value=""></option>
-									<c:forEach var="nYear" begin="0" end="20">
-											<c:choose>
-												<c:when test="${nYear lt 10 }">
-														<option value="0${nYear}">0${nYear}</option>
-												</c:when>
-												<c:otherwise>
-														<option value="${nYear}">${nYear}</option>
-												</c:otherwise>
-											</c:choose>
-									</c:forEach>
-									</select> 년
-									<select name="resume_dev_month" class="resume_dev_month">
-									<option value=""></option>
-									<c:forEach var="nYear" begin="0" end="11">
-											<c:choose>
-												<c:when test="${nYear lt 10 }">
-														<option value="0${nYear}">0${nYear}</option>
-												</c:when>
-												<c:otherwise>
-														<option value="${nYear}">${nYear}</option>
-												</c:otherwise>
-											</c:choose>
-									</c:forEach>
-									</select>개월
-									<tr>
-										( <input type="date" name="dev_year_standard_date" class="dev_year_standard_date"> 날짜 기준 )
-									</tr>
-								</div>
-								</div>
-						</div>
-					<div class="eval">
-						<div class="title">프리랜서 평가</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">블랙개발자</div>
-									<input type="checkbox" name="black_reason_name" value="1"> 실력부족
-									<input type="checkbox" name="black_reason_name" value="2"> 파견지부적응
-									<input type="checkbox" name="black_reason_name" value="3"> 근태불성실
-									<input type="checkbox" name="black_reason_name" value="4"> 무단이탈
-									<input type="checkbox" name="black_reason_name" value="5"> 전화통화원치않음
-									<input type="checkbox" name="black_reason_name" value="6"> 기타
-								</tr>
-						</div>
-						<div class="etc">
-								<div class="desc_title">기타 평가</div>
-								<textarea name="etc_opinion" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
-						</div>
-						</div>
-						<div class="dispatch">
-						<div class="title">프리랜서 파견 정보</div>
-						<div class="flex">
-								<tr>
-									<div class='desc_title'>상담시각</div>
-									<input type="datetime-local" name="consultation_time" class="consultation_time consulTime"> 
-									<span onclick="dateNow()" style="cursor: pointer;" class="alterBtn">[지금]</span>
-									<span onclick="dateEmpty(this, 'date')" style="cursor: pointer;" class="alterBtn">[비움]</span>
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">현재직업</div>
-										<input type="radio" name="job" value="1"> 프리랜서 개발자
-										<input type="radio" name="job" value="2"> 정규직 개발자
-										<input type="radio" name="job" value="3"> 기타직업
-								</tr>
-						</div>
-			
-						<div class="flex">
-								<tr>
-									<div class="desc_title">스킬분야</div>
-									<input type="checkbox" name="skill_category_code" class="first_skill" value="1"> JAVA>JSP
-									<input type="checkbox" name="skill_category_code" value="2"> .NET
-									<input type="checkbox" name="skill_category_code" value="3"> PHP
-									<input type="checkbox" name="skill_category_code" value="4"> ASP
-									<input type="checkbox" name="skill_category_code" value="5"> ABAP
-									<input type="checkbox" name="skill_category_code" value="6"> Delphi
-									<input type="checkbox" name="skill_category_code" value="7"> PB
-									<input type="checkbox" name="skill_category_code" value="8"> VC++
-									<input type="checkbox" name="skill_category_code" value="9"> 웹디
-									<input type="checkbox" name="skill_category_code" value="10"> 기타
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">파견역할</div>
-									<input type="radio" name="dispatch_role_code" value="1"> 개발
-									<input type="radio" name="dispatch_role_code" value="2"> 운영
-									<input type="radio" name="dispatch_role_code" value="3"> 분석설계
-									<input type="radio" name="dispatch_role_code" value="4"> PL
-									<input type="radio" name="dispatch_role_code" value="5"> PM
-									<input type="radio" name="dispatch_role_code" value="6"> 웹디
-									<input type="radio" name="dispatch_role_code" value="7"> publisher
-									<input type="radio" name="dispatch_role_code" value="8"> 기타
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">파견가능일</div>
-									<input type="date" name="can_dispatch_date" class="can_dispatch_date" value="${teaListDetailMap.can_dispatch_day}">
-									<input type="checkbox" name="fix_dispatch_date" value="1"> 확정
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">개발 단가</div>
-									<input type="number" name="min_dev_cost" class="min_dev_cost" onkeydown="checkMax(this, 10)">
-									만원 ~
-									<input type="number" name="max_dev_cost" class="max_dev_cost" onkeydown="checkMax(this, 10)"> 만원
-								</tr>
-								<span>
-									<input type="checkbox" name="how_dev_cost" value="1" onchange="checkRadio(this)"> 단가고정
-									<input type="checkbox" name="how_dev_cost" value="2" onchange="checkRadio(this)"> 협상후결정
-								</span>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">운영 단가</div>
-									<input type="number" name="min_operate_cost" class="min_operate_cost" onkeydown="checkMax(this, 10)">
-									만원 ~
-									<input type="number" name="max_operate_cost" class="max_operate_cost" onkeydown="checkMax(this, 10)"> 만원
-								</tr>
-								<span>
-									<input type="checkbox" name="how_operate_cost" value="1" onchange="checkRadio(this)"> 단가고정
-									<input type="checkbox" name="how_operate_cost" value="2" onchange="checkRadio(this)"> 협상후결정
-								</span>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">기사자격증</div>
-									<input type="checkbox" name="license_code" value="1" class="license_code"> 정보처리기사
-									<input type="checkbox" name="license_code" value="2" class="license_code"> 정보처리산업기사
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">노트북 소유</div>
-									<input type="checkbox" name="have_notebook" value="1"> 노트북대여희망
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">선호지역</div>
-									<input type="checkbox" name="tea_can_work_location" class="first_loc" value="1"> 서울
-									<input type="checkbox" name="tea_can_work_location" value="2"> 인천
-									<input type="checkbox" name="tea_can_work_location" value="3"> 경기
-									<input type="checkbox" name="tea_can_work_location" value="4"> 강원
-									<input type="checkbox" name="tea_can_work_location" value="5"> 충북
-									<input type="checkbox" name="tea_can_work_location" value="6"> 충남
-									<input type="checkbox" name="tea_can_work_location" value="7"> 전북
-									<input type="checkbox" name="tea_can_work_location" value="8"> 전남
-									<input type="checkbox" name="tea_can_work_location" value="9"> 경북
-									<input type="checkbox" name="tea_can_work_location" value="10"> 경남
-									<input type="checkbox" name="tea_can_work_location" value="11"> 제주
-									<input type="checkbox" name="tea_can_work_location" value="12"> 국외
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class='desc_title'>선호분야</div>
-									<input type="checkbox" name="favorite_part_code" class="first_part" value="1"> 교육
-									<input type="checkbox" name="favorite_part_code" value="2"> 대부
-									<input type="checkbox" name="favorite_part_code" value="3"> 대학
-									<input type="checkbox" name="favorite_part_code" value="4"> 보험
-									<input type="checkbox" name="favorite_part_code" value="5"> 쇼핑
-									<input type="checkbox" name="favorite_part_code" value="6"> 언론
-									<input type="checkbox" name="favorite_part_code" value="7"> 유통
-									<input type="checkbox" name="favorite_part_code" value="8"> 은행
-									<input type="checkbox" name="favorite_part_code" value="9"> 의료
-									<input type="checkbox" name="favorite_part_code" value="10"> 전자/전기
-									<input type="checkbox" name="favorite_part_code" value="11"> 정부기관
-									<input type="checkbox" name="favorite_part_code" value="12"> 증권
-									<input type="checkbox" name="favorite_part_code" value="13"> 카드
-									<input type="checkbox" name="favorite_part_code" value="14"> 통신
-									<input type="checkbox" name="favorite_part_code" value="15"> 기타
-								</tr>
-						</div>
-						<div class="flex">
-								<tr>
-									<div class="desc_title">거주지</div>
-									<select name="abode">
-									<option value=""></option>
-									<option value="1">서울</option>
-									<option value="2">인천</option>
-									<option value="3">경기</option>
-									<option value="4">강원</option>
-									<option value="5">충북</option>
-									<option value="6">전북</option>
-									<option value="7">전남</option>
-									<option value="8">경북</option>
-									<option value="9">경남</option>
-									<option value="10">국외</option>
-									</select>시(도)
-								</tr>
-						</div>
-						<div class="etc">
-								<div class="desc_title">기타요구</div>
-								<textarea name="etc_want" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
-						</div>
-						<div class="etc">
-								<div class="desc_title">전화상담시<br>주의사항</div>
-								<textarea name="call_notice" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
-						</div>
-						</div>	
+				<div class='popup_main'>
+					<form name="teaRegForm" class="boardForm teaRegForm">
+						<header>강사 상세 정보</header>
+							<div class="inform">
+								<div class="title">강사 기본 정보</div>
+									<div>
+										<div class='flex'>
+											아이디
+					                        <input type="text" name="no_up_id" maxlength="20">
+						                    암호
+					                        <input type="password" name="pwd" maxlength="20"> 
+					                    	암호확인
+					                        <input type="password" name="rePwd" maxlength="20">
+					                    </div>
+					             		<div class='flex'>
+						                    이름
+					                        <input type="text" name="name"> 
+					                        주민번호
+					                        <input type="text" name="jumin_num1" maxlength="6">-
+					                        <input type="text" name="jumin_num2" maxlength="7">
+					                    </div>
+					             		<div class='flex'>
+					                    	핸드폰
+					                        <input type="text" name="phone" maxlength="11"> (-없이 입력)
+					                	</div>
+					            
+						                <div class="category">
+						                    긴급연락처(사고 대비)
+						                </div>
+						                <div class='flex'>
+						                 	연락 받을 사람 이름 :&nbsp;
+						                    <input type="text" name="emergency_name" size="10">
+					                 	</div>
+						                <div class='flex'>
+					                        관계 :
+					                        <select name="emergency_relation">
+					                            <option value=""></option>
+					                            <option value="부모">부모</option>
+					                            <option value="배우자">배우자</option>
+					                            <option value="자식">자식</option>
+					                            <option value="형제">형제</option>
+					                            <option value="친척">친척</option>
+					                            <option value="지인">지인</option>
+					                        </select>
+					                    </div>
+					                    <div class='flex'>
+					                    	전화번호 :
+					                        <input type="tel" name="emergency_phone"  maxlength="11"> 
+					                	</div>  
+					     	      		<div class="compan_div">
+              <div class="category">회사 경력
+              </div>
+              <div class="company">
+              <div class="flex">
+                <div>회사명/업무</div>
+                <div>연봉</div>
+                <div>입사일</div>
+                <div>퇴사일</div>
+              </div>
+              
+              
+              <div class="flex">
+                  <input type="text" name="past_company_name" placeholder="회사명">
+                  <input type="text" name="salary" placeholder="연봉">
+                    <input type="month" name="hire_date" >
+                    <input type="month" name="fire_date">
+                  </div>
+              </div>
+
+		          
+		        </tr>
+		      </div>
+     	      <div>
+		        <tr>
+		          <th>담당 수업 : </th>
+		          <select name="joinClass">
+		             <option value=""></option>
+		             <option value="1">어쩌구</option>
+		             <option value="2">어쩌구</option>
+		             <option value="3">어쩌구</option>
+		          </select>
+		          
+		        </tr>
+		      </div>
+		      <div>
+		        <div>기타</div>
+		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
+		      </div>  
+									</div>	
 						<span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
 						<span onclick="deleteInfo()" name="delete" class="delete">삭제</span>
-						<span onclick="alterInfo(this)" name="save" class="save">수정</span>
+						<span onclick="update()" name="save" class="save">저장</span>
 						<input type="hidden" name="del_tea_uid" class="del_tea_uid">
 					</form>
 					</div>
