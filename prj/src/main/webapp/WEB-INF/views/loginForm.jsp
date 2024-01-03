@@ -33,7 +33,9 @@ pageEncoding="UTF-8"%>
                  	$(".stu_login").show();
                  	$(".tea_login").hide();
                  	$(".mana_login").hide();
+                 	$(this).addClass('active').siblings('div').removeClass('active');
                }
+              
              
 
           )
@@ -42,6 +44,7 @@ pageEncoding="UTF-8"%>
                  	$(".stu_login").hide();
                  	$(".tea_login").show();
                  	$(".mana_login").hide();
+                 	$(this).addClass('active').siblings('div').removeClass('active');
                  	}
               
 
@@ -52,6 +55,7 @@ pageEncoding="UTF-8"%>
                   $(".stu_login").hide();
                  	$(".tea_login").hide();
                  	$(".mana_login").show();
+                 	$(this).addClass('active').siblings('div').removeClass('active');
                  	}
               
   	)
@@ -128,7 +132,7 @@ pageEncoding="UTF-8"%>
 				,$(".tea_login")
 				,function(idCnt){
 					if( idCnt==1 ){
-						location.replace("/teacherMain.do");
+						location.replace("/teaMain.do");
 					} else {
 						alert("아이디 또는 암호가 틀립니다. 다시 입력하시오");
 						return;
@@ -175,13 +179,13 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 
-<h2 align="center" style="margin-top: 9%;">뫄뫄학원 사이트입니다</h2>
-<div class="choice">
- <div class="student" style="width: 100px; height: 50px;   float: left; cursor: pointer;  text-align:center; padding:11px; float: left;">학생</div>
- <div class="teaructor" style="width: 100px; height: 50px; float: left; cursor: pointer;  text-align:center; float: left; padding:11px">강사</div>
- <div class="manager" style="width: 100px; height: 50px; float: left; cursor: pointer;  text-align:center; float: left; padding:11px">관리자</div>
- </div>
+
   <div class="main">
+  <div class="choice">
+ <div class="student" style="float: left; padding: 25px;margin-top: -18px">학생</div>
+ <div class="teaructor" style="float: left; padding: 25px ;margin-top: -18px; ">강사</div>
+ <div class="manager" style="float: left;    padding: 25px; margin-top: -18px;">관리자</div>
+ </div>
  <!------------------------  학생 로그인 ---------------------------------------------->
 		<form class="stu_login">
 		<table>
@@ -254,7 +258,7 @@ pageEncoding="UTF-8"%>
       </div>
       </form>
 	</div>
-  
+   
 </body>
 
 </html>

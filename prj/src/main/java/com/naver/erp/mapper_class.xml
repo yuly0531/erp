@@ -2,7 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.naver.erp.AdminDAO">
-    
+<sql id="classWhere">
+<if test="(keyword1!=null and keyword1.length()>0) or (keyword2!=null and keyword2.length()>0)">
+               and(
+    </if>
+	
+	 <if test="keyword1!=null and keyword1.length()>0">
+        (upper(take_charge_tea) LIKE upper('%${keyword1}%')
+        OR
+        upper(class_name) LIKE upper('%${keyword1}%')
+        OR
+        upper(class_subject) LIKE upper('%${keyword1}%')
+        )
+   </if>
+ 	<if test="(keyword1!=null and keyword1.length()>0) and (keyword2!=null and keyword2.length()>0)">
+    	${orand}
+    </if>
+   
+	<if test="keyword2!=null and keyword2.length()>0">
+        (upper(take_charge_tea) LIKE upper('%${keyword2}%')
+        OR
+        upper(class_name) LIKE upper('%${keyword2}%')
+        OR
+        upper(class_subject) LIKE upper('%${keyword2}%')
+        )
+   </if>
+   <if test="(keyword1!=null and keyword1.length()>0) or (keyword2!=null and keyword2.length()>0)">
+   	)
+   </if>
+   
+   <if test="min_start_date !=null and min_start_date.length()>0 and max_start_date !=null and max_start_date.length()>0">
+  	     AND
+	     CLASS_START_DATE BETWEEN TO_DATE(#{min_start_date}, 'yyyy-mm-dd') AND TO_DATE(#{max_start_date}, 'yyyy-mm-dd')
+   </if>
+   <if test="min_start_date !=null and min_start_date.length()>0">
+	     AND
+	     CLASS_START_DATE >= TO_DATE(#{min_start_date}, 'yyyy-mm-dd')
+   </if>
+   
+   <if test="min_end_date !=null and min_end_date.length()>0 and max_end_date !=null and max_end_date.length()>0">
+        AND
+       CLASS_END_DATE BETWEEN TO_DATE(#{min_end_date}, 'yyyy-mm-dd') AND TO_DATE(#{max_end_date}, 'yyyy-mm-dd')
+   </if>
+   <if test="min_end_date !=null and min_end_date.length()>0">
+	     AND
+	     CLASS_END_DATE >= TO_DATE(#{min_end_date}, 'yyyy-mm-dd')
+   </if>
+</sql>    
 	  <insert id="insertClassInfo" parameterType="com.naver.erp.AdminDTO" >
       insert into class (
            class_id
@@ -21,12 +67,43 @@
        )
    </insert> 
    
+       <update id="updateClassInfo" parameterType="com.naver.erp.AdminDTO">
+    update
+       class
+    set
+          class_name = #{class_name}
+          , class_start_date = #{class_start_date}
+          , class_end_date = #{class_end_date}
+          , take_charge_tea = #{take_charge_tea}
+          , class_subject = #{class_subject}
+   where
+      class_id = '${class_id}'
+   </update>
+   
+   <update id="updateClassJoinStuInfo" parameterType="com.naver.erp.AdminDTO">
+      update
+         class_join_stu
+      set
+         stu_id = #{stu_id}
+      where 
+         class_id = #{class_id}
+      </update>
+   
+   <delete id="deleteClassInfo" parameterType="com.naver.erp.AdminDTO">
+      delete from class where class_id = '${class_id}'
+   </delete>
+   
+   <delete id="delete_class_join_stu" parameterType="com.naver.erp.AdminDTO">
+         delete from class_join_stu where class_id = '${class_id}'
+      </delete>
+   
    
    <select id="getClassListCnt" resultType="int" >
 	     select
 	       count(*)
 	          from class
 	          where 1=1
+<include refid="classWhere"/>
           </select> 
      <select id="getClassListCntAll" resultType="int" >
 	     select
@@ -37,14 +114,32 @@
 	  <select id="getClassList" resultType="java.util.Map" >
 	     select
 	       
-	           CLASS_ID                           "CLASS_ID"
-	         , CLASS_NAME                        "CLASS_NAME"
-	          ,CLASS_START_DATE                "CLASS_START_DATE"
-	          ,CLASS_END_DATE                  "CLASS_END_DATE"
-	          ,TAKE_CHARGE_TEA                 "TAKE_CHARGE_TEA"
-	          ,CLASS_SUBJECT                      "CLASS_SUBJECT" 
+	           CLASS_ID                           "class_id"
+	         , CLASS_NAME                        "class_name"
+	          ,(to_char(class_start_date,'yyyy-mm-dd'))                "class_start_date"
+	          ,(to_char(class_end_date,'yyyy-mm-dd'))                  "class_end_date"
+	          , (select tea_name from teacher t where c.take_charge_tea = t.tea_id)               "take_charge_tea"
+	          ,CLASS_SUBJECT                      "class_subject" 
 	          
-	          from class
+	          from class c
 	          where 1=1
+	          <include refid="classWhere"/>
+	  
           </select> 
+        <select id="getClassDetailInfo" resultType="java.util.Map" >
+	     select
+	       
+	           CLASS_ID                           "CLASS_ID"
+	         , CLASS_NAME                        "class_name"
+	          ,(to_char(class_start_date,'yyyy-mm-dd'))                "class_start_date"
+	          ,(to_char(class_end_date,'yyyy-mm-dd'))                  "class_end_date"
+	          ,take_charge_tea              "take_charge_tea"
+	          ,CLASS_SUBJECT                      "class_subject" 
+	          
+	          from class c
+	          where class_id = ${class_id}
+	  
+          </select> 
+          
+         
 </mapper>

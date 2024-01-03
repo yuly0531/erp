@@ -22,7 +22,7 @@
 							<table>
 								<tr class="cate_box">
               						<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
-									<td class="main_cate" onclick="location.replace('/holiday.do')">휴가신청</td>
+									<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
 									<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
 									<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
 								</tr>

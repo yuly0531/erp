@@ -62,20 +62,20 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public int deleteTeaInfo(String tea_no) {
+	public int deleteTeaInfo(AdminDTO adminDTO) {
 		int deleteTeaCnt = 0;
 		// delete 테이블이 여러 개 나오면 추후 더 추가
-		deleteTeaCnt = this.adminDAO.deleteTeaInfo(tea_no);
+		deleteTeaCnt = this.adminDAO.deleteTeaInfo(adminDTO);
 		
 		return deleteTeaCnt;
 	}
 
 	
 	@Override
-	public int updateTeaInfo(String tea_no) {
+	public int updateTeaInfo(AdminDTO adminDTO) {
 		int updateTeaCnt = 0;
 		// update 테이블이 여러 개 나오면 추후 더 추가
-		updateTeaCnt = this.adminDAO.updateTeaInfo( tea_no );
+		updateTeaCnt = this.adminDAO.updateTeaInfo( adminDTO );
 		
 		return updateTeaCnt;
 	}
@@ -93,20 +93,20 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public int deleteClassInfo(String class_no) {
+	public int deleteClassInfo(AdminDTO adminDTO) {
 		int deleteClassCnt = 0;
 		// delete 테이블이 여러 개 나오면 추후 더 추가
-		deleteClassCnt = this.adminDAO.deleteClassInfo(class_no);
+		deleteClassCnt = this.adminDAO.deleteClassInfo(adminDTO);
 		
 		return deleteClassCnt;
 	}
 
 	
 	@Override
-	public int updateClassInfo(String class_no) {
+	public int updateClassInfo(AdminDTO adminDTO) {
 		int updateClassCnt = 0;
 		// update 테이블이 여러 개 나오면 추후 더 추가
-		updateClassCnt = this.adminDAO.updateClassInfo( class_no );
+		updateClassCnt = this.adminDAO.updateClassInfo( adminDTO );
 		
 		return updateClassCnt;
 	}

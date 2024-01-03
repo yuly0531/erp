@@ -116,14 +116,13 @@ public class AdminTeaController {
 			)
 	@ResponseBody
 	public int deleteTeaInfo(
-			AdminDTO adminDTO,
-			@RequestParam(value="tea_no") String tea_no
+			AdminDTO adminDTO
 			) throws Exception {
 
 		int deleteTeaCnt = 0;
 				
 		try {
-			deleteTeaCnt = this.adminService.deleteTeaInfo(tea_no);
+			deleteTeaCnt = this.adminService.deleteTeaInfo(adminDTO);
 		} catch (Exception e) {
 			deleteTeaCnt = -1;
 		}
@@ -139,14 +138,13 @@ public class AdminTeaController {
 			)
 	@ResponseBody
 	public int updateTeaInfo(
-			AdminDTO adminDTO,
-			@RequestParam(value="tea_no") String tea_no
+			AdminDTO adminDTO
 			) throws Exception {
 				
 		int updateTeaCnt = 0;
 		
 		try {
-			updateTeaCnt = this.adminService.updateTeaInfo(tea_no);
+			updateTeaCnt = this.adminService.updateTeaInfo(adminDTO);
 		} catch (Exception e) {
 			updateTeaCnt = -1;
 		}

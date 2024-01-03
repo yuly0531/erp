@@ -72,7 +72,7 @@
  
         </div>
         </form>
-        <form name= "dayOffList" class="dayOffList">
+        <form name= "dayOffList" class="day	OffList">
         <header>휴가 관리</header>
 		<table class="search_bar"> 
 			<tr>

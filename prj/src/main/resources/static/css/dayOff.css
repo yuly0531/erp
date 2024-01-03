@@ -236,6 +236,9 @@ body > form:last-of-type {
   font-weight: bold;
   color: #A4A4A4;
 }
+form.day.OffList {
+    width: 80%;
+}
 section {
   display: flex;
   align-items: center;

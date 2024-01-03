@@ -27,14 +27,14 @@ public class AdminClassController {
 
 	
 	// 수업 관리(리스트) 접속, 검색
-	@RequestMapping( value="/classList.admin.do")
+	@RequestMapping( value="/classList.do")
 	public ModelAndView searchFreeDev(
 			AdminDTO adminDTO
 			,HttpSession session
 	){
 		Map<String,Object> classListMap = getClassListMap( adminDTO );
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName( "classListAdmin.jsp" );
+		mav.setViewName( "classList.jsp" );
 		mav.addObject(   "classListMap" , classListMap     );
 		
 		return  mav;
@@ -83,25 +83,24 @@ public class AdminClassController {
 
 	// 수업 상세 정보
 	@RequestMapping(
-		 value="/classDetail.admin.do",
+		 value="/classDetail.do",
 		 method = RequestMethod.POST,
 		 produces ="application/json;charset=UTF-8"
 	)
 	@ResponseBody
 	public Map<String, Object> classDetail(
-			AdminDTO adminDTO,
-			@RequestParam(value="id") String id
+			AdminDTO adminDTO
 	){
 
-		Map<String, Object> classDetailMap = getClassDetailMap(id);
+		Map<String, Object> classDetailMap = getClassDetailMap(adminDTO);
 		return classDetailMap;
 	}
 
-	public Map<String, Object> getClassDetailMap(String id){
+	public Map<String, Object> getClassDetailMap(AdminDTO adminDTO){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, String>> classList;
 		
-		classList = this.adminDAO.getClassDetailInfo(id);
+		classList = this.adminDAO.getClassDetailInfo(adminDTO);
 
 		resultMap.put("classList", classList);
 		
@@ -110,20 +109,19 @@ public class AdminClassController {
  
 	// 수업 삭제
 	@RequestMapping(
-			value="/deleteClassInfo.admin.do"
+			value="/deleteClassInfo.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
 	@ResponseBody
 	public int deleteClassInfo(
-			AdminDTO adminDTO,
-			@RequestParam(value="class_no") String id
+			AdminDTO adminDTO
 			) throws Exception {
 
 		int deleteClassCnt = 0;
 				
 		try {
-			deleteClassCnt = this.adminService.deleteClassInfo(id);
+			deleteClassCnt = this.adminService.deleteClassInfo(adminDTO);
 		} catch (Exception e) {
 			deleteClassCnt = -1;
 		}
@@ -133,20 +131,19 @@ public class AdminClassController {
  
 	// 수업 수정
 	@RequestMapping(
-			value="/updateClassInfo.admin.do"
+			value="/updateClassInfo.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
 	@ResponseBody
 	public int updateClassInfo(
-			AdminDTO adminDTO,
-			@RequestParam(value="id") String id
+			AdminDTO adminDTO
 			) throws Exception {
 				
 		int updateClassCnt = 0;
 		
 		try {
-			updateClassCnt = this.adminService.updateClassInfo(id);
+			updateClassCnt = this.adminService.updateClassInfo(adminDTO);
 		} catch (Exception e) {
 			updateClassCnt = -1;
 		}

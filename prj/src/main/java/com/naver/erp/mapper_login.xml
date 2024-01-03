@@ -18,5 +18,20 @@
 		select count(*) from MANAGER
 		 where mana_ID=#{mana_id} and mana_PWD=#{mana_pwd}
 	</select>
+	
+	<select id="whatRole" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT 
+		    CASE 
+		        WHEN #{id} = t.tea_id THEN 'tea'
+		        WHEN #{id} = s.stu_id THEN 'stu'
+		        WHEN #{id} = m.mana_id THEN 'mana'
+		    END "result"
+		FROM 
+		    teacher t
+		    FULL OUTER JOIN student s ON 1=0 
+		    FULL OUTER JOIN manager m ON 1=0 
+		WHERE 
+		    #{id} IN (t.tea_id, s.stu_id, m.mana_id);
+    </select>
    
 </mapper>

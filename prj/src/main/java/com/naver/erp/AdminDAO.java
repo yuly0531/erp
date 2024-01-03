@@ -33,16 +33,16 @@ public interface AdminDAO {
 	List<Map<String,String>> getTeaList(AdminDTO adminDTO);
 	List<Map<String,String>> getTeaDetailInfo(String id);
 	int insertTeaInfo(AdminDTO adminDTO);
-	int deleteTeaInfo(String id);
-	int updateTeaInfo(String id);
+	int deleteTeaInfo(AdminDTO adminDTO);
+	int updateTeaInfo(AdminDTO adminDTO);
 
 	// 수업
 	int getClassListCnt(AdminDTO adminDTO);
 	int getClassListCntAll();
 	List<Map<String,String>> getClassList(AdminDTO adminDTO);
-	List<Map<String,String>> getClassDetailInfo(String id);
+	List<Map<String,String>> getClassDetailInfo(AdminDTO adminDTO);
 	int insertClassInfo(AdminDTO adminDTO);
-	int deleteClassInfo(String id);
-	int updateClassInfo(String id);
+	int deleteClassInfo(AdminDTO adminDTO);
+	int updateClassInfo(AdminDTO adminDTO);
 
 }

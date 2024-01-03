@@ -124,27 +124,7 @@ public class MainController {
 		 }
 		   
 		   
-		   @RequestMapping( value="/classList.do")
-			public ModelAndView classList(
-			){
-				Map<String, Object> classListMap = getClassListMap();
-				ModelAndView mav = new ModelAndView();
-				mav.setViewName("classList.jsp");
-			      mav.addObject("classListMap", classListMap);
-				return mav;}
 
-			   public Map<String, Object> getClassListMap() {
-				 Map<String, Object> resultMap = new HashMap<String, Object>();
-				 List<Map<String, String>> classList; 
-				 
-				 
-				 classList = this.mainDAO.getClassList();
-				 
-				 resultMap.put("classList", classList); 
-
-				 return resultMap; 
-				 }
-			   
 	
 	@RequestMapping( value="/registStu.do")
 	public ModelAndView registStu(){

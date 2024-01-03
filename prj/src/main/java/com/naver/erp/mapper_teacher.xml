@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.erp.AdminDAO">
+
+<select id="getTeaListCnt" resultType="int" >
+	     select
+	       count(*)
+         from teacher
+         where 1=1
+    </select> 
+
+<select id="getTeaListCntAll" resultType="int" >
+	     select
+	       count(*)
+	     from teacher
+    </select>
+
+<select id="getTeaList" resultType="java.util.Map" >
+	    select
+        tea_id           "tea_id"
+        ,tea_name        "tea_name"
+        ,tel_num         "tel_num"
+        ,to_number(to_char(sysdate,'yyyy'))
+        -
+        to_number(case substr(jumin_num,7,1)
+                when '1' then '19'
+                when '2' then '19'
+                else '20'
+            end||substr(jumin_num,1,2)) 
+            +1||'세' "tea_age"
+        ,decode(substr(jumin_num,7,1)
+          ,'1', '남','2','여','3','남','4','여') "tea_gender"   
+   		,nvl(( select round((fire_date-hire_date)/365)
+             from exp_matter e
+            where e.tea_id = teacher.tea_id),0)   "경력"  
+    from teacher
+          where 1=1 
+    </select> 
+
+   <insert id="insertTeaInfo" parameterType="com.naver.erp.AdminDTO" >
+      insert into teacher (
+          		TEA_ID
+          		,TEA_PWD
+          		,TEA_NAME
+          		,JUMIN_NUM
+          		,TEL_NUM
+      ) values( 
+      		#{tea_id}
+      		,#{tea_pwd}
+      		,#{tea_name}
+      		,#{tea_jumin_num1}||#{tea_jumin_num2}
+      		,#{tea_phone}	
+       	)   	
+   </insert> 
+   
+   <insert id="insertTeaEmegency" parameterType="com.naver.erp.AdminDTO" >
+   	 insert into TEA_EMERGENCY_INFO	(	
+   				TEA_ID
+   				,EMERGENCY_NAME
+   				,EMERGENCY_RELATION
+   				,EMERGENCY_PHONE
+   		)values(
+   			 #{TEA_ID}
+ 			,#{EMERGENCY_NAME}
+ 			,#{EMERGENCY_RELATION}
+ 			,#{EMERGENCY_PHONE}	
+   		)
+   </insert>
+   
+      <insert id="insertExpMatter" parameterType="com.naver.erp.AdminDTO" >
+   		insert into Exp_Matter(
+   			EXP_NO
+   			,TEA_ID
+   			,COMPANY
+   			,SALARY
+   			,HIRE_DATE
+   			,FIRE_DATE
+   	)values(
+   			 #{EXP_NO}
+ 			,#{TEA_ID}
+ 			,#{PAST_COMPANY_NAME}
+ 			,#{salary}
+ 			,#{HIRE_DATE}
+ 			,#{FIRE_DATE}	
+   		)
+   </insert>
+   
+  <delete id = "deleteTeaInfo" parameterType="com.naver.erp.AdminDTO" >
+   			delete from teacher
+   				where tea_id=#{tea_id}
+  </delete>
+   
+  <delete id = "deleteTeaEmegency" parameterType="com.naver.erp.AdminDTO" >
+   			delete from TEA_EMERGENCY_INFO
+   				where tea_id=#{tea_id}
+  </delete>
+   
+  <delete id = "deleteExpMatter" parameterType="com.naver.erp.AdminDTO" >
+   			delete from Exp_Matter
+   				where tea_id=#{tea_id}
+  </delete>
+   
+   <!-- delete를 위한 update -->
+   <update id = "updateClass_take_charge_tea" parameterType="com.naver.erp.AdminDTO" >
+   			update class
+   				set 
+   					take_charge_tea = null
+   				where 
+   					take_charge_tea=#{tea_id}
+  </update>  
+   
+ <update id="upTeaInfo" parameterType="com.naver.erp.AdminDTO">
+   update 
+   		teacher
+   set 
+   				 TEA_PWD   = #{tea_pwd}
+          		,TEA_NAME  = #{tea_name}
+          		,JUMIN_NUM = #{tea_jumin_num1}||#{tea_jumin_num2}
+          		,TEL_NUM   = #{tea_phone}
+   where 
+   		TEA_ID=#{tea_id}	
+ </update>  
+   
+  <update id="upTeaEmegency" parameterType="com.naver.erp.AdminDTO">
+   update 
+   		TEA_EMERGENCY_INFO
+   set 
+   				EMERGENCY_NAME		= #{EMERGENCY_NAME}
+   				,EMERGENCY_RELATION = #{EMERGENCY_RELATION}
+   				,EMERGENCY_PHONE	= #{EMERGENCY_PHONE}
+   where 
+   		TEA_ID=#{tea_id}	
+ </update>   
+ 
+  <update id="upExpMatter" parameterType="com.naver.erp.AdminDTO">
+   update 
+   		Exp_Matter
+   set 
+   			TEA_ID 	   = #{TEA_ID}
+   			,COMPANY   = #{PAST_COMPANY_NAME}
+   			,SALARY    = #{salary}
+   			,HIRE_DATE = #{HIRE_DATE}
+   			,FIRE_DATE = #{FIRE_DATE}
+where 
+   		EXP_NO=#{EXP_NO}	
+ </update>    
+</mapper>

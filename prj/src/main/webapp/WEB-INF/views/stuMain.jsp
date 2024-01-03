@@ -87,7 +87,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
 			<td class="main_cate" onclick="location.replace('/??.do')">출석 현황</td>
 			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
 			<td class="main_cate" onclick="location.replace('/??.do')">시험 응시</td>
-			<td class="main_cate" onclick="location.replace('/??.do')">성적 확인</td>
+			<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적 확인</td>
           </tr>
       </table>
       <div class="welcome_user">

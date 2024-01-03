@@ -8,13 +8,13 @@ public interface AdminService {
 
 	// 강사
 	int insertTeaInfo(AdminDTO adminDTO)  throws Exception;
-	int deleteTeaInfo(String id) throws Exception;
-	int updateTeaInfo(String id) throws Exception;
+	int deleteTeaInfo(AdminDTO adminDTO) throws Exception;
+	int updateTeaInfo(AdminDTO adminDTO) throws Exception;
 
 	// 수업
 	int insertClassInfo(AdminDTO adminDTO)  throws Exception;
-	int deleteClassInfo(String id) throws Exception;
-	int updateClassInfo(String id) throws Exception;
+	int deleteClassInfo(AdminDTO adminDTO) throws Exception;
+	int updateClassInfo(AdminDTO adminDTO) throws Exception;
 }
 
 
