@@ -191,7 +191,7 @@ function saveData(){
               </div>
               <div class="company">
               <div class="flex">
-                <div>회사명/업무</div>
+                <div>회사명</div>
                 <div>연봉</div>
                 <div>입사일</div>
                 <div>퇴사일</div>

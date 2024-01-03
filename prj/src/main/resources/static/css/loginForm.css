@@ -12,14 +12,23 @@ body {
 }
 .pwd:focus,
 .mid:focus {
-  border: 1px solid #A4A4A4
+  border: 1px solid rgba(255, 150, 208, 0.271)
 }
 table {
   border-spacing: 0;
 }
+.choice {
+  position: absolute;
+  top: 29%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid lightgray;
+  background-color:white;
+  padding: 1px;
+  border-radius: 10px;
+}
 .main {
   position: absolute;
-  top: 45%; left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid lightgray;
   background-color:white;
@@ -49,17 +58,13 @@ input[type=password] {
 input[type=text] {
   margin: 0 0 5px;
 }
-.stu,
-.tea,
-.admin,
-.role_box {
+.auto_box {
+  display: flex;
   align-items: center;
   gap: 5px;
   margin: 10px 0 0;
 }
-.stuTxt,
-.teaTxt,
-.adminTxt {
+.autoTxt {
   color: dimgray;
   font-size: 14px;
 }
@@ -76,17 +81,17 @@ input[type=text] {
   transition: .25s;
 }
 .button_box > input:first-child {
-  background-color: #A4A4A4;
+  background-color: rgba(255, 150, 208, 0.271);
   color: #fff;
   margin-right: 10px;
 }
 .button_box > input:last-child {
-  border: 1px solid #A4A4A4;
+  border: 1px solid rgba(255, 150, 208, 0.271);
   color: #fff;
-  background: #A4A4A4;
+  background: rgba(255, 25, 151, 0.271);
 }
 .button_box > input:hover {
-  background-color:#A4A4A4;
+  background-color:rgba(255, 150, 208, 0.271);
   box-shadow: 0 0 10px rgba(18, 18, 32, 0.20);
   color: #fff;
 }

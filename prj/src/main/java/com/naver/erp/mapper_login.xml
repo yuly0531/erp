@@ -3,30 +3,20 @@
 
 <mapper namespace="com.naver.erp.LoginDAO">
 
-   <select id="loginIdCnt" parameterType="hashmap" resultType="int">
-        select count(*)
-        from
-        <choose>
-            <when test="role=='student'">
-                STUDENT
-            </when>
-            <when test="role=='teacher'">
-                teacher
-            </when>
-            <when test="role=='manager'">
-                manager
-            </when>
-        </choose>
-        where 1=1
-        <if test="role=='student'">
-            and STU_ID=#{mid} and STU_PWD=#{pwd}
-        </if>
-        <if test="role=='teacher'">
-            and tea_ID=#{mid} and tea_PWD=#{pwd}
-        </if>
-        <if test="role=='manager'">
-            and mana_ID=#{mid} and mana_PWD=#{pwd}
-        </if>
+   <select id="stu_LoginIdCnt" parameterType="hashmap" resultType="int">
+		select count(*) from STUDENT
+		 where STU_ID=#{stu_id} and STU_PWD=#{stu_pwd}
+			
    </select>
+   
+<select id="tea_LoginIdCnt" parameterType="hashmap" resultType="int">
+		select count(*) from Teacher
+		 where tea_ID=#{tea_id} and tea_PWD=#{tea_pwd}
+	</select>
+	
+	<select id="mana_LoginIdCnt" parameterType="hashmap" resultType="int">
+		select count(*) from MANAGER
+		 where mana_ID=#{mana_id} and mana_PWD=#{mana_pwd}
+	</select>
    
 </mapper>

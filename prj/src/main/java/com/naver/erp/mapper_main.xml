@@ -3,24 +3,18 @@
 
 <mapper namespace="com.naver.erp.MainDAO">
     
-	<select id="getStuList" resultType="java.util.Map">
-	   SELECT
-	    stu_name "stu_name"
-	FROM student
+	<select id="StudentMainList" resultType="java.util.Map">
+	   SELECT * FROM student
 	</select>
-	<select id="getTeaList" resultType="java.util.Map">
-	   SELECT
-	    tea_name "tea_name"
-	FROM teacher
+	<select id="TeacherMainList" resultType="java.util.Map">
+	   SELECT * FROM TEACHER
+	</select>
+	<select id="getManaList" resultType="java.util.Map">
+	   SELECT * FROM MANAGER
 	</select>
 	<select id="getClassList" resultType="java.util.Map">
 	   SELECT
 	    class_name "class_name"
 	FROM class
-	</select>
-	<select id="getManaList" resultType="java.util.Map">
-	   SELECT
-	    mana_name "mana_name"
-	FROM manager
 	</select>
 </mapper>
