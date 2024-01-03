@@ -25,6 +25,12 @@ public class MainController {
 		mav.setViewName("adminMain.jsp");
 		return mav;
 	}
+	@RequestMapping( value="/examList.do")
+	public ModelAndView examList(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("examList.jsp");
+		return mav;
+	}
 	@RequestMapping( value="/checkGrade.do")
 	public ModelAndView checkGrade(){
 		ModelAndView mav = new ModelAndView();

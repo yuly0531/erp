@@ -392,7 +392,7 @@ function update() {
               						<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 									<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
 									<td class="main_cate active" onclick="location.replace('/classList.do')">수업 관리</td>
-									<td class="main_cate" onclick="location.replace('/gyeoljaeList.do')">결재 관리</td>
+									<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
 								</tr>
 							</table>
 							<div class="welcome_user">
