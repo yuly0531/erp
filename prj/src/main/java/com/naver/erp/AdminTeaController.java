@@ -27,14 +27,14 @@ public class AdminTeaController {
 
 	
 	// 강사 관리(리스트) 접속, 검색
-	@RequestMapping( value="/teaList.admin.do")
-	public ModelAndView searchFreeDev(
+	@RequestMapping( value="/teaList.do")
+	public ModelAndView teaList(
 			AdminDTO adminDTO
 			,HttpSession session
 	){
 		Map<String,Object> teaListMap = getTeaListMap( adminDTO );
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName( "teaListAdmin.jsp" );
+		mav.setViewName( "teaList.jsp" );
 		mav.addObject(   "teaListMap" , teaListMap     );
 		
 		return  mav;
@@ -83,25 +83,24 @@ public class AdminTeaController {
 
 	// 강사 상세 정보
 	@RequestMapping(
-		 value="/teaDetail.admin.do",
+		 value="/teaDetail.do",
 		 method = RequestMethod.POST,
 		 produces ="application/json;charset=UTF-8"
 	)
 	@ResponseBody
 	public Map<String, Object> teaDetail(
-			AdminDTO adminDTO,
-			@RequestParam(value="tea_no") String tea_no
+			AdminDTO adminDTO
 	){
 
-		Map<String, Object> teaDetailMap = getTeaDetailMap( tea_no );
+		Map<String, Object> teaDetailMap = getTeaDetailMap( adminDTO );
 		return teaDetailMap;
 	}
 
-	public Map<String, Object> getTeaDetailMap(String tea_no){
+	public Map<String, Object> getTeaDetailMap(AdminDTO adminDTO){
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, String>> teaList;
 		
-		teaList = this.adminDAO.getTeaDetailInfo(tea_no);
+		teaList = this.adminDAO.getTeaDetailInfo(adminDTO);
 
 		resultMap.put("teaList", teaList);
 		
@@ -110,7 +109,7 @@ public class AdminTeaController {
  
 	// 강사 삭제
 	@RequestMapping(
-			value="/deleteTeaInfo.admin.do"
+			value="/deleteTeaInfo.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
@@ -132,7 +131,7 @@ public class AdminTeaController {
  
 	// 강사 수정
 	@RequestMapping(
-			value="/updateTeaInfo.admin.do"
+			value="/updateTeaInfo.do"
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 			)
@@ -155,7 +154,7 @@ public class AdminTeaController {
 	
 	// 강사 등록
 	@RequestMapping(
-			value="/registTeaProc.admin.do" 
+			value="/registTeaProc.do" 
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 	)

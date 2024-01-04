@@ -71,23 +71,28 @@
   };
    
     
-function init(){
-  var formObj = $("[name='freelancerRegForm']");   
+function init(){  
 }
 
-function saveData(){
+function goTeaListForm(){
+    document.teaListForm.submit();
+}
+
+function save(){
+	var formObj = $("[name='teaRegForm']"); 
      
-   ajax(
-      "/registFreeDevProc.do"
+   	ajax(
+      "/registTeaProc.do"
       ,"post"
       ,formObj
       ,function(responseJson){
-         if(freelancerRegCnt>=1) {
-            alert("프리랜서 정보가 등록되었습니다.");
-            goFreelancerSearchForm();
+    	  var teaRegCnt = responseJson["teaRegCnt"];
+         if(teaRegCnt>=1) {
+            alert("강사 정보가 등록되었습니다.");
+            goTeaListForm();
          }
          else{
-            alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
+            alert("강사 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
          }
     });
   }
@@ -120,7 +125,7 @@ function saveData(){
       
     </div>
   </form>
-   <form name="freelancerRegForm" class="boardForm">
+   <form name="teaRegForm" class="boardForm">
     <header>
       <div>강사 등록</div>
     </header>
@@ -129,11 +134,11 @@ function saveData(){
       <div class="dev_user">
                     <td>아이디</td>
                     <td>
-                        <input type="text" name="id" maxlength="20">
+                        <input type="text" name="tea_id" maxlength="20">
                     </td>
                <td>암호</td>
                     <td>
-                        <input type="password" name="pwd" maxlength="20"> 
+                        <input type="password" name="tea_pwd" maxlength="20"> 
                     </td>
                     <td>암호확인</td>
                     <td colspan="2">
@@ -143,18 +148,18 @@ function saveData(){
              <div> 
                     <td>이름</td>
                     <td>
-                        <input type="text" name="name"> 
+                        <input type="text" name="tea_name"> 
                     </td>
                     <td>주민번호</td>
                     <td>
-                        <input type="text" name="jumin_num1" maxlength="6">-
-                        <input type="text" name="jumin_num2" maxlength="7">
+                        <input type="text" name="tea_jumin_num1" maxlength="6">-
+                        <input type="text" name="tea_jumin_num2" maxlength="7">
                     </td>
                     </div>
                     <div>
                     <td>핸드폰</td>
                     <td colspan="2">
-                        <input type="text" name="phone" maxlength="11"> (-없이 입력)
+                        <input type="text" name="tea_phone" maxlength="11"> (-없이 입력)
                     </td>
                 </div>
             
@@ -163,7 +168,7 @@ function saveData(){
                  </div>
                  <div>
                     <td>연락 받을 사람 이름 :&nbsp;
-                        <input type="text" name="emergency_name" size="10"> 
+                        <input type="text" name="tea_emergency_name" size="10"> 
                     </td>
                  </div>
                  <div>
@@ -171,7 +176,7 @@ function saveData(){
                         관계 :
                     </td>
                     <td>
-                        <select name="emergency_relation">
+                        <select name="tea_emergency_relation">
                             <option value=""></option>
                             <option value="1">부모</option>
                             <option value="2">자식</option>
@@ -184,7 +189,7 @@ function saveData(){
                     <div>
                     <td>전화번호 :</td>
                     <td>
-                        <input type="tel" name="emergency_phone"  maxlength="11"> 
+                        <input type="tel" name="tea_emergency_phone"  maxlength="11"> 
                     </td>
                 </div> 
 		    <div class="category">회사 경력
@@ -211,7 +216,7 @@ function saveData(){
      	      <div>
 		        <tr>
 		          <th>담당 수업 : </th>
-		          <select name="joinClass">
+		          <select name="tea_joinClass">
 		             <option value=""></option>
 		             <option value="1">어쩌구</option>
 		             <option value="2">어쩌구</option>
@@ -222,11 +227,11 @@ function saveData(){
 		      </div>
 		      <div>
 		        <div>기타</div>
-		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
+		        <textarea name="tea_etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
 		      </div>  
     <span onclick="location.replace('/teaList.do')" name="cancel" class="cancel">취소</span>
-    <span onclick="saveData();" name="save" class="save">저장</span>
+    <span onclick="save();" name="save" class="save">저장</span>
    </form>
-  <form name="freelancerSearchForm" class="no dumP_form" method="post" action="/searchFreeDev.do"></form>
+  <form name="teaListForm" class="no dumP_form" method="post" action="/teaList.do"></form>
 </body>
 </html>

@@ -31,10 +31,20 @@ public interface AdminDAO {
 	int getTeaListCnt(AdminDTO adminDTO);
 	int getTeaListCntAll();
 	List<Map<String,String>> getTeaList(AdminDTO adminDTO);
-	List<Map<String,String>> getTeaDetailInfo(String id);
+	List<Map<String,String>> getTeaDetailInfo(AdminDTO adminDTO);
+	
 	int insertTeaInfo(AdminDTO adminDTO);
+	int insertTeaEmegency(AdminDTO adminDTO);
+	int insertExpMatter(AdminDTO adminDTO);
+	
+	int updateClass_take_charge_tea(AdminDTO adminDTO);
+	int deleteExpMatter(AdminDTO adminDTO);
+	int deleteTeaEmegency(AdminDTO adminDTO);
 	int deleteTeaInfo(AdminDTO adminDTO);
+
 	int updateTeaInfo(AdminDTO adminDTO);
+	int upTeaEmegency(AdminDTO adminDTO);
+	int upExpMatter(AdminDTO adminDTO);
 
 	// 수업
 	int getClassListCnt(AdminDTO adminDTO);

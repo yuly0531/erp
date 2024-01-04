@@ -56,6 +56,8 @@ public class AdminServiceImpl implements AdminService{
 		int teaRegCnt  = 0;
 		// insert 테이블이 여러 개 나오면 추후 더 추가
 		teaRegCnt = this.adminDAO.insertTeaInfo(adminDTO);
+		teaRegCnt = this.adminDAO.insertTeaEmegency(adminDTO);
+		teaRegCnt = this.adminDAO.insertExpMatter(adminDTO);
 		
 		return teaRegCnt;
 	}
@@ -65,6 +67,9 @@ public class AdminServiceImpl implements AdminService{
 	public int deleteTeaInfo(AdminDTO adminDTO) {
 		int deleteTeaCnt = 0;
 		// delete 테이블이 여러 개 나오면 추후 더 추가
+		deleteTeaCnt = this.adminDAO.updateClass_take_charge_tea(adminDTO);
+		deleteTeaCnt = this.adminDAO.deleteExpMatter(adminDTO);
+		deleteTeaCnt = this.adminDAO.deleteTeaEmegency(adminDTO);
 		deleteTeaCnt = this.adminDAO.deleteTeaInfo(adminDTO);
 		
 		return deleteTeaCnt;
@@ -76,6 +81,8 @@ public class AdminServiceImpl implements AdminService{
 		int updateTeaCnt = 0;
 		// update 테이블이 여러 개 나오면 추후 더 추가
 		updateTeaCnt = this.adminDAO.updateTeaInfo( adminDTO );
+		updateTeaCnt = this.adminDAO.upTeaEmegency( adminDTO );
+		updateTeaCnt = this.adminDAO.upExpMatter( adminDTO );
 		
 		return updateTeaCnt;
 	}

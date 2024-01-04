@@ -36,6 +36,21 @@
             where e.tea_id = teacher.tea_id),0)   "경력"  
     from teacher
           where 1=1 
+          <!-- 여유있으면 여기 검색조건 걸러낼 where 절 짜보기 . DTO도 만져야해! jsp 검색조건들 name 값 넣어야해 DTO에서-->
+    </select> 
+    
+    <select id="getTeaDetailInfo" parameterType="com.naver.erp.AdminDTO" resultType="java.util.Map" >
+	   <!--  이 mapper는 팝업 떴을 때 데이터 불러오는 구문. 팝업 다 채울수있게 해줘. 기본 베이스는 다했으니까
+	    긴급 연락처, 경력에서 데이터 볼수있게 추가해줘 -->
+	     select
+              tea_id                                                "tea_id"
+              ,tea_pwd                                                "tea_pwd"
+              ,tea_name                                                "tea_name"
+              ,substr(jumin_num,1,6)          					   "jumin_num1"
+              ,substr(jumin_num,7)									"jumin_num2"
+              ,tel_num                                             "tel_num" 
+         from teacher t
+         where tea_id = #{tea_id}
     </select> 
 
    <insert id="insertTeaInfo" parameterType="com.naver.erp.AdminDTO" >
@@ -45,14 +60,17 @@
           		,TEA_NAME
           		,JUMIN_NUM
           		,TEL_NUM
+          		,etc
       ) values( 
       		#{tea_id}
       		,#{tea_pwd}
       		,#{tea_name}
       		,#{tea_jumin_num1}||#{tea_jumin_num2}
       		,#{tea_phone}	
+      		,#{tea_etc}
        	)   	
    </insert> 
+   
    
    <insert id="insertTeaEmegency" parameterType="com.naver.erp.AdminDTO" >
    	 insert into TEA_EMERGENCY_INFO	(	
@@ -61,10 +79,10 @@
    				,EMERGENCY_RELATION
    				,EMERGENCY_PHONE
    		)values(
-   			 #{TEA_ID}
- 			,#{EMERGENCY_NAME}
- 			,#{EMERGENCY_RELATION}
- 			,#{EMERGENCY_PHONE}	
+   			 #{tea_id}
+ 			,#{tea_emergency_name}
+ 			,#{tea_emergency_relation}
+ 			,#{tea_emergency_phone}	
    		)
    </insert>
    
@@ -77,12 +95,13 @@
    			,HIRE_DATE
    			,FIRE_DATE
    	)values(
-   			 #{EXP_NO}
- 			,#{TEA_ID}
- 			,#{PAST_COMPANY_NAME}
- 			,#{salary}
- 			,#{HIRE_DATE}
- 			,#{FIRE_DATE}	
+   			 
+         	(select nvl(max(to_number(exp_no)),0)+1 from Exp_Matter)
+ 			,#{tea_id}
+ 			,#{past_company_name}
+ 			,${salary}
+ 			,to_date('${hire_date}-01','yyyy-mm-dd')
+ 			,to_date('${fire_date}-01','yyyy-mm-dd')
    		)
    </insert>
    
@@ -118,6 +137,7 @@
           		,TEA_NAME  = #{tea_name}
           		,JUMIN_NUM = #{tea_jumin_num1}||#{tea_jumin_num2}
           		,TEL_NUM   = #{tea_phone}
+          		,etc   	   = #{tea_etc}
    where 
    		TEA_ID=#{tea_id}	
  </update>  
@@ -126,9 +146,9 @@
    update 
    		TEA_EMERGENCY_INFO
    set 
-   				EMERGENCY_NAME		= #{EMERGENCY_NAME}
-   				,EMERGENCY_RELATION = #{EMERGENCY_RELATION}
-   				,EMERGENCY_PHONE	= #{EMERGENCY_PHONE}
+   				EMERGENCY_NAME		= #{tea_emergency_name}
+   				,EMERGENCY_RELATION = #{tea_emergency_relation}
+   				,EMERGENCY_PHONE	= #{tea_emergency_phone}
    where 
    		TEA_ID=#{tea_id}	
  </update>   
@@ -137,12 +157,12 @@
    update 
    		Exp_Matter
    set 
-   			TEA_ID 	   = #{TEA_ID}
-   			,COMPANY   = #{PAST_COMPANY_NAME}
+   			TEA_ID 	   = #{tea_id}
+   			,COMPANY   = #{past_company_name}
    			,SALARY    = #{salary}
-   			,HIRE_DATE = #{HIRE_DATE}
-   			,FIRE_DATE = #{FIRE_DATE}
+   			,HIRE_DATE = #{hire_date}
+   			,FIRE_DATE = #{fire_date}
 where 
-   		EXP_NO=#{EXP_NO}	
+   		TEA_ID=#{tea_id}	
  </update>    
 </mapper>

@@ -78,7 +78,6 @@ function saveData(){
 
  	var formObj = $("[name='registClassForm']"); 
  	
-   // 이 부분 소민언니 구현  
    ajax(
       "/registClassProc.admin.do"
       ,"post"

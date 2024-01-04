@@ -88,12 +88,6 @@ public class MainController {
 		mav.setViewName("registExample.jsp");
 		return mav;
 	}
-	@RequestMapping( value="/teaList.do")
-	public ModelAndView teaList(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("teaList.jsp");
-		return mav;
-	}
 	@RequestMapping( value="/dayOff.do")
 	public ModelAndView dayOff(){
 		ModelAndView mav = new ModelAndView();
@@ -130,27 +124,25 @@ public class MainController {
 	public ModelAndView registStu(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registStu.jsp");
-		return mav;}
+		return mav;
+	}
 	
 	@RequestMapping( value="/registTea.do")
-		public ModelAndView registTea(
-				){
-					ModelAndView mav = new ModelAndView();
-					mav.setViewName("registTea.jsp");
-					return mav;}
+	public ModelAndView registTea(
+			){
+				ModelAndView mav = new ModelAndView();
+				mav.setViewName("registTea.jsp");
+				return mav;
+	}
 	@RequestMapping( value="/registClass.do")
 	public ModelAndView registClass( 
 			){
 				ModelAndView mav = new ModelAndView();
 				mav.setViewName("registClass.jsp");
-				return mav;}
+				return mav;
+	}
 	
-	@RequestMapping( value="/gyeoljaeRegForm.do")
-	public ModelAndView gyeoljaeRegForm( 
-			){
-				ModelAndView mav = new ModelAndView();
-				mav.setViewName("gyeoljaeRegForm.jsp");
-				return mav;}
+
 	
 }
 
