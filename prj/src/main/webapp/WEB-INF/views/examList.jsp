@@ -101,70 +101,28 @@ function goGyeoljaeDetailForm(gyeoljae_num){
       
     </div>
   </form>
-  <div class="middle">
-      <div class="main_info">
-        <div class="notice_box">
-          <div class="box_title">출석 현황 
-            <div class="doc_more more" style="cursor: pointer;" onclick="location.replace('/??.do')">
-              <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            </div>
-          </div>
+  <form name="examList" class="examList">
+  <div class="main">
+          <div class="box_exam_list">
+            <div class="doc_more" style="cursor: pointer;" onclick="location.replace('/??.do')">
+              시험 이름 EL <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+              </div>
           <div class="list">
-	          <form name="boardSearchForm" class="boardForm">
-	            <span  style="display:none;" class="searchResultCnt" >
-	          	</span>
-	          </form>
+          대충 시험 정보
           </div>
         </div>
-        
-        <div class="document_box">
-          <div class="box_title">수업 참여율
-            <div class="notice_more more" onclick="location.replace('/??.do')">
-              <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            </div>
-          </div>
+        </div>
+         <div class="main">
+          <div class="box_exam_list">
+            <div class="doc_more" style="cursor: pointer;" onclick="location.replace('/??.do')">
+              시험 이름 EL <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+              </div>
           <div class="list">
-           <form name="gyeoljaeSearchForm" class="boardForm" action="hh">
-           	<span class="searchResultCnt" style="display:none;">
-         	</span>  
-           </form>
+          대충 시험 정보
           </div>
         </div>
         </div>
-      <div class="main_info">
-        <div class="document_box">
-          <div class="box_title">시험 정보
-            <div class="notice_more more" onclick="location.replace('/??.do')">
-              <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div class="list">
-           <form name="gyeoljaeSearchForm" class="boardForm" action="hh">
-           	<span class="searchResultCnt" style="display:none;">
-         	</span>  
-           </form>
-          </div>
-        </div>
-        <div class="document_box">
-          <div class="box_title">휴가 신청 현황
-            <div class="notice_more more" onclick="location.replace('/dayOff.do')">
-              <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div class="list">
-           <form name="gyeoljaeSearchForm" class="boardForm" action="hh">
-           	<span class="searchResultCnt" style="display:none;">
-         	</span>  
-           </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <form name="boardDetailForm" action="/boardDetailForm.do" post="post">
-     <input type="hidden" name="b_no">
-    </form>
-    <form name="gyeoljaeDetailForm" action="/gyeoljaeDetailForm.do" post="post">
-     <input type="hidden" name="gyeoljae_num">
+      
     </form>
   
 </body>

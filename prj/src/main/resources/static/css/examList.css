@@ -6,7 +6,7 @@ textarea {
 }
 body {
   padding: 0; margin: 0;
-  font-size: 12px;
+  font-size: 15px;
   height: 100vh;
 }
 * {
@@ -228,9 +228,29 @@ body > form:last-of-type {
   border-radius: 3px;
   padding: 5px 10px;
 }
+.main > div {
+    background: #fff;
+    border-radius: 7px;
+    padding:10px;
+    width: 97%;
+    height: 200px;
+    box-shadow: 0 0 10px rgb(0 , 0, 0, .05);
+    overflow: hidden;
+    margin: 10px;
+}
+.main > div > div {
+	padding:10px;
+}
 .line {
   display: block;
   border-bottom: 1px solid lightgray;
   background: lightgray;
   margin: 10px 0;
+}
+.examList{
+	background: #F2F2F2;
+}
+.box_exam_list > .doc_more{
+  border-bottom: 2px solid lightgray;
+  
 }
