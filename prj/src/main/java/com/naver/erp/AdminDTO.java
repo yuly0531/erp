@@ -50,6 +50,12 @@ public class AdminDTO {
    private String fire_date;
    private String tea_joinClass;
    private String tea_etc;
+   // -----------------------------------------
+
+   // 강사 검색 ----------------------------------
+   private String min_career;
+   private String max_career;
+   // -----------------------------------------
    
    // 수업 -------------------------------------
    private String class_id;
@@ -351,49 +357,62 @@ public class AdminDTO {
    public void setTea_etc(String tea_etc) {
       this.tea_etc = tea_etc;
    }
-public String getKeyword1() {
-	return keyword1;
-}
-public void setKeyword1(String keyword1) {
-	System.out.println(keyword1);
-	this.keyword1 = keyword1;
-}
-public String getKeyword2() {
-	return keyword2;
-}
-public void setKeyword2(String keyword2) {
-	this.keyword2 = keyword2;
-}
-public String getOrand() {
-	return orand;
-}
-public void setOrand(String orand) {
-	this.orand = orand;
-}
-public String getMin_start_date() {
-	return min_start_date;
-}
-public void setMin_start_date(String min_start_date) {
-	this.min_start_date = min_start_date;
-}
-public String getMax_start_date() {
-	return max_start_date;
-}
-public void setMax_start_date(String max_start_date) {
-	this.max_start_date = max_start_date;
-}
-public String getMin_end_date() {
-	return min_end_date;
-}
-public void setMin_end_date(String min_end_date) {
-	this.min_end_date = min_end_date;
-}
-public String getMax_end_date() {
-	return max_end_date;
-}
-public void setMax_end_date(String max_end_date) {
-	this.max_end_date = max_end_date;
-} 
+	   
+	public String getMin_career() {
+		return min_career;
+	}
+	public void setMin_career(String min_career) {
+		this.min_career = min_career;
+	}
+	public String getMax_career() {
+		return max_career;
+	}
+	public void setMax_career(String max_career) {
+		this.max_career = max_career;
+	}
+	public String getKeyword1() {
+		return keyword1;
+	}
+	public void setKeyword1(String keyword1) {
+		System.out.println(keyword1);
+		this.keyword1 = keyword1;
+	}
+	public String getKeyword2() {
+		return keyword2;
+	}
+	public void setKeyword2(String keyword2) {
+		this.keyword2 = keyword2;
+	}
+	public String getOrand() {
+		return orand;
+	}
+	public void setOrand(String orand) {
+		this.orand = orand;
+	}
+	public String getMin_start_date() {
+		return min_start_date;
+	}
+	public void setMin_start_date(String min_start_date) {
+		this.min_start_date = min_start_date;
+	}
+	public String getMax_start_date() {
+		return max_start_date;
+	}
+	public void setMax_start_date(String max_start_date) {
+		this.max_start_date = max_start_date;
+	}
+	public String getMin_end_date() {
+		return min_end_date;
+	}
+	public void setMin_end_date(String min_end_date) {
+		this.min_end_date = min_end_date;
+	}
+	public String getMax_end_date() {
+		return max_end_date;
+	}
+	public void setMax_end_date(String max_end_date) {
+		this.max_end_date = max_end_date;
+	} 
 
    
 }
