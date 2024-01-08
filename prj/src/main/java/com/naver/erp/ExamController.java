@@ -32,6 +32,9 @@ public class ExamController {
 			ExamDTO examDTO
 			,HttpSession session
 	){
+		String tea_id = (String) session.getAttribute("mid");
+	    examDTO.setTea_id(tea_id);
+	    
 		Map<String,Object> examListMap = getExamListMap( examDTO );
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "examList.jsp" );
@@ -152,7 +155,7 @@ public class ExamController {
 	
 	// 시험 등록
 	@RequestMapping(
-			value="/registExamProc.admin.do" 
+			value="/registExamProc.do" 
 			,method=RequestMethod.POST
 			,produces="application/json;charset=UTF-8"
 	)
@@ -161,18 +164,23 @@ public class ExamController {
 			ExamDTO  examDTO
 
 	){
+	
 		Map<String,String> responseMap = new HashMap<String,String>();
 		int examRegCnt = 0;
 		
 				try{
 					examRegCnt = this.examService.insertExamInfo(examDTO);
+			
 		}
-		
 		catch(Exception ex){
 			examRegCnt = -1;
+		
 		}
 		responseMap.put("examRegCnt" , examRegCnt+"" );
+	
+		
 		return responseMap;
+		
 	}
 	
 	

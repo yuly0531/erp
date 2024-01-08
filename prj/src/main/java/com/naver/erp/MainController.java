@@ -83,7 +83,11 @@ public class MainController {
 		 }
 	
 	@RequestMapping( value="/registExample.do")
-	public ModelAndView registExample(){
+	public ModelAndView registExample(
+			ExamDTO examDTO,
+			HttpSession session){
+		String tea_id = (String) session.getAttribute("mid");
+	    examDTO.setTea_id(tea_id);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registExample.jsp");
 		return mav;

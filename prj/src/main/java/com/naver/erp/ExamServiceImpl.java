@@ -12,13 +12,16 @@ public class ExamServiceImpl implements ExamService{
  
 
 	
-	// 수업
+	// 시험
 	@Override
 	public int insertExamInfo(ExamDTO examDTO)  throws Exception {
 		int examRegCnt  = 0;
 		// insert 테이블이 여러 개 나오면 추후 더 추가
+		System.out.println("11111111111111111111111");
 		examRegCnt = this.examDAO.insertExamInfo(examDTO);
-		
+		System.out.println("22222222222222222222222");
+		examRegCnt = this.examDAO.examproblem(examDTO);
+		System.out.println("33333333333333333333333");
 		return examRegCnt;
 	}
 

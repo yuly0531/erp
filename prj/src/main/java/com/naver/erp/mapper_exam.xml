@@ -16,7 +16,109 @@
          ,#{tea_id}
        )
    </insert> 
+
+
+<insert id="examproblem" parameterType="com.naver.erp.ExamDTO">
+    INSERT ALL
+    INTO examproblem (exam_no, exam_question, exam_answer, exam_id)
+    SELECT
+        (select (nvl(max(exam_no),0)+1) from examproblem),
+        #{exam_question1}, #{exam_answer1},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+2) from examproblem),
+        #{exam_question2}, #{exam_answer2},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+3) from examproblem),
+        #{exam_question3}, #{exam_answer3},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+4) from examproblem),
+        #{exam_question4}, #{exam_answer4},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+5) from examproblem),
+        #{exam_question5}, #{exam_answer5},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+6) from examproblem),
+        #{exam_question6}, #{exam_answer6},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+7) from examproblem),
+        #{exam_question7}, #{exam_answer7},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+8) from examproblem),
+        #{exam_question8}, #{exam_answer8},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+9) from examproblem),
+        #{exam_question9}, #{exam_answer9},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+    UNION ALL
+    SELECT
+        (select (nvl(max(exam_no),0)+10) from examproblem),
+        #{exam_question10}, #{exam_answer10},
+        (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
+    FROM DUAL
+</insert>
    
+<!-- <insert id="examproblem" parameterType="com.naver.erp.ExamDTO">
+
+insert all 
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question1}, #{exam_answer1}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question2}, #{exam_answer2}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question3}, #{exam_answer3}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question4}, #{exam_answer4}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question5}, #{exam_answer5}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question6}, #{exam_answer6}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question7}, #{exam_answer7}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question8}, #{exam_answer8}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question9}, #{exam_answer9}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+    into examproblem (exam_no, exam_question, exam_answer, exam_id)
+        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question10}, #{exam_answer10}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
+select * from dual
+</insert>
+	 -->
+<!-- <insert id="examresult" parameterType="com.naver.erp.ExamDTO">
+		insert into examresult (
+		exam_id
+		, stu_id
+		, score
+		) values ( (select exam_id from exam where exam_id=#{exam_id})
+		, #{stu_id}
+		, #{score}
+		)
+	</insert> -->
+	   
  
    
    <select id="getExamListCnt" resultType="int" >

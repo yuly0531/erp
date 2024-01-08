@@ -178,12 +178,13 @@ function save(){
                     <td>
                         <select name="tea_emergency_relation">
                             <option value=""></option>
-                            <option value="1">부모</option>
-                            <option value="2">자식</option>
-                            <option value="3">형제</option>
-                            <option value="4">친척</option>
-                            <option value="5">지인</option>
-                        </select> (부모,자식,형제,친척,지인)
+                            <option value="부모">부모</option>
+                            <option value="배우자">배우자</option>
+                            <option value="자식">자식</option>
+                            <option value="형제">형제</option>
+                            <option value="친척">친척</option>
+                            <option value="지인">지인</option>
+                        </select>
                     </td>
                     </div>
                     <div>
