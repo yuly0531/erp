@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,19 +162,29 @@ public class AdminClassController {
 	)
 	@ResponseBody
 	public Map<String,String> registClassProc(  
+			@Valid
 			AdminDTO  adminDTO
+			,BindingResult bindingResult
 
 	){
 		Map<String,String> responseMap = new HashMap<String,String>();
+		String errorMsg = "";
 		int classRegCnt = 0;
 		
-				try{
-					classRegCnt = this.adminService.insertClassInfo(adminDTO);
+		try{
+			errorMsg = Util.getErrorMsgFromBindingResult(bindingResult);
+			if( errorMsg!=null && errorMsg.length()>0 ) {
+				classRegCnt = -21;
+			}
+			else {
+			classRegCnt = this.adminService.insertClassInfo(adminDTO);
+			}
 		}
 		
 		catch(Exception ex){
 			classRegCnt = -1;
 		}
+		responseMap.put("errorMsg", errorMsg);
 		responseMap.put("classRegCnt" , classRegCnt+"" );
 		return responseMap;
 	}

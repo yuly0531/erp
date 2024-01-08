@@ -84,9 +84,13 @@ function saveData(){
       ,formObj
       ,function(responseJson){
     	  var classRegCnt = responseJson["classRegCnt"];
+     	  var errorMsg = responseJson["errorMsg"];
          if(classRegCnt>=1) {
             alert("수업 정보가 등록되었습니다.");
             goClassListForm();
+         }
+         else if(classRegCnt==-21){
+        	 alert(errorMsg);
          }
          else{
             alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
