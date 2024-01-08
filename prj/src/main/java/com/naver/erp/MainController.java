@@ -48,39 +48,13 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping( value="/mark.do")
-	public ModelAndView mark(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("mark.jsp");
-		return mav;
-	}
 	@RequestMapping( value="/teaMain.do")
 	public ModelAndView teaMain(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("teaMain.jsp");
 		return mav;
 	}
-	@RequestMapping( value="/studentMain.do")
-	public ModelAndView studentMain(
-	){
-		Map<String, Object> studentMainMap = StudentMainList();
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("studentMain.jsp");
-	    mav.addObject("studentMainMap", studentMainMap);
-		return mav;}
 	
-
-	   public Map<String, Object> StudentMainList() {
-		 Map<String, Object> resultMap = new HashMap<String, Object>();
-		 List<Map<String, String>> StudentMainMap; 
-		 
-		 
-		 StudentMainMap = this.mainDAO.StudentMainList();
-		 
-		 resultMap.put("studentMainMap", StudentMainMap); 
-
-		 return resultMap; 
-		 }
 	
 	@RequestMapping( value="/registExample.do")
 	public ModelAndView registExample(

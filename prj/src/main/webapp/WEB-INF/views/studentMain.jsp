@@ -7,20 +7,51 @@
 <title>학생페이지</title>
 <link href="css/stuList.css" rel="stylesheet">
 <link rel="stylesheet" href="/js/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/main.min.js"></script>
  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <script>
+$(function(){  })
+/*
+function search(){
+		
+			ajax(
+					"/studentMain.do"
+						,"post"
+						,$("[name='CalendarForm']")
+						,function(responseHtml){
+						alert(responseHtml);
+					})
+};*/
+
 document.addEventListener('DOMContentLoaded', function() {
+	
     var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
+    	var calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'UTC',
+            initialView: 'dayGridMonth',
+            events:[ 
+                {
+                	<c:forEach var="calendar" items="${selectCalendarMap.selectCalendar}" varStatus="vs">
+    				title:"${calendar.stu_name}"+"${calendar.attend_status}",
+                    start:"${calendar.attend_date}",
+                	</c:forEach>
+                }
+            ],
+            editable: true
+        });
+        calendar.render();
     });
-    calendar.render();
-  });
+function init(){ 
+	
+	
+	
+}
+
+ 
 </script>
-<html>
 		<body>
 				<form name="stuSearch" class="header">
 						<div class="header_box">
@@ -40,10 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
 							</table>
 							<div class="welcome_user">
 								<div>
-									
-							<div class="welcome_name">로그아웃</div>
-							
-									</div>
+									<div class="welcome_name" onclick="location.replace('/loginForm.do')">로그아웃</div>
+								</div>
 								<div class="logout_btn" onclick="location.replace('/loginForm.do')"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
 							</div>
 							<br>
@@ -51,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			</form>
 
 			<div onscroll="checkScroll(this)">
-				<form name="searchstuDevForm" class="boardForm">
+				<form name="CalendarForm" class="boardForm">
 					<header>
 					🌈반갑습니다 ${stu_id}님
 					</header>
@@ -71,6 +100,18 @@ document.addEventListener('DOMContentLoaded', function() {
 				</form>			
 			</div>
 </body>
+<script>
+var ATTEND_DATE = [];
+<c:forEach var="map" items="${getCalendar.selectCalendarList}" varStatus="vs">
+ATTEND_DATE.push("${map}")
+</c:forEach>
 
+var ATTEND_STATUS = [];
+<c:forEach var="map" items="${getCalendarMap.selectCalendarList}" varStatus="vs">
+
+ATTEND_STATUS.push("${map.ATTEND_STATUS}")
+
+</c:forEach>
+</script>
 
 </html>
