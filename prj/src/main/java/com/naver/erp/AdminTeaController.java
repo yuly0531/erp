@@ -36,7 +36,6 @@ public class AdminTeaController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "teaList.jsp" );
 		mav.addObject(   "teaListMap" , teaListMap     );
-		
 		return  mav;
 	}
 	
@@ -91,7 +90,6 @@ public class AdminTeaController {
 	public Map<String, Object> teaDetail(
 			AdminDTO adminDTO
 	){
-
 		Map<String, Object> teaDetailMap = getTeaDetailMap( adminDTO );
 		return teaDetailMap;
 	}
@@ -101,7 +99,6 @@ public class AdminTeaController {
 		List<Map<String, String>> teaList;
 		
 		teaList = this.adminDAO.getTeaDetailInfo(adminDTO);
-
 		resultMap.put("teaList", teaList);
 		
 		return resultMap;
@@ -166,8 +163,8 @@ public class AdminTeaController {
 		Map<String,String> responseMap = new HashMap<String,String>();
 		int teaRegCnt = 0;
 		
-				try{
-					teaRegCnt = this.adminService.insertTeaInfo(adminDTO);
+		try{
+			teaRegCnt = this.adminService.insertTeaInfo(adminDTO);
 		}
 		
 		catch(Exception ex){

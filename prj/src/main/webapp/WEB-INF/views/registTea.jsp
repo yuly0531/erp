@@ -78,6 +78,16 @@ function goTeaListForm(){
     document.teaListForm.submit();
 }
 
+/*	유효성 체크 추가
+ 	function checkTeaRegForm(){
+	var formObj = $("[name='teaRegForm']");
+		if( !checkTea_id(formObj.find("[name='tea_id']"))  ) { return; }
+	} */
+
+
+
+
+
 function save(){
 	var formObj = $("[name='teaRegForm']"); 
      
@@ -179,12 +189,11 @@ function save(){
                         <select name="tea_emergency_relation">
                             <option value=""></option>
                             <option value="부모">부모</option>
-                            <option value="배우자">배우자</option>
                             <option value="자식">자식</option>
                             <option value="형제">형제</option>
                             <option value="친척">친척</option>
                             <option value="지인">지인</option>
-                        </select>
+                        </select> (부모,자식,형제,친척,지인)
                     </td>
                     </div>
                     <div>

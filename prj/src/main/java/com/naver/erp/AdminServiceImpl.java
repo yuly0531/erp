@@ -58,10 +58,8 @@ public class AdminServiceImpl implements AdminService{
 		teaRegCnt = this.adminDAO.insertTeaInfo(adminDTO);
 		teaRegCnt = this.adminDAO.insertTeaEmegency(adminDTO);
 		teaRegCnt = this.adminDAO.insertExpMatter(adminDTO);
-		
 		return teaRegCnt;
 	}
-
 
 	@Override
 	public int deleteTeaInfo(AdminDTO adminDTO) {
@@ -83,7 +81,6 @@ public class AdminServiceImpl implements AdminService{
 		updateTeaCnt = this.adminDAO.updateTeaInfo( adminDTO );
 		updateTeaCnt = this.adminDAO.upTeaEmegency( adminDTO );
 		updateTeaCnt = this.adminDAO.upExpMatter( adminDTO );
-		
 		return updateTeaCnt;
 	}
 

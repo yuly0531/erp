@@ -3,11 +3,97 @@
 
 <mapper namespace="com.naver.erp.AdminDAO">
 
+
+<sql id="teaListWhere">
+
+<if test="(keyword1!=null and keyword1.length()>0) or (keyword2!=null and keyword2.length()>0)">
+               and(
+    </if>
+	
+	 <if test="keyword1!=null and keyword1.length()>0">
+        (upper(tea_name) LIKE upper('%${keyword1}%')
+        	OR
+        upper(tel_num) LIKE upper('%${keyword1}%')
+        )
+   </if>
+ 	<if test="(keyword1!=null and keyword1.length()>0) and (keyword2!=null and keyword2.length()>0)">
+    	${orand}
+    </if>
+   
+	<if test="keyword2!=null and keyword2.length()>0">
+        (upper(tea_name) LIKE upper('%${keyword2}%')
+        	OR
+        upper(tel_num) LIKE upper('%${keyword2}%')
+        )
+   </if>
+   <if test="(keyword1!=null and keyword1.length()>0) or (keyword2!=null and keyword2.length()>0)">
+   	)
+   </if>
+
+
+  <if test="min_regist_date!=null and min_regist_date.length()>0 and max_regist_date!=null and max_regist_date.length()>0">
+	and
+	regist_date between to_date(#{min_regist_date}, 'yyyy-mm-dd') and to_date('${max_regist_date} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+  </if>
+  <if test="min_regist_date!=null and min_regist_date.length()>0">
+	 and
+	regist_date >= to_date(#{min_regist_date}, 'yyyy-mm-dd')
+ </if>
+     	
+     	<if test="min_career!=null and min_career.length()>0 and max_career!=null and max_career.length()>0">
+     	 and
+     	 	nvl(( select round((fire_date-hire_date)/365)
+         from exp_matter e
+            where e.tea_id = teacher.tea_id),0) between ${min_career} and ${max_career}  
+     	</if>
+     	
+     	<if test="min_career!=null and min_career.length()>0">
+     	 and
+     	 	nvl(( select round((fire_date-hire_date)/365)
+         from exp_matter e
+            where e.tea_id = teacher.tea_id),0) >= ${min_career} 
+     	</if>
+     	
+     	
+     	
+     	<if test="min_age!=null and min_age.length()>0 and max_age!=null and max_age.length()>0">
+		     and
+		     to_number(to_char(sysdate,'yyyy'))-
+			 to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2)) +1
+			 between ${min_age} and ${max_age}
+     	</if>
+     	
+     	<if test="min_age!=null and min_age.length()>0">
+		     and
+		     to_number(to_char(sysdate,'yyyy'))-
+			 to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2)) +1
+			 >= ${min_age}
+     	</if>
+     	<if test="gender!= null and gender.size()!=2 and gender.size()==1 and gender[0]==1">
+         and
+          ((substr(jumin_num, 7, 1) = 1) or (substr(jumin_num, 7, 1) = 3))
+		</if>    
+		<if test="gender!= null and gender.size()!=2 and gender.size()==1 and gender[0]==2">
+		   and
+		    ((substr(jumin_num, 7, 1) = 2) or (substr(jumin_num, 7, 1) = 4))
+		</if>
+	</sql>
+
+
 <select id="getTeaListCnt" resultType="int" >
 	     select
 	       count(*)
          from teacher
          where 1=1
+         <include refid="teaListWhere"/>
     </select> 
 
 <select id="getTeaListCntAll" resultType="int" >
@@ -20,7 +106,6 @@
 	    select
         tea_id           "tea_id"
         ,tea_name        "tea_name"
-        ,tel_num         "tel_num"
         ,to_number(to_char(sysdate,'yyyy'))
         -
         to_number(case substr(jumin_num,7,1)
@@ -28,32 +113,42 @@
                 when '2' then '19'
                 else '20'
             end||substr(jumin_num,1,2)) 
-            +1||'세' "tea_age"
+            +1||'세' 					"tea_age"
         ,decode(substr(jumin_num,7,1)
           ,'1', '남','2','여','3','남','4','여') "tea_gender"   
    		,nvl(( select round((fire_date-hire_date)/365)
              from exp_matter e
-            where e.tea_id = teacher.tea_id),0)   "경력"  
+            where e.tea_id = teacher.tea_id),0)  "career" 
+        ,tel_num         "tea_phone"
+             
     from teacher
           where 1=1 
+             <include refid="teaListWhere"/>
           <!-- 여유있으면 여기 검색조건 걸러낼 where 절 짜보기 . DTO도 만져야해! jsp 검색조건들 name 값 넣어야해 DTO에서-->
     </select> 
     
     <select id="getTeaDetailInfo" parameterType="com.naver.erp.AdminDTO" resultType="java.util.Map" >
 	   <!--  이 mapper는 팝업 떴을 때 데이터 불러오는 구문. 팝업 다 채울수있게 해줘. 기본 베이스는 다했으니까
 	    긴급 연락처, 경력에서 데이터 볼수있게 추가해줘 -->
-	     select
-              tea_id                                                "tea_id"
-              ,tea_pwd                                                "tea_pwd"
-              ,tea_name                                                "tea_name"
-              ,substr(jumin_num,1,6)          					   "jumin_num1"
-              ,substr(jumin_num,7)									"jumin_num2"
-              ,tel_num                                             "tel_num" 
-         from teacher t
-         where tea_id = #{tea_id}
-    </select> 
-
-   <insert id="insertTeaInfo" parameterType="com.naver.erp.AdminDTO" >
+	  select
+          tea_id                              "tea_id"
+          ,tea_pwd                            "tea_pwd"
+          ,tea_name                           "tea_name"
+          ,substr(jumin_num,1,6)          	  "jumin_num1"
+          ,substr(jumin_num,7)				  "jumin_num2"
+          ,tel_num                            "tea_phone"
+          ,(select emergency_name from tea_emergency_info tei where tei.tea_id= t.tea_id)   	"emergency_name" 
+          ,(select emergency_relation from tea_emergency_info tei where tei.tea_id= t.tea_id)   "emergency_relation"
+          ,(select emergency_phone from tea_emergency_info tei where tei.tea_id= t.tea_id)   	"emergency_phone"     
+          ,(select company from exp_matter 	 emr where emr.tea_id= t.tea_id)    "company" 
+          ,(select salary  from exp_matter 	 emr where emr.tea_id= t.tea_id)    "salary" 
+          ,(select to_char(hire_date,'yyyy-mm') from exp_matter emr where emr.tea_id= t.tea_id) 	"hire_date"
+          ,(select to_char(fire_date,'yyyy-mm') from exp_matter emr where emr.tea_id= t.tea_id) 	"fire_date"
+          ,etc					"tea_etc"      	  
+      from teacher t
+    where tea_id = #{tea_id}
+  </select> 
+  <insert id="insertTeaInfo" parameterType="com.naver.erp.AdminDTO" >
       insert into teacher (
           		TEA_ID
           		,TEA_PWD
@@ -129,7 +224,7 @@
    					take_charge_tea=#{tea_id}
   </update>  
    
- <update id="upTeaInfo" parameterType="com.naver.erp.AdminDTO">
+ <update id="updateTeaInfo" parameterType="com.naver.erp.AdminDTO">
    update 
    		teacher
    set 
@@ -159,10 +254,10 @@
    set 
    			TEA_ID 	   = #{tea_id}
    			,COMPANY   = #{past_company_name}
-   			,SALARY    = #{salary}
-   			,HIRE_DATE = #{hire_date}
-   			,FIRE_DATE = #{fire_date}
-where 
+   			,SALARY    = ${salary}
+ 			,HIRE_DATE = to_date('${hire_date}-01','yyyy-mm-dd')
+ 			,FIRE_DATE = to_date('${fire_date}-01','yyyy-mm-dd')
+	where 
    		TEA_ID=#{tea_id}	
  </update>    
 </mapper>
