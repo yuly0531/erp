@@ -69,7 +69,6 @@ function saveData(){
       <div>시험 출제</div>
     </header>
       <div class="inform">
-      <div class="title">시험 문제 출제</div>
 	      <div class="dev_user">
 	        <div>
 	          	시험 제목 : 
@@ -85,70 +84,70 @@ function saveData(){
 	     </div>
      </div>
       	<div>
-	        <div>문제 1번</div>
+	        <div>문제 1번</div><br>
 	        	<textarea name="exam_question1" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>1번 답 : 
 	        	<input type="text" name="exam_answer1"> 
 	        </div>
           	</div>
         		<div>
-	        <div>문제 2번</div>
+	        <div>문제 2번</div><br>
 	        	<textarea name="exam_question2" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>2번 답 : 
 	        	<input type="text" name="exam_answer2"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 3번</div>
+	        <div>문제 3번</div><br>
 	        	<textarea name="exam_question3" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>3번 답 : 
 	        	<input type="text" name="exam_answer3"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 4번</div>
+	        <div>문제 4번</div><br>
 	        	<textarea name="exam_question4" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>4번 답 : 
 	        	<input type="text" name="exam_answer4"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 5번</div>
+	        <div>문제 5번</div><br>
 	        	<textarea name="exam_question5" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>5번 답 : 
 	        	<input type="text" name="exam_answer5"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 6번</div>
+	        <div>문제 6번</div><br>
 	        	<textarea name="exam_question6" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>6번 답 : 
 	        	<input type="text" name="exam_answer6"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 7번</div>
+	        <div>문제 7번</div><br>
 	        	<textarea name="exam_question7" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>7번 답 : 
 	        	<input type="text" name="exam_answer7"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 8번</div>
+	        <div>문제 8번</div><br>
 	        	<textarea name="exam_question8" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>8번 답 : 
 	        	<input type="text" name="exam_answer8"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 9번</div>
+	        <div>문제 9번</div><br>
 	        	<textarea name="exam_question9" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>9번 답 : 
 	        	<input type="text" name="exam_answer9"> 
 	        </div>
           	</div>
           	<div>
-	        <div>문제 10번</div>
+	        <div>문제 10번</div><br>
 	        	<textarea name="exam_question10" cols="10" rows="7" maxlength="300"></textarea>
 	        <div><br>10번 답 : 
 	        	<input type="text" name="exam_answer10"> 
