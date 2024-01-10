@@ -76,7 +76,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
 <body>
   <form class="header">
     <div class="header_box">
-      <div class="logo" onclick="location.replace('/teaList.do')">
+      <div class="logo" onclick="location.replace('/teaMain.do')">
         <img src="">
         <div>
           ERP
@@ -103,14 +103,17 @@ function goGyeoljaeDetailForm(gyeoljae_num){
   </form>
   <form name="examList" class="examList">
   <div class="main">
-          <div class="box_exam_list">
-            <div class="doc_more" style="cursor: pointer;" onclick="location.replace('/??.do')">
-              시험 이름 EL <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-              </div>
-          <div class="list">
-          대충 시험 정보
-          </div>
-        </div>
+	  <div class="btn" style="cursor: pointer;" onclick="location.replace('/registExample.do')">
+	  	새로운 시험 출제
+	  </div>
+	     <div class="box_exam_list">
+	        <div class="doc_more" style="cursor: pointer;" onclick="location.replace('/??.do')">
+	          시험 이름 EL <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+	          </div>
+	      <div class="list">
+	      대충 시험 정보
+	      </div>
+		</div>
         </div>
          <div class="main">
           <div class="box_exam_list">
