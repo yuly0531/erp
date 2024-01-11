@@ -122,7 +122,6 @@ function goExamDetailForm(exam_id){
          <div>출제 강사명</div>
       </div>
          <div class="SearchResult_box">
-         <div>
 <c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
       <div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
             <div>${examListMap.begin_serialNo_desc-vs.index}</div>
@@ -131,14 +130,13 @@ function goExamDetailForm(exam_id){
             <div>${examList.tea_name}</div>
          </div>
          </c:forEach>
-         </div>
    </div> 
    </div>
       
     </form>
   <div>
   <form name="examDetail" action="/examDetail.do" post="post">
-  	<input type="text" name="exam_id">
+  	<input type="hidden" name="exam_id">
   </form>
   </div>
 </body>

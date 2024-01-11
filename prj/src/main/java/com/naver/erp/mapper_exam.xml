@@ -205,7 +205,7 @@
 	       	  exam_id                           "exam_id"
 	          , exam_name                        "exam_name"
 	          ,to_char(e.exam_date,'yyyy-mm-dd')   "exam_date"
-	          , (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_id"
+	          , (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_name"
 
 	          from exam e
 	          where 1=1

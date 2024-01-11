@@ -63,8 +63,8 @@
 			</div>
 			<table>
 				<tr class="cate_box">
-          						<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
-					<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
+          			<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
+					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가신청</td>
 					<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
 					<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
 				</tr>
@@ -96,10 +96,10 @@
 			</div>
 			<table>
 				<tr class="cate_box">
-	         						<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+	         		<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 					<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
-					<td class="main_cate active" onclick="location.replace('/classList.do')">수업 관리</td>
-					<td class="main_cate" onclick="location.replace('/gyeoljaeList.do')">결재 관리</td>
+					<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
+					<td class="main_cate active" onclick="location.replace('/dayOff.do')">결재 관리</td>
 				</tr>
 			</table>
 		</c:if> 

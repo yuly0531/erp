@@ -261,3 +261,23 @@ body > form:last-of-type {
   border-bottom: 2px solid lightgray;
   
 }
+.resultCate > div, .searchDetail > div {
+    margin: 0 70px 0;
+}
+.resultCate
+ {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px 15px;
+  border-top: 3px solid #A4A4A4; 
+  border-bottom: 1px solid #A4A4A4;
+}
+.searchDetail{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align:center;
+  gap: 5px;
+  
+}

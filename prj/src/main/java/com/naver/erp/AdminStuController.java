@@ -21,6 +21,8 @@ public class AdminStuController {
 
 	@Autowired
 	private AdminDAO adminDAO;  
+	@Autowired
+	private MainDAO mainDAO;  
 
 	@Autowired
 	private AdminService adminService; 
@@ -32,12 +34,26 @@ public class AdminStuController {
 			AdminDTO adminDTO
 			,HttpSession session
 	){
+		
+		String mid;
+		if((String)session.getAttribute("stu_id")!=null) {
+			mid = (String)session.getAttribute("stu_id");
+		}
+		else if((String)session.getAttribute("tea_id")!=null) {
+			mid = (String)session.getAttribute("tea_id");
+		}
+		else {
+			mid = (String)session.getAttribute("mana_id");
+		}
+		
+		String whatRole = mainDAO.whatRole(mid);
 		Map<String,Object> stuListMap = getStuListMap( adminDTO );
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "stuList.jsp" );
 		mav.addObject(   "stuListMap" , stuListMap     );
+		mav.addObject(   "whatRole" , whatRole     );
 		
-		return  mav;
+		return mav;
 	}
 	
 	// 학생 리스트 불러오는 메소드
