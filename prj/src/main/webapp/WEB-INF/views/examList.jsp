@@ -69,6 +69,14 @@ function goGyeoljaeDetailForm(gyeoljae_num){
    document.gyeoljaeDetailForm.submit();
 }
 
+function goExamDetailForm(exam_id){
+	$("[name='examDetail'] [name='exam_id']").val(exam_id);
+	document.examDetail.submit();
+}
+
+
+
+
 </script>
 
 <title>시험 목록</title>
@@ -76,7 +84,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
 <body>
   <form class="header">
     <div class="header_box">
-      <div class="logo" onclick="location.replace('/teaMain.do')">
+      <div class="logo" onclick="location.replace('/teaList.do')">
         <img src="">
         <div>
           ERP
@@ -87,7 +95,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
          <td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
          <td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
          <td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
-         <td class="main_cate" onclick="location.replace('/registExample.do')">시험 출제</td>
+         <td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
          <td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
       </table>
@@ -103,30 +111,35 @@ function goGyeoljaeDetailForm(gyeoljae_num){
   </form>
   <form name="examList" class="examList">
   <div class="main">
-	  <div class="btn" style="cursor: pointer;" onclick="location.replace('/registExample.do')">
-	  	새로운 시험 출제
-	  </div>
-	     <div class="box_exam_list">
-	        <div class="doc_more" style="cursor: pointer;" onclick="location.replace('/??.do')">
-	          시험 이름 EL <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-	          </div>
-	      <div class="list">
-	      대충 시험 정보
-	      </div>
-		</div>
-        </div>
-         <div class="main">
-          <div class="box_exam_list">
-            <div class="doc_more" style="cursor: pointer;" onclick="location.replace('/??.do')">
-              시험 이름 EL <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-              </div>
-          <div class="list">
-          대충 시험 정보
-          </div>
-        </div>
-        </div>
+  <div class="btn" style="cursor: pointer;" onclick="location.replace('/registExample.do')">
+        새로운 시험 출제
+     </div>
+             <div name="searchResult" class="searchResult" >
+      <div class="resultCate">
+         <div>번호</div>
+         <div>시험명</div>
+         <div>시험 응시일</div>
+         <div>출제 강사명</div>
+      </div>
+         <div class="SearchResult_box">
+         <div>
+<c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
+      <div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
+            <div>${examListMap.begin_serialNo_desc-vs.index}</div>
+            <div>${examList.exam_name}</div>
+            <div>${examList.exam_date}</div>
+            <div>${examList.tea_name}</div>
+         </div>
+         </c:forEach>
+         </div>
+   </div> 
+   </div>
       
     </form>
-  
+  <div>
+  <form name="examDetail" action="/examDetail.do" post="post">
+  	<input type="hidden" name="exam_id">
+  </form>
+  </div>
 </body>
 </html>

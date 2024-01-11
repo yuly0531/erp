@@ -18,7 +18,6 @@ function goExamListForm(){
 
 function saveData(){
 	  var formObj = $("[name='examListForm']");  
-	  alert(formObj.find("[name='exam_question1']").val());
  ajax(
     "/registExamProc.do"
     ,"post"
@@ -39,7 +38,7 @@ function saveData(){
 <body>
   <form class="header">
     <div class="header_box">
-      <div class="logo" onclick="location.replace('/teaMain.do')">
+      <div class="logo" onclick="location.replace('/adminMain.do')">
         <img src="">
         <div>
           ERP
@@ -155,7 +154,7 @@ function saveData(){
           	</div>
 		      
 
-    <span onclick="location.replace('/classList.do')" name="cancel" class="cancel">취소</span>
+    <span onclick="location.replace('/examList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>
   <form name="examListForm" class="no dumP_form" method="post" action="/examList.do"></form>

@@ -12,6 +12,14 @@ public class ExamServiceImpl implements ExamService{
  
 
 	
+	// 시험 상세보기
+	@Override
+	public ExamDTO getExamDetailInfo(int exam_id) {
+		ExamDTO examDTO;
+		ExamDTO exam = this.examDAO.getExamDetailInfo(exam_id);
+		return exam;
+		}
+	
 	// 시험
 	@Override
 	public int insertExamInfo(ExamDTO examDTO)  throws Exception {
@@ -38,6 +46,7 @@ public class ExamServiceImpl implements ExamService{
 		int updateExamCnt = 0;
 		// update 테이블이 여러 개 나오면 추후 더 추가
 		updateExamCnt = this.examDAO.updateExamInfo( examDTO );
+		updateExamCnt = this.examDAO.updateExamproblem( examDTO );
 		
 		return updateExamCnt;
 	}

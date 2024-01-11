@@ -3,7 +3,7 @@
 
 <mapper namespace="com.naver.erp.ExamDAO">
 
-	  <insert id="insertExamInfo" parameterType="com.naver.erp.ExamDTO" >
+<insert id="insertExamInfo" parameterType="com.naver.erp.ExamDTO" >
       insert into exam (
            exam_id
            , exam_name
@@ -82,32 +82,6 @@
     FROM DUAL
 </insert>
    
-<!-- <insert id="examproblem" parameterType="com.naver.erp.ExamDTO">
-
-insert all 
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question1}, #{exam_answer1}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question2}, #{exam_answer2}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question3}, #{exam_answer3}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question4}, #{exam_answer4}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question5}, #{exam_answer5}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question6}, #{exam_answer6}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question7}, #{exam_answer7}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question8}, #{exam_answer8}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question9}, #{exam_answer9}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-    into examproblem (exam_no, exam_question, exam_answer, exam_id)
-        values ((select (nvl(max(exam_no),0)+1) from examproblem), #{exam_question10}, #{exam_answer10}, (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd')))
-select * from dual
-</insert>
-	 -->
 <!-- <insert id="examresult" parameterType="com.naver.erp.ExamDTO">
 		insert into examresult (
 		exam_id
@@ -119,8 +93,100 @@ select * from dual
 		)
 	</insert> -->
 	   
- 
+   <update id="updateExamInfo" parameterType="com.naver.erp.ExamDTO">
+   update
+   		EXAM
+   set 
+           exam_name = #{exam_name}
+           , exam_date = to_date(#{exam_date}, 'yyyy-mm-dd')
+      where exam_id = ${exam_id}
+   </update>
    
+   <update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question1},
+        exam_answer = #{exam_answer1}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+1 FROM examproblem);
+	</update>
+	
+	   <update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question2},
+        exam_answer = #{exam_answer2}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+2 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question3},
+        exam_answer = #{exam_answer3}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+3 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question4},
+        exam_answer = #{exam_answer4}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+4 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question5},
+        exam_answer = #{exam_answer5}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+5 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question6},
+        exam_answer = #{exam_answer6}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+6 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question7},
+        exam_answer = #{exam_answer7}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+7 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question8},
+        exam_answer = #{exam_answer8}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+8 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question9},
+        exam_answer = #{exam_answer9}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+9 FROM examproblem);
+	</update>
+	
+	<update id="updateExamproblem" parameterType="com.naver.erp.ExamDTO">
+    UPDATE examproblem
+    SET
+        exam_question = #{exam_question10},
+        exam_answer = #{exam_answer10}
+    WHERE exam_id = ${exam_id} AND exam_no = (SELECT MAX(exam_no)+10 FROM examproblem);
+	</update>
+	
+    <delete id="deleteExamInfo" parameterType="com.naver.erp.ExamDTO">
+    	delete from exam where exam_id = ${exam_id}
+    </delete>
+    
+	
    <select id="getExamListCnt" resultType="int" >
 	     select
 	       count(*)
@@ -139,13 +205,46 @@ select * from dual
 	       
 	           exam_id                           "exam_id"
 	         , exam_name                        "exam_name"
-	          ,(to_char(exam_date,'yyyy-mm-dd'))                "exam_date"
+	          ,(to_date(exam_date,'yyyy-mm-dd'))                "exam_date"
 	          , (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_id"
 
 	          from exam e
 	          where 1=1
 	  
           </select> 
+      
+      <select id="getExamDetailInfo" parameterType="int" resultType="com.naver.erp.ExamDTO">
+      select
+      	exam_id			"exam_id"
+      	, exam_name		"exam_name"
+      	, to_char(exam_date,'yyyy-mm-dd')			"exam_date"
+      	, (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_id"
+      	,   (
+           SELECT eq.exam_question1 FROM
+            (SELECT 
+              x.eid,
+              LISTAGG(exam_question1, ', ')
+              WITHIN GROUP(ORDER BY exam_question1) exam_question1
+              FROM
+               (
+                 SELECT EXAM_ID eid, exam_question as exam_question1 FROM examproblem UNION
+                 SELECT EXAM_ID, exam_question FROM examproblem
+               ) x
+               GROUP BY eid
+               ) eq
+              WHERE e.EXAM_ID = eq.eid
+            ) "exam_question1"
+      from exam e
+      	where exam_id = ${exam_id}
+      </select>
+      
+      <select id="getExamDetailInfo" parameterType="int" resultType="com.naver.erp.ExamDTO">
+      select
+      	exam_question		"exam_question"
+      	, exam_answer		"exam_answer"
+      	from examproblem
+      	where exam_id = ${exam_id}
+      </select>
+      
 
-         
 </mapper>

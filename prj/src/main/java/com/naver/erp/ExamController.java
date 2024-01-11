@@ -83,11 +83,17 @@ public class ExamController {
 		}
 
 	// 시험 상세 정보
-	@RequestMapping(
-		 value="/examDetail.do",
-		 method = RequestMethod.POST,
-		 produces ="application/json;charset=UTF-8"
-	)
+	@RequestMapping( value="/examDetail.do")
+		public ModelAndView examDetail(
+		@RequestParam(value="exam_id") int exam_id
+		) {
+		ExamDTO examDTO = this.examService.getExamDetailInfo(exam_id);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("examDetail.jsp");
+		mav.addObject("examDTO", examDTO);
+		return mav;
+	
+	}
 	@ResponseBody
 	public Map<String, Object> examDetail(
 			ExamDTO examDTO
@@ -101,7 +107,8 @@ public class ExamController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, String>> examList;
 		
-		examList = this.examDAO.getExamDetailInfo(examDTO);
+		int exam_id = 0;
+		examList = (List<Map<String, String>>) this.examDAO.getExamDetailInfo(exam_id);
 
 		resultMap.put("examList", examList);
 		
