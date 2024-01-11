@@ -48,6 +48,8 @@ public class LoginController {
 		int stu_loginIdCnt = this.loginDAO.stu_LoginIdCnt(map);
 		if(stu_loginIdCnt==1){
 			session.setAttribute( "stu_id", stu_id );
+			session.setAttribute( "tea_id", null );
+			session.setAttribute( "mana_id", null );
 			if(autoLogin==null ||  autoLogin == ""){
 				Cookie cookie1 = new Cookie("stu_id",null);
 				cookie1.setMaxAge(0);
@@ -90,6 +92,8 @@ public class LoginController {
 		
 		if(tea_loginIdCnt==1){
 			session.setAttribute( "tea_id", tea_id );
+			session.setAttribute( "stu_id", null );
+			session.setAttribute( "mana_id", null );
 			if(autoLogin==null ||  autoLogin == ""){
 				Cookie cookie1 = new Cookie("tea_id",null);
 				cookie1.setMaxAge(0);
@@ -107,7 +111,6 @@ public class LoginController {
 				response.addCookie(cookie2);
 			}
 		}
-		System.out.println(tea_id);
 		return tea_loginIdCnt;
 	}
 	
@@ -134,6 +137,8 @@ public class LoginController {
 		
 		if(mana_loginIdCnt==1){
 			session.setAttribute( "mana_id", mana_id );
+			session.setAttribute( "stu_id", null );
+			session.setAttribute( "tea_id", null );
 			if(autoLogin==null ||  autoLogin == ""){
 				Cookie cookie1 = new Cookie("mana_id",null);
 				cookie1.setMaxAge(0);
@@ -151,7 +156,6 @@ public class LoginController {
 				response.addCookie(cookie2);
 			}
 		}
-		System.out.println(mana_id);
 		return mana_loginIdCnt;
 	}
 }

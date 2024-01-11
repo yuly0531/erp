@@ -202,10 +202,9 @@
           
 	  <select id="getExamList" resultType="java.util.Map" >
 	     select
-	       
-	           exam_id                           "exam_id"
-	         , exam_name                        "exam_name"
-	          ,(to_date(exam_date,'yyyy-mm-dd'))                "exam_date"
+	       	  exam_id                           "exam_id"
+	          , exam_name                        "exam_name"
+	          ,to_char(e.exam_date,'yyyy-mm-dd')   "exam_date"
 	          , (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_id"
 
 	          from exam e
@@ -217,7 +216,7 @@
      	 select 
             exam_id "exam_id"
             ,exam_name "exam_name"
-            ,to_char(exam_date,'yyyy-mm-dd') "exma_date"
+            ,to_char(exam_date,'yyyy-mm-dd') "exam_date"
             ,(select tea_name from teacher where tea_id='asd') "tea_id"
          from exam
       </select>

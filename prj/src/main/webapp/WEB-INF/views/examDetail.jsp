@@ -83,7 +83,7 @@ function checkExamUpForm(){
 	            <br>
 	        </div>
 	             <div> 
-	             	시험 응시일
+	             	시험 응시일 :
 	                <input type="date" name="exam_date" value="${examDetailMap.examDetailInfo[0].exam_date}">
 	                <br>
 	                <br><input type=hidden name="tea_id" value="${sessionScope.tea_id}">

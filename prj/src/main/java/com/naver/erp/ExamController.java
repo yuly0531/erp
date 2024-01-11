@@ -90,7 +90,6 @@ public class ExamController {
 		){
 			String tea_id = (String) session.getAttribute("mid");
 		    examDTO.setTea_id(tea_id);
-		    System.out.println(exam_id+"아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디");
 		    examDTO.setExam_id(exam_id);
 		    
 			Map<String,Object> examDetailMap = examDetailMap( examDTO );

@@ -67,9 +67,24 @@ public class MainController {
 		return mav;
 	}
 	@RequestMapping( value="/dayOff.do")
-	public ModelAndView dayOff(){
+	public ModelAndView dayOff(
+			HttpSession session
+		){
+		String mid;
+		if((String)session.getAttribute("stu_id")!=null) {
+			mid = (String)session.getAttribute("stu_id");
+		}
+		else if((String)session.getAttribute("tea_id")!=null) {
+			mid = (String)session.getAttribute("tea_id");
+		}
+		else {
+			mid = (String)session.getAttribute("mana_id");
+		}
+		
+		String whatRole = mainDAO.whatRole(mid);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("dayOff.jsp");
+		mav.addObject("whatRole",whatRole);
 		return mav;
 	}
 	   
@@ -95,9 +110,6 @@ public class MainController {
 		 return resultMap; 
 		 }
 		   
-		   
-
-	
 	@RequestMapping( value="/registStu.do")
 	public ModelAndView registStu(){
 		ModelAndView mav = new ModelAndView();

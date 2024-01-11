@@ -54,7 +54,24 @@
  <body>
  		<form class="header">
         <div class="header_box">
-          <div class="logo" onclick="location.replace('/adminMain.do')">
+        <c:if test="${whatRole eq '학생'}">
+          	<div class="logo" onclick="location.replace('/studentMain.do')">
+				<img src="">
+				<div>
+					학원명
+				</div>
+			</div>
+			<table>
+				<tr class="cate_box">
+          						<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
+					<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
+					<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
+					<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+				</tr>
+			</table>
+		</c:if> 
+        <c:if test="${whatRole eq '강사'}">
+          <div class="logo" onclick="location.replace('/teaMain.do')">
             <img src="">
             <div>
               ERP
@@ -65,12 +82,35 @@
 			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
 			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
-			<td class="main_cate" onclick="location.replace('/registExample.do')">시험 출제</td>
+			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
 			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
           </table>
- 
+		</c:if> 
+		<c:if test="${whatRole eq '관리자'}">
+          	<div class="logo" onclick="location.replace('/adminMain.do')">
+				<img src="">
+				<div>
+					ERP
+				</div>
+			</div>
+			<table>
+				<tr class="cate_box">
+	         						<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+					<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
+					<td class="main_cate active" onclick="location.replace('/classList.do')">수업 관리</td>
+					<td class="main_cate" onclick="location.replace('/gyeoljaeList.do')">결재 관리</td>
+				</tr>
+			</table>
+		</c:if> 
+		<div class="welcome_user">
+			<div>
+				<div class="welcome_name">로그아웃</div>
+			</div>
+			<div class="logout_btn" onclick="location.replace('/loginForm.do')"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
+		</div>
         </div>
+        
         </form>
         <form name= "dayOffList" class="day	OffList">
         <header>휴가 관리</header>
