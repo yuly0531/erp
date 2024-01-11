@@ -12,7 +12,9 @@ public interface ExamDAO {
 
 	int getExamListCnt(ExamDTO examDTO);
 	List<Map<String,String>> getExamList(ExamDTO examDTO);
-	ExamDTO getExamDetailInfo(int exam_id);
+	List<Map<String,String>> getExamDetailInfo(ExamDTO examDTO);
+	List<Map<String,String>> getExamDetailProblem(ExamDTO examDTO);
+	List<Map<String,String>> getExamDetailAnswer(ExamDTO examDTO);
 	int insertExamInfo(ExamDTO examDTO);
 	int examproblem(ExamDTO examDTO);
 	int deleteExamInfo(ExamDTO examDTO);

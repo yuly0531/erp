@@ -93,7 +93,7 @@
 		)
 	</insert> -->
 	   
-   <update id="updateExamInfo" parameterType="com.naver.erp.ExamDTO">
+   <!-- <update id="updateExamInfo" parameterType="com.naver.erp.ExamDTO">
    update
    		EXAM
    set 
@@ -184,7 +184,7 @@
 	
     <delete id="deleteExamInfo" parameterType="com.naver.erp.ExamDTO">
     	delete from exam where exam_id = ${exam_id}
-    </delete>
+    </delete> -->
     
 	
    <select id="getExamListCnt" resultType="int" >
@@ -213,38 +213,39 @@
 	  
           </select> 
       
-      <select id="getExamDetailInfo" parameterType="int" resultType="com.naver.erp.ExamDTO">
-      select
-      	exam_id			"exam_id"
-      	, exam_name		"exam_name"
-      	, to_char(exam_date,'yyyy-mm-dd')			"exam_date"
-      	, (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_id"
-      	,   (
-           SELECT eq.exam_question1 FROM
-            (SELECT 
-              x.eid,
-              LISTAGG(exam_question1, ', ')
-              WITHIN GROUP(ORDER BY exam_question1) exam_question1
-              FROM
-               (
-                 SELECT EXAM_ID eid, exam_question as exam_question1 FROM examproblem UNION
-                 SELECT EXAM_ID, exam_question FROM examproblem
-               ) x
-               GROUP BY eid
-               ) eq
-              WHERE e.EXAM_ID = eq.eid
-            ) "exam_question1"
-      from exam e
-      	where exam_id = ${exam_id}
+      <select id="getExamDetailInfo" resultType="java.util.Map">
+     	 select 
+            exam_id "exam_id"
+            ,exam_name "exam_name"
+            ,to_char(exam_date,'yyyy-mm-dd') "exma_date"
+            ,(select tea_name from teacher where tea_id='asd') "tea_id"
+         from exam
+      </select>
+      <select id="getExamDetailProblem" resultType="java.util.Map">
+     	 select * from (   select rownum RNUM, zxcvb.* from (    
+            select
+                exam_id "exam_id"
+                ,exam_question    "exam_question"  
+            from examproblem  
+            where exam_id = ${exam_id}
+            order by  exam_no
+             <![CDATA[
+          ) zxcvb) where RNUM>=1 and RNUM<=10
+            ]]>
+      </select>
+      <select id="getExamDetailAnswer" resultType="java.util.Map">
+     	  select * from (   select rownum RNUM, zxcvb.* from (    
+            select
+                exam_id "exam_id"
+                ,exam_answer  "exam_answer"   
+            from examproblem  
+            where exam_id = ${exam_id}
+            order by  exam_no
+                <![CDATA[
+          ) zxcvb) where RNUM>=1 and RNUM<=10
+            ]]>
       </select>
       
-      <select id="getExamDetailInfo" parameterType="int" resultType="com.naver.erp.ExamDTO">
-      select
-      	exam_question		"exam_question"
-      	, exam_answer		"exam_answer"
-      	from examproblem
-      	where exam_id = ${exam_id}
-      </select>
       
 
 </mapper>

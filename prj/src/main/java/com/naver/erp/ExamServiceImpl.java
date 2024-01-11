@@ -10,15 +10,6 @@ public class ExamServiceImpl implements ExamService{
 	@Autowired
 	private ExamDAO examDAO;
  
-
-	
-	// 시험 상세보기
-	@Override
-	public ExamDTO getExamDetailInfo(int exam_id) {
-		ExamDTO examDTO;
-		ExamDTO exam = this.examDAO.getExamDetailInfo(exam_id);
-		return exam;
-		}
 	
 	// 시험
 	@Override

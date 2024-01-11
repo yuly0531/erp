@@ -5,7 +5,7 @@ import java.util.List;
 public class ExamDTO {
 
    // 시험 -------------------------------------
-   private String exam_id;
+   private int exam_id;
    private String exam_name;
    private String exam_date;
    private String tea_id;
@@ -40,11 +40,10 @@ public class ExamDTO {
    private int begin_rowNo;                           
    private int end_rowNo;
    // -----------------------------------------
-public String getExam_id() {
+public int getExam_id() {
 	return exam_id;
 }
-public void setExam_id(String exam_id) {
-	System.out.println(exam_id);
+public void setExam_id(int exam_id) {
 	this.exam_id = exam_id;
 }
 public String getExam_name() {

@@ -48,7 +48,6 @@ public class ExamController {
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 			List<Map<String,String>> examList;
 			int examListCnt;
-			int examListCntAll;
 			Map<String,Integer> pagingMap;
 			
 			examListCnt =  this.examDAO.getExamListCnt(  examDTO );
@@ -81,39 +80,44 @@ public class ExamController {
 			
 			return resultMap;
 		}
-
-	// 시험 상세 정보
-	@RequestMapping( value="/examDetail.do")
+		
+		// 시험 상세
+		@RequestMapping( value="/examDetail.do")
 		public ModelAndView examDetail(
-		@RequestParam(value="exam_id") int exam_id
-		) {
-		ExamDTO examDTO = this.examService.getExamDetailInfo(exam_id);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("examDetail.jsp");
-		mav.addObject("examDTO", examDTO);
-		return mav;
-	
-	}
-	@ResponseBody
-	public Map<String, Object> examDetail(
-			ExamDTO examDTO
-	){
-
-		Map<String, Object> examDetailMap = getExamDetailMap(examDTO);
-		return examDetailMap;
-	}
-
-	public Map<String, Object> getExamDetailMap(ExamDTO examDTO){
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<Map<String, String>> examList;
+				ExamDTO examDTO
+				,HttpSession session
+				,@RequestParam(value="exam_id") int exam_id
+		){
+			String tea_id = (String) session.getAttribute("mid");
+		    examDTO.setTea_id(tea_id);
+		    System.out.println(exam_id+"아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디아이디");
+		    examDTO.setExam_id(exam_id);
+		    
+			Map<String,Object> examDetailMap = examDetailMap( examDTO );
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName( "examDetail.jsp" );
+			mav.addObject(   "examDetailMap" , examDetailMap     );
+			
+			return  mav;
+		}
 		
-		int exam_id = 0;
-		examList = (List<Map<String, String>>) this.examDAO.getExamDetailInfo(exam_id);
+		// 시험 리스트 불러오는 메소드
+			public Map<String,Object> examDetailMap(ExamDTO examDTO){
+				Map<String,Object> resultMap = new HashMap<String,Object>();
+				List<Map<String,String>> examDetailInfo;
+				List<Map<String,String>> examDetailProblem;
+				List<Map<String,String>> examDetailAnswer;
+				examDetailInfo       =  this.examDAO.getExamDetailInfo( examDTO  );
+				examDetailProblem       =  this.examDAO.getExamDetailProblem( examDTO  );
+				examDetailAnswer       =  this.examDAO.getExamDetailAnswer( examDTO  );
 
-		resultMap.put("examList", examList);
-		
-		return resultMap;
-	}
+				resultMap.put("examDetailInfo", examDetailInfo);
+				resultMap.put("examDetailProblem", examDetailProblem);
+				resultMap.put("examDetailAnswer", examDetailAnswer);
+				resultMap.put("examDTO", examDTO);
+			
+				return resultMap;
+			}
  
 	// 시험 삭제
 	@RequestMapping(

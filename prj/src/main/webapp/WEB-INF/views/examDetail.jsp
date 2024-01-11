@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/examList.css">
+<link rel="stylesheet" href="css/registExample.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
@@ -49,7 +49,7 @@ function checkExamUpForm(){
 <body>
   <form class="header">
     <div class="header_box">
-      <div class="logo" onclick="location.replace('/teaList.do')">
+      <div class="logo" onclick="location.replace('/teaMain.do')">
         <img src="">
         <div>
           ERP
@@ -74,96 +74,38 @@ function checkExamUpForm(){
       
     </div>
   </form>
-  <form name="examDetail" class="examList">
+  <form name="examDetail" class="boardForm">
   <div class="inform">
       <div class="dev_user">
 	        <div>
 	          	시험 제목 : 
-	            <input type="text" name="exam_name" value="${ examDTO.exam_name}"><br>
+	            <input type="text" name="exam_name" value="${examDetailMap.examDetailInfo[0].exam_name}"><br>
 	            <br>
 	        </div>
 	             <div> 
 	             	시험 응시일
-	                <input type="date" name="exam_date" value="${ examDTO.exam_date}">
+	                <input type="date" name="exam_date" value="${examDetailMap.examDetailInfo[0].exam_date}">
 	                <br>
-	                <br><input type="hidden" name="tea_id" value="${sessionScope.tea_id}">
+	                <br><input type=hidden name="tea_id" value="${sessionScope.tea_id}">
 
 	     </div>
      </div>
-      	<div>
-	        <div>문제 1번</div><br>
-	        	<textarea name="exam_question1" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question1}"></textarea>
-	        <div><br>1번 답 : 
-	        	<input type="text" name="exam_answer1" value="${ examDTO.exam_answer1}"> 
-	        </div>
-          	</div>
-        		<div>
-	        <div>문제 2번</div><br>
-	        	<textarea name="exam_question2" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question2}"></textarea>
-	        <div><br>2번 답 : 
-	        	<input type="text" name="exam_answer2" value="${ examDTO.exam_answer2}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 3번</div><br>
-	        	<textarea name="exam_question3" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question3}"></textarea>
-	        <div><br>3번 답 : 
-	        	<input type="text" name="exam_answer3" value="${ examDTO.exam_answer3}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 4번</div><br>
-	        	<textarea name="exam_question4" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question4}"></textarea>
-	        <div><br>4번 답 : 
-	        	<input type="text" name="exam_answer4" value="${ examDTO.exam_answer4}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 5번</div><br>
-	        	<textarea name="exam_question5" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question5}"></textarea>
-	        <div><br>5번 답 : 
-	        	<input type="text" name="exam_answer5" value="${ examDTO.exam_answer5}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 6번</div><br>
-	        	<textarea name="exam_question6" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question6}"></textarea>
-	        <div><br>6번 답 : 
-	        	<input type="text" name="exam_answer6" value="${ examDTO.exam_answer6}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 7번</div><br>
-	        	<textarea name="exam_question7" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question7}"></textarea>
-	        <div><br>7번 답 : 
-	        	<input type="text" name="exam_answer7" value="${ examDTO.exam_answer7}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 8번</div><br>
-	        	<textarea name="exam_question8" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question8}"></textarea>
-	        <div><br>8번 답 : 
-	        	<input type="text" name="exam_answer8" value="${ examDTO.exam_answer8}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 9번</div><br>
-	        	<textarea name="exam_question9" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question9}"></textarea>
-	        <div><br>9번 답 : 
-	        	<input type="text" name="exam_answer9" value="${ examDTO.exam_answer9}"> 
-	        </div>
-          	</div>
-          	<div>
-	        <div>문제 10번</div><br>
-	        	<textarea name="exam_question10" cols="10" rows="7" maxlength="300" value="${ examDTO.exam_question10}"></textarea>
-	        <div><br>10번 답 : 
-	        	<input type="text" name="exam_answer10" value="${ examDTO.exam_question10}"> 
-	        </div>
-          	</div>
+<c:forEach var="examDetail" items="${examDetailMap.examDetailProblem}" varStatus="vs">
+    <div>
+        <div>문제 ${vs.index + 1}번</div><br>
+        <textarea name="exam_question${vs.index + 1}" cols="10" rows="7" maxlength="300">${examDetailMap.examDetailProblem[vs.index].exam_question}</textarea>
+        <div><br>${vs.index + 1}번 답 : 
+            <input type="text" name="exam_answer${vs.index + 1}" value="${examDetailMap.examDetailAnswer[vs.index].exam_answer}"> 
+        </div>
+    </div>
+</c:forEach>
+
+        		
 		      
 
     <span onclick="location.replace('/examList.do')" name="cancel" class="cancel">이전</span>
     <span onclick="checkExamUpForm();" name="save" class="save">수정</span>
+    </div>
    </form>
   <form name="examListForm" class="no dumP_form" method="post" action="/examList.do"></form>
 </body>

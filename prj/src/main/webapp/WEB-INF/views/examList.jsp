@@ -70,7 +70,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
 }
 
 function goExamDetailForm(exam_id){
-	$("[name='examDetail'] [name='exam_id']").val(exam_id);
+	$("[name='exam_id']").val(exam_id);
 	document.examDetail.submit();
 }
 
@@ -84,7 +84,7 @@ function goExamDetailForm(exam_id){
 <body>
   <form class="header">
     <div class="header_box">
-      <div class="logo" onclick="location.replace('/teaList.do')">
+      <div class="logo" onclick="location.replace('/teaMain.do')">
         <img src="">
         <div>
           ERP
@@ -138,7 +138,7 @@ function goExamDetailForm(exam_id){
     </form>
   <div>
   <form name="examDetail" action="/examDetail.do" post="post">
-  	<input type="hidden" name="exam_id">
+  	<input type="text" name="exam_id">
   </form>
   </div>
 </body>
