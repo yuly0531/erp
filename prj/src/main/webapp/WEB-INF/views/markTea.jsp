@@ -12,62 +12,85 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <script>
+$(function(){
+	hidePopup();
+});
+function hidePopup(){
+	$("#insertForm").hide();
+	$("#updateForm").hide();
+	
+	
+};
 
-document.addEventListener('DOMContentLoaded', function () {
-var calendarEl = document.getElementById('calendar');
-           var calendar = new FullCalendar.Calendar(calendarEl, {
-               timeZone: 'UTC',
-               initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
-               events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
-                   {
-                   	<c:forEach var="calendar" items="${getCalendarMap.getCalendar}" varStatus="vs">
-       				title:"${calendar.stu_name}"+"${calendar.attend_status}",
-                       start:"${calendar.attend_date}",
-                   	</c:forEach>
-                       
-                       // color 값을 추가해 색상도 변경 가능 자세한 내용은 하단의 사이트 참조
-                   }
-               ], headerToolbar: {
-                   center: 'addEventButton' // headerToolbar에 버튼을 추가
-               }, customButtons: {
-                   addEventButton: { // 추가한 버튼 설정
-                       text : "일정 추가",  // 버튼 내용
-                       click : function(){ // 버튼 클릭 시 이벤트 추가
-                           $("#calendarModal").modal("show"); // modal 나타내기
-						$("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-                               var content = $("#calendar_content").val();
-                               var start_date = $("#calendar_start_date").val();
-                               var end_date = $("#calendar_end_date").val();
-                               
-                               //내용 입력 여부 확인
-                               if(content == null || content == ""){
-                                   alert("내용을 입력하세요.");
-                               }else if(start_date == "" || end_date ==""){
-                                   alert("날짜를 입력하세요.");
-                               }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                                   alert("종료일이 시작일보다 먼저입니다.");
-                               }else{ // 정상적인 입력 시
-                                   var obj = {
-                                       "title" : content,
-                                       "start" : start_date,
-                                   }//전송할 객체 생성
+function showInsert(){
+	$("#insertForm").show();
+};
+function showUpdate(i,t,d){
+	var name = t.split("-")
+	$("#updateForm").show();
+	$("#updateForm").find("[name=stu_name]").val(name[0]);
+	$("#updateForm").find("[name=attend_date]").val(d);
+	$("#updateForm").find("[name=attend_status]").val(name[1]);
+	$("#updateForm").find("[name=id]").val(i)
+};
 
-                                 
-                               }
-                           });
-                       }
-                   }
-               },
-               editable: true, // false로 변경 시 draggable 작동 x 
-               displayEventTime: false // 시간 표시 x
-           });
-           calendar.render();
-       });
+
+function saveData(){
+	var formObj = $("#insertForm");
+	ajax(
+	"/insertCalendar.do"
+    ,"post"
+    ,formObj
+    ,function(responseJson){
+  	  var insertcalendarCnt = responseJson["insertcalendarCnt"];
+       if(insertcalendarCnt>=1) {
+          alert("등록되었습니다.");
+          document.markTeaForm.submit();
+       }
+       else{
+          alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
+       }
+  });
+}
+
+function updateData(){
+	var formObj = $("#updateForm");
+	ajax(
+	"/updateCalendar.do"
+    ,"post"
+    ,formObj
+    ,function(responseJson){
+		
+       if(responseJson>=1) {
+          alert("수정되었습니다.");
+          document.markTeaForm.submit();
+       }
+       else{
+          alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
+       }
+  });
+}
+function deleteData(){
+	var formObj = $("#updateForm");
+	ajax(
+	"/deleteCalendar.do"
+    ,"post"
+    ,formObj
+    ,function(responseJson){
+		if(responseJson>=1) {
+          alert("삭제되었습니다.");
+          document.markTeaForm.submit();
+       }
+       else{
+          alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
+       }
+  });
+}
 
 
 </script>
-		<body>
-				<form name="stuSearch" class="header">
+<body>
+<form name="stuSearch" class="header">
 						<div class="header_box">
 							<div class="logo" onclick="location.replace('/teaMain.do')">
 								<img src="">
@@ -94,48 +117,156 @@ var calendarEl = document.getElementById('calendar');
 							</div>
 							<br>
 						</div>
-			</form>
-
-			<div onscroll="checkScroll(this)">
-				<form name="CalendarForm" class="boardForm">
+</form>
+<div onscroll="checkScroll(this)">
+<form name="Form" class="boardForm">
 					<header>
 					반갑습니다 ${tea_id}님
 					</header>
-					 <div id="calendarBox">
-        <div id="calendar"></div>
-        <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="taskId" class="col-form-label">일정 내용</label>
-                        <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-                        <label for="taskId" class="col-form-label">시작 날짜</label>
-                        <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
-                        <label for="taskId" class="col-form-label">종료 날짜</label>
-                        <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        id="sprintSettingModalClose">취소</button>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-  
-</form>					
+		<div id="calendar" style="width: 70%"></div></form>
+    <form class='calendarForm' id="insertForm">
+	<div class="dim">
+	<div name="insert_check" class='calendar_popup'>
+    <header>
+    	출결 등록
+    </header>
+    <div>
+        학생명<input type="text" name="stu_name">
+     </div>
+    <div>날짜 <input type="date" name="attend_date">
+	   </div>
+	    <div>
+   	   	출석여부
+   	    <select name="attend_status">
+	   	    <option value="">	</option>
+			<option value="출석">출석</option>
+			<option value="지각">지각</option>
+			<option value="조퇴">조퇴</option>
+			<option value="결석">결석</option>
+		</select>
+   	</div>
+	   <br>
+   <div>
+    	<input type="button" value="취소" onClick="hidePopup()">
+    	<input type="button" class="save_btn" onClick="saveData()" value="제출">
+    </div> 
+  </div>
+ </div>
+   </form>
+   
+   
+   <!--  !!!!!!!!!!!!!수정!!!!!!!!!!!!!!!!!! -->
+   
+   <form class='calendarForm' id="updateForm">
+	<div class="dim">
+	<div name="insert_check" class='calendar_popup'>
+    <header>
+    	출결 수정
+    </header>
+    <div>
+        학생명<input type="text" name="stu_name">
+     </div>
+     <div>날짜<input type="date" name="attend_date" disabled="disabled">
+	   </div>
+	    <div>
+   	   	출석여부
+   	    <select name="attend_status">
+	   	    <option value="">	</option>
+			<option value="출석">출석</option>
+			<option value="지각">지각</option>
+			<option value="조퇴">조퇴</option>
+			<option value="결석">결석</option>
+		</select>
+   	</div>
+	   <br>
+   <div>
+    	<input type="button" value="취소" onClick="hidePopup()">
+    	<input type="button" class="save_btn" onClick="updateData()" value="수정">
+    	<input type="button" class="save_btn" onClick="deleteData()" value="삭제">
+    	<input type="hidden" name="id" value="" >
+    </div> 
+  </div>
+ </div>
+   </form>
 </div>
+<form name="markTeaForm" method="post" action="/markTea.do"></form> 	
 </body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	
+    var calendarEl = document.getElementById('calendar');
+    	var calendar = new FullCalendar.Calendar(calendarEl, {
+    		initialView: 'dayGridMonth',
+    		
+    		headerToolbar: {
+    		      left: 'prevYear,prev,next,nextYear today',
+    		      center: 'title',
+    		      right: 'addEventButton dayGridMonth,dayGridWeek,dayGridDay'
+    		    }, customButtons: {
+                    addEventButton: { // 추가한 버튼 설정
+                        text : "출결 등록",  // 버튼 내용
+                        click : function(){ // 버튼 클릭 시 이벤트 추가
+                        	showInsert();
+                        }
+                    }
+    		    },
+    		    locale:'ko',
+    		    timeZone: 'Asia/Seoul',
+            events:[ <c:forEach var="calendar" items="${getCalendarMap.getCalendar}" varStatus="vs">
+            {
+            	id:"${calendar.att_id}",
+            	title:"${calendar.stu_name}"+"-"+"${calendar.attend_status}",
+                start:"${calendar.attend_date}",
+                color:
+                <c:if test="${calendar.attend_status eq '출석'}">
+                "blue"
+                </c:if>
+                <c:if test="${calendar.attend_status eq '결석'}">
+                "red"
+                </c:if>
+                <c:if test="${calendar.attend_status eq '조퇴'}">
+                "gold"
+                </c:if>
+                <c:if test="${calendar.attend_status eq '지각'}">
+                "green"
+                </c:if>
+       		},
+            </c:forEach>
+            ],
+          
+            eventClick: function(info) {
+            	var dateStr = info.event.start.toISOString();
+            	var date = dateStr.substr(0,10)
+            	var conf = confirm(date+"/"+info.event.title +" "+"이 출결을 수정 하시겠습니까?");
+               
+               if(conf){
+            	   showUpdate(info.event.id,info.event.title,date);
+            	   
+            	   /*
+                	$.ajax({
+                        url: "/deleteCalendar.do", // 이 부분에 실제 이벤트를 삭제하는 서버의 URL을 입력해주세요.
+                        type: 'POST',
+                        data: {
+                            id: info.event.id // 이 부분에 실제 이벤트의 ID를 입력해주세요.
+                        },
+                        success: function(response) {
+                        	if(response == '1'){
+                               alert('일정이 성공적으로 삭제되었습니다');
+                               document.markTeaForm.submit();
+                            } else {
+                                alert('오류가 발생했습니다. 다시 시도해주세요');
+                            }
+                        },
+                        error: function(e){
+                            alert('오류가 발생했습니다. 다시 시도해주세요');
+                        }
+                    });*/
+                }
+              }
+        });
+        calendar.render();
+    });
+</script>
 
 
 </html>

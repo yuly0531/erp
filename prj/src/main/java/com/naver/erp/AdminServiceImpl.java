@@ -15,9 +15,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int insertStuInfo(AdminDTO adminDTO)  throws Exception {
 		int stuRegCnt  = 0;
+		System.out.println(1);
 		stuRegCnt = this.adminDAO.insertStuInfo(adminDTO);
+		System.out.println(2);
 		stuRegCnt = this.adminDAO.insertStuEmegency(adminDTO);
+		System.out.println(3);
 		stuRegCnt = this.adminDAO.insertClassJoinStu(adminDTO);
+		System.out.println(4);
 		
 		return stuRegCnt;
 	}

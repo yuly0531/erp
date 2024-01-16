@@ -84,6 +84,27 @@ body > div > div {
 .boardForm > div:first-child {
   padding: 0 0 20px;
 }
+.dim {
+	z-index:1;
+  position: absolute;
+  top: 0; left: 0;
+	width: 100%; height: 100%;
+  background: rgb(0 , 0, 0, 0.7);
+}
+.calendar_popup {
+	z-index:2;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+	width: 20%; height: 35%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0 , 0, 0, 0.5);
+  padding: 20px;
+}
+.calendar_popup > div{
+	padding:5px;
+}
 .category{
 	padding: 10px 0 10px !important;
 	border-top: 1px solid lightgray;

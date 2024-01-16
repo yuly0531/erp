@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="com.naver.erp.CalendarDAO">
-
 
 <!-- 일정 추가시 들어가야됨. -->
    <insert id="insertCalendar"  parameterType="com.naver.erp.CalendarDTO">
-	  insert into ATTENDCHECK (
-           ATT_ID
-           ,STU_ID
-           ,ATTEND_DATE
-           ,ATTEND_STATUS
-      ) values( 
-      (select (nvl(max(ATT_ID),0)+1) from ATTENDCHECK)
-         ,(select STU_ID from STUDENT where STU_NAME=#{stu_name})
-         ,#{ATTEND_DATE}
-         ,#{ATTEND_STATUS}
-       ) ;
-       </insert> 
+	  insert into ATTENDCHECK(
+           att_id, 
+           stu_id, 
+           attend_date,
+           attend_status 
+      )values( 
+      	(select (nvl(max(att_id),0)+1) from ATTENDCHECK)
+         ,(select stu_id from student where stu_name=#{stu_name})
+         ,to_date(#{attend_date},'yyyy-mm-dd')
+         ,#{attend_status}
+       )
+      </insert> 
+      <update id="updateCalendar"  parameterType="com.naver.erp.CalendarDTO">
+	  update ATTENDCHECK
+      set
+          stu_id = (select stu_id from student where stu_name=#{stu_name})
+        ,attend_status = #{attend_status}
+       where 
+       ATT_ID=#{id} 
+      </update> 
+      
+      <delete id="deleteCalendar"  parameterType="com.naver.erp.CalendarDTO">
+	  delete from ATTENDCHECK where ATT_ID=#{id}
+      </delete> 
+       
        
        <!-- 학생 캘린더로 보여야 할것. -->
         <select id="selectCalendar" parameterType="Map" resultType="java.util.Map" >
 	   		select 
-	   		a.ATT_ID "att_id"
+	   		a.ATT_ID "att_id" 
 	   		,s.stu_name  "stu_name"
 			,a.stu_id "stu_id"
-			,to_char(a.ATTEND_DATE,'yyyy-mm-dd') "attend_date"
-			,a.ATTEND_STATUS "attend_status"
+			,to_char(a.ATTEND_DATE,'yyyy-mm-dd')  "attend_date"
+			,a.ATTEND_STATUS  "attend_status"
 			from  ATTENDCHECK a,STUDENT s
-			where  a.stu_id = s.stu_id  
+			where  a.stu_id = s.stu_id
           </select> 
           
           
@@ -48,19 +59,4 @@
          
 	
 </mapper>
-     <!--     
-	 
-         
-         
-         <resultMap id="calendarRM" type="Calendar">
-    <id property="ATT_ID" column="ATT_ID" />
-    <result property="ATTEND_STATUS" column="ATTEND_STATUS" />
-    <result property="STU_ID" column="STU_ID" />
-    <result property="ATTEND_DATE" column="ATTEND_DATE" />
-  </resultMap>
-	
-	<select id="calendarList" resultMap="calendarRM">
-		select * from ATTENDCHECK 
-	</select>
-</mapper>
- --> 
+   

@@ -30,7 +30,7 @@ public class AdminStuController {
 	
 	// 학생 관리(리스트) 접속, 검색
 	@RequestMapping( value="/stuList.do")
-	public ModelAndView searchFreeDev(
+	public ModelAndView stuList(
 			AdminDTO adminDTO
 			,HttpSession session
 	){

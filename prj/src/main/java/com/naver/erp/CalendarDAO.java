@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface CalendarDAO {
 	 List<Map<String,Object>> selectCalendar(CalendarDTO calendarDTO);
 	 List<Map<String,Object>> getCalendar(CalendarDTO calendarDTO);
-	 int insertCalendar(CalendarDTO calendarDTO) throws Exception;
-	 // 아직 안건들였음
-	 int updateCalendar(CalendarDTO calendarDTO) throws Exception;
+	 int insertCalendar(CalendarDTO calendarDTO);
+	 int updateCalendar(CalendarDTO calendarDTO);
+	 int deleteCalendar(CalendarDTO calendarDTO);
 }

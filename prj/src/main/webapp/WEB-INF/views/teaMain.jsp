@@ -84,10 +84,10 @@ function goGyeoljaeDetailForm(gyeoljae_num){
       </div>
       <table>
           <tr>
-			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
+			<td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
 			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
-			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
+			<td class="main_cate" onclick="location.replace('/registExample.do')">시험 출제</td>
 			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
       </table>
@@ -105,7 +105,7 @@ function goGyeoljaeDetailForm(gyeoljae_num){
       <div class="main_info">
         <div class="notice_box">
           <div class="box_title">수업 현황 
-            <div class="doc_more more" style="cursor: pointer;" onclick="location.replace('/??.do')">
+            <div class="doc_more more" style="cursor: pointer;" onclick="location.replace('/markTea.do')">
               <i class="fa fa-plus-square-o" aria-hidden="true"></i>
             </div>
           </div>

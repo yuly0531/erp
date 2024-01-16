@@ -1,20 +1,41 @@
 package com.naver.erp;
 
-import lombok.Data;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Data
 public class CalendarDTO {
-	private String att_id;
+	
+	private int att_id;
 	private String stu_id;
 	private String attend_date;
+	
+	@NotEmpty(message="출석여부는 필수 입력입니다.")
+	@NotNull (message="출석여부는 필수 입력입니다.")
 	private String attend_status;
 	private String stu_name;
+	private int id;
 	
 	
-	public String getAtt_id() {
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getStu_name() {
+		return stu_name;
+	}
+	public void setStu_name(String stu_name) {
+		this.stu_name = stu_name;
+	}
+	
+	
+	
+	
+	public int getAtt_id() {
 		return att_id;
 	}
-	public void setAtt_id(String att_id) {
+	public void setAtt_id(int att_id) {
 		this.att_id = att_id;
 	}
 	public String getStu_id() {

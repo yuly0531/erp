@@ -97,12 +97,18 @@
           		,stu_name
           		,jumin_num
           		,phone_num
+          		<if test="etc!=null and etc.length()>0">
+          			,etc
+		     	</if>
       ) values( 
       		#{id}
       		,#{pwd}
       		,#{name}
       		,#{jumin_num1}||#{jumin_num2}
       		,#{phone}	
+         	<if test="etc!=null and etc.length()>0">
+         		,#{etc}
+	     	</if>	
        	)   	
    </insert> 
    

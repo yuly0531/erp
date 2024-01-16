@@ -107,36 +107,42 @@ public class AdminDTO {
       return id;
    }
    public void setId(String id) {
+	   System.out.println(id+"id");
       this.id = id;
    }
    public String getPwd() {
       return pwd;
    }
    public void setPwd(String pwd) {
+	   System.out.println(pwd+"pwd");
       this.pwd = pwd;
    }
    public String getName() {
       return name;
    }
    public void setName(String name) {
+	   System.out.println(name+"name");
       this.name = name;
    }
    public String getJumin_num1() {
       return jumin_num1;
    }
    public void setJumin_num1(String jumin_num1) {
+	   System.out.println(jumin_num1+"jumin_num1");
       this.jumin_num1 = jumin_num1;
    }
    public String getJumin_num2() {
       return jumin_num2;
    }
    public void setJumin_num2(String jumin_num2) {
+	   System.out.println(jumin_num2+"jumin_num2");
       this.jumin_num2 = jumin_num2;
    }
    public String getPhone() {
       return phone;
    }
    public void setPhone(String phone) {
+	   System.out.println(phone+"phone");
       this.phone = phone;
    }
    public String getEmergency_name() {

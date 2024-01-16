@@ -14,17 +14,6 @@
 </head>
 <script>
 $(function(){  })
-/*
-function search(){
-		
-			ajax(
-					"/studentMain.do"
-						,"post"
-						,$("[name='CalendarForm']")
-						,function(responseHtml){
-						alert(responseHtml);
-					})
-};*/
 
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -32,23 +21,32 @@ document.addEventListener('DOMContentLoaded', function() {
     	var calendar = new FullCalendar.Calendar(calendarEl, {
             timeZone: 'UTC',
             initialView: 'dayGridMonth',
-            events:[ 
-                {
-                	<c:forEach var="calendar" items="${selectCalendarMap.selectCalendar}" varStatus="vs">
-    				title:"${calendar.stu_name}"+"${calendar.attend_status}",
-                    start:"${calendar.attend_date}",
-                	</c:forEach>
-                }
+            events:[ <c:forEach var="calendar" items="${selectCalendarMap.selectCalendar}" varStatus="vs">
+            <c:if test="${sessionScope.stu_id==calendar.stu_id}">
+            {
+            	title:"${calendar.stu_name}"+"${calendar.attend_status}",
+                start:"${calendar.attend_date}",
+                color:
+                <c:if test="${calendar.attend_status eq '출석'}">
+                "blue"
+                </c:if>
+                <c:if test="${calendar.attend_status eq '결석'}">
+                "red"
+                </c:if>
+                <c:if test="${calendar.attend_status eq '조퇴'}">
+                "gold"
+                </c:if>
+                <c:if test="${calendar.attend_status eq '지각'}">
+                "green"
+                </c:if>
+       		},
+       		</c:if>
+            </c:forEach>
             ],
             editable: true
         });
         calendar.render();
     });
-function init(){ 
-	
-	
-	
-}
 
  
 </script>
