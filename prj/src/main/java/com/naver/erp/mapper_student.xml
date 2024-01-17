@@ -3,6 +3,30 @@
 
 <mapper namespace="com.naver.erp.AdminDAO">
 	<sql id="stuListWhere">
+	
+	<if test="(keywordS!=null and keywordS.length()>0) or (keywordE!=null and keywordE.length()>0)">
+               and(
+    </if>
+	
+	 <if test="keywordS!=null and keywordS.length()>0">
+        (upper(stu_name) LIKE upper('%${keywordS}%')
+        	OR
+        upper(phone_num) LIKE upper('%${keywordS}%')
+        )
+   </if>
+ 	<if test="(keywordS!=null and keywordS.length()>0) and (keywordE!=null and keywordE.length()>0)">
+    	${orand}
+    </if>
+   
+	<if test="keywordE!=null and keywordE.length()>0">
+        (upper(stu_name) LIKE upper('%${keywordE}%')
+        	OR
+        upper(phone_num) LIKE upper('%${keywordE}%')
+        )
+   </if>
+   <if test="(keywordS!=null and keywordS.length()>0) or (keywordE!=null and keywordE.length()>0)">
+   	)
+   </if>
          <if test="min_regist_date!=null and min_regist_date.length()>0 and max_regist_date!=null and max_regist_date.length()>0">
 		     and
 		     regist_date between to_date(#{min_regist_date}, 'yyyy-mm-dd') and to_date('${max_regist_date} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
@@ -68,8 +92,15 @@
 					+1||'세' 						 			"age"
 	          ,phone_num                      					"phone_num" 
 	          ,to_char(regist_date,'yyyy-mm-dd')  				"regist_date" 
-	          ,etc                      						"etc" 
-          from student
+	          ,etc    											"etc" 
+     		  <if test="class_id!=null and class_id.length()>0">
+	          	,(SELECT
+			        CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+			     FROM class_join_stu cj
+			     WHERE s.stu_id = cj.stu_id AND (class_id IS NULL OR class_id = ${class_id})
+			    ) "isJoined"
+	          </if>
+          from student s
           where 1=1
          <include refid="stuListWhere"/>
     </select> 

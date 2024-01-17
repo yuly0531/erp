@@ -74,13 +74,125 @@ function init(){
 }
 
 function saveData(){
-	  var formObj = $("[name='stuRegForm']");  
+	var formObj = $("[name='stuRegForm']"); 
+	var checkObj_id = formObj.find("[name='id']");
+	var checkObj_pwd = $("[name='pwd']");
+  	//var checkObj_re_Pwd = $("[name='re_Pwd']");
+	var checkObj_name = $("[name='name']");
+	var checkObj_jumin_num1 = formObj.find("[name='jumin_num1']");
+	var checkObj_jumin_num2 = formObj.find("[name='jumin_num2']");
+	var checkObj_phone = formObj.find("[name='phone']");
+	var checkObj_emergency_name = formObj.find("[name='emergency_name']");
+	var checkObj_emergency_relation = formObj.find("[name='emergency_relation']");
+	var checkObj_emergency_phone = formObj.find("[name='emergency_phone']");
+	//var checkObj_joinClass = formObj.find("[name='joinClass']");
+	var checkObj_etc = formObj.find("[name='etc']");	  
+	  
+	if(checkVal(
+		  checkObj_id
+          ,"아이디는 영소문자 또는 숫자로 구성되고 4~15자리"
+          ,/^[a-z0-9]{4,15}$/
+		     )==false){
+		     checkObj_id.focus();
+		     return;
+	}
+	
+	if(checkVal(
+			  checkObj_pwd
+	          ,"암호는 영소문 또는 숫자로 구성되고 4~12자 입력해야 합니다."
+			     ,/^[a-z0-9_-]{4,8}$/
+			     )==false){
+			     checkObj_pwd.focus();
+			     return;
+	}
+	  
+	/*   if(
+		checkObj_pwd.val()
+		!=
+		checkObj_re_Pwd.val())  
+		 
+		{alert("입력한 암호와 다릅니다. 재입력 요망")
+		return;
+	}  */
+	
+	if(checkVal(
+			  checkObj_name
+	          ,"학생명은 2~10자이고 한글로만 입력됩니다."
+			     ,/^[가-힣]{2,10}$/
+			     )==false){
+			     checkObj_name.focus();
+			     return;
+	}
+	
+	 if(checkVal(
+		        checkObj_jumin_num1
+		         ,"주민번호 앞6자리를 입력하세요. "
+		         ,/^[0-9]{6}$/
+		        )==false){
+		        checkObj_jumin_num1.focus();
+		        return;
+		   }
+	
+	 if(checkVal(
+	         checkObj_jumin_num2
+	          ,"주민번호 뒤7자리를 입력하세요. 재입력 요망"
+	          ,/^[0-9]{7}$/
+	        )==false){
+	          checkObj_jumin_num2.focus();
+	          return;
+	      }
+  
+	 if(checkVal(
+	         checkObj_phone
+	          ,"핸드폰 번호는 숫자로만 구성되고 -은 제외합니다."
+	          ,/^[0-9]{8,13}$/
+	        )==false){
+	          checkObj_phone.focus();
+	          return;
+	      }
+	
+	 if(checkVal(
+	         checkObj_emergency_name
+	          ,"비상연락명은 2~10자 이고 한글로만 구성됩니다.재입력 요망"
+	          ,/^[가-힣]{2,10}$/
+	        )==false){
+	          checkObj_emergency_name.focus();
+	          return;
+	      }
+	
+	 if(checkVal(
+	         checkObj_emergency_relation
+	          ,"연락 받는 사람의 관계는 필수 선택사항입니다."
+	          ,/^[^ ]{1,}$/
+	          )==false){
+	          checkObj_emergency_relation.focus();
+	          return;
+	      }
+	
+	 if(checkVal(
+	         checkObj_emergency_phone
+	          ,"비상연락망은 숫자로만 구성되고 -은 제외합니다."
+	          ,/^[0-9]{8,13}$/
+	        )==false){
+	          checkObj_emergency_phone.focus();
+	          return;
+	      }
+
+	  if(checkVal(
+	         checkObj_etc
+	         ,"기타내용은 임의 문자 2~500자 입력해야하고 공백으로 이루어질수 없습니다."
+	         ,/^(.|\n){2,500}$/
+	          )==false){
+	          checkObj_etc.focus();
+	          return;
+	      } 
+	 
    ajax(
       "/registStuProc.admin.do"
       ,"post"
       ,formObj
-      ,function(responseJson){
-    	  var stuRegCnt = responseJson["stuRegCnt"];
+      ,function(responseJson){ 
+    	 var stuRegCnt = responseJson["stuRegCnt"];
          if(stuRegCnt>=1) {
             alert("학생 정보가 등록되었습니다.");
             goStuListForm();

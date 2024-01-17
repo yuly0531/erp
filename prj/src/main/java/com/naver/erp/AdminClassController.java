@@ -108,6 +108,32 @@ public class AdminClassController {
 		
 		return resultMap;
 	}
+	
+	// 수업 참여 학생 리스트
+		@RequestMapping( value="/classDetailJoinStu.do")
+		public ModelAndView stuJoinList(
+				AdminDTO adminDTO
+				,HttpSession session
+		){
+			
+			Map<String,Object> stuListMap = getStuListMap( adminDTO );
+			ModelAndView mav = new ModelAndView();
+			// html 복사를 위해서 만든 더미 파일
+			mav.setViewName( "dumStuList.jsp" );
+			mav.addObject(   "stuListMap" , stuListMap     );
+			return mav;
+		}
+		// 수업 참여 학생 리스트 불러오는 메소드
+			public Map<String,Object> getStuListMap(AdminDTO adminDTO){
+				Map<String,Object> resultMap = new HashMap<String,Object>();
+				List<Map<String,String>> stuList;
+				
+				stuList       =  this.adminDAO.getStuJoinList( adminDTO  );
+				resultMap.put(  "stuList"       , stuList        );
+				resultMap.put(  "adminDTO"  , adminDTO );
+				return resultMap;
+			}
+
  
 	// 수업 삭제
 	@RequestMapping(
@@ -188,8 +214,32 @@ public class AdminClassController {
 		responseMap.put("classRegCnt" , classRegCnt+"" );
 		return responseMap;
 	}
+	// 수업 등록
+	@RequestMapping(
+			value="/insertJoinStu.do" 
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+	)
+	@ResponseBody
+	public Map<String,String> insertJoinStu(  
+			AdminDTO  adminDTO
+
+	){
+		Map<String,String> responseMap = new HashMap<String,String>();
+		int insertJoinStuCnt = 0;
+		
+		try{
+			insertJoinStuCnt = this.adminService.insertJoinStu(adminDTO);
+		}
+		
+		catch(Exception ex){
+			insertJoinStuCnt = -1;
+		}
+		responseMap.put("insertJoinStuCnt" , insertJoinStuCnt+"" );
+		return responseMap;
+	}
 	
 	
-	
+
 
 }

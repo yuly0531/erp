@@ -49,6 +49,73 @@
 	     CLASS_END_DATE >= TO_DATE(#{min_end_date}, 'yyyy-mm-dd')
    </if>
 </sql>    
+
+<sql id="stuJoinListWhere">
+<if test="(keywordS!=null and keywordS.length()>0) or (keywordE!=null and keywordE.length()>0)">
+               and(
+    </if>
+	
+	 <if test="keywordS!=null and keywordS.length()>0">
+        (upper(take_charge_tea) LIKE upper('%${keywordS}%')
+        OR
+        upper(class_name) LIKE upper('%${keywordS}%')
+        OR
+        upper(class_subject) LIKE upper('%${keywordS}%')
+        )
+   </if>
+ 	<if test="(keywordS!=null and keywordS.length()>0) and (keywordE!=null and keywordE.length()>0)">
+    	${orand}
+    </if>
+   
+	<if test="keywordE!=null and keywordE.length()>0">
+        (upper(take_charge_tea) LIKE upper('%${keywordE}%')
+        OR
+        upper(class_name) LIKE upper('%${keywordE}%')
+        OR
+        upper(class_subject) LIKE upper('%${keywordE}%')
+        )
+   </if>
+   <if test="(keywordS!=null and keywordS.length()>0) or (keywordE!=null and keywordE.length()>0)">
+   	)
+   </if>
+     <if test="min_regist_date!=null and min_regist_date.length()>0 and max_regist_date!=null and max_regist_date.length()>0">
+		     and
+		     regist_date between to_date(#{min_regist_date}, 'yyyy-mm-dd') and to_date('${max_regist_date} 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+     	</if>
+     	<if test="min_regist_date!=null and min_regist_date.length()>0">
+		     and
+		     regist_date >= to_date(#{min_regist_date}, 'yyyy-mm-dd')
+     	</if>
+     	<if test="min_age!=null and min_age.length()>0 and max_age!=null and max_age.length()>0">
+		     and
+		     to_number(to_char(sysdate,'yyyy'))-
+			 to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2)) +1
+			 between ${min_age} and ${max_age}
+     	</if>
+     	<if test="min_age!=null and min_age.length()>0">
+		     and
+		     to_number(to_char(sysdate,'yyyy'))-
+			 to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2)) +1
+			 >= ${min_age}
+     	</if>
+     	<if test="gender!= null and gender.size()!=2 and gender.size()==1 and gender[0]==1">
+         and
+          ((substr(jumin_num, 7, 1) = 1) or (substr(jumin_num, 7, 1) = 3))
+		</if>    
+		<if test="gender!= null and gender.size()!=2 and gender.size()==1 and gender[0]==2">
+		   and
+		    ((substr(jumin_num, 7, 1) = 2) or (substr(jumin_num, 7, 1) = 4))
+		</if>
+</sql>
+	
 	  <insert id="insertClassInfo" parameterType="com.naver.erp.AdminDTO" >
       insert into class (
            class_id
@@ -140,6 +207,48 @@
 	          where class_id = ${class_id}
 	  
           </select> 
+    <insert id="insertJoinStu" parameterType="com.naver.erp.AdminDTO" >
+          INSERT INTO class_join_stu (
+           class_id
+           ,stu_id
+       )
+      <foreach item="tmp" collection="join_id" separator=" UNION ALL ">
+         SELECT
+		 #{class_id},
+         #{tmp} FROM DUAL
+      </foreach>
+   </insert> 
+   <delete id="delectJoinStu" parameterType="com.naver.erp.AdminDTO">
+      delete from class_join_stu where class_id = ${class_id}
+   </delete>
           
+          <select id="getStuJoinList" resultType="java.util.Map" >
+	     select
+	     	  stu_id											"stu_id"
+	          ,stu_name               			 				"stu_name"
+	          ,decode( substr(jumin_num,7,1)
+					,'1', '남', '2', '여', '3', '남', '4', '여')  	"gender"
+			  ,to_number(to_char(sysdate,'yyyy'))-
+			    to_number(case substr(jumin_num,7,1) 
+			            when '1' then '19'
+			            when '2' then '19'
+			            else '20'
+			        end||substr(jumin_num,1,2))
+					+1||'세' 						 			"age"
+	          ,phone_num                      					"phone_num" 
+	          ,to_char(regist_date,'yyyy-mm-dd')  				"regist_date" 
+	          ,etc    											"etc" 
+	          <if test="class_id!=null and class_id.length()>0">
+	          	,(SELECT
+			        CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END
+			     FROM class_join_stu cj
+			     WHERE s.stu_id = cj.stu_id AND (class_id IS NULL OR class_id = ${class_id})
+			    ) "isJoined"
+	          </if>
+          from student s
+          where 1=1
+         and stu_id in (select stu_id from class_join_stu where class_id = ${class_id})
+         <include refid="stuJoinListWhere"/>
+    </select> 
          
 </mapper>

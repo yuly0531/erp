@@ -51,7 +51,10 @@ public interface AdminDAO {
 	int getClassListCntAll();
 	List<Map<String,String>> getClassList(AdminDTO adminDTO);
 	List<Map<String,String>> getClassDetailInfo(AdminDTO adminDTO);
+	List<Map<String,String>> getStuJoinList(AdminDTO adminDTO);
 	int insertClassInfo(AdminDTO adminDTO);
+	int insertJoinStu(AdminDTO adminDTO);
+	int delectJoinStu(AdminDTO adminDTO);
 	int deleteClassInfo(AdminDTO adminDTO);
 	int updateClassInfo(AdminDTO adminDTO);
 

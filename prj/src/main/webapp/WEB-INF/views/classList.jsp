@@ -32,7 +32,53 @@
 			$('.desc_box').slideToggle();
 			$('.filter').toggleClass('active');
 		} 
-	
+		//플래그 추가
+		var buttonsAdded = false;
+
+		function stuSearch() {
+		    var formObj = $("[name='searchStuForm']");
+		    ajax(
+		        "/stuJoinList.do",
+		        "post",
+		        formObj,
+		        function(responseHtml) {
+		            var obj = $(responseHtml);
+		            var searchResultCnt = obj.find(".popup_stu_search").find(".searchResultCnt").html();
+		            var searchResult = obj.find(".boardForm").find(".searchResult").html();
+		            var pageNos = obj.find(".popup_stu_search").find(".pageNos").html();
+		            var html =
+		                '<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>검색 결과가 없습니다.</div>';
+
+		            if ($('.impect').text() == 0 || $('.impect').text() == '0') {
+		                $(".searchResult").html(html);
+		                $('.pageNos').hide();
+		            }
+		            else{
+		            	$("[name='searchStuForm']").find(".searchResultCnt").html(searchResultCnt);
+		            	$("[name='searchStuForm']").find(".searchResult").html(searchResult);
+		            	$("[name='searchStuForm']").find(".pageNos").html(pageNos);
+		            }
+		            if (!buttonsAdded) {
+		                var cancelButtonHtml = '<input type="button" name="cancel" class="stuSearch desc_btn"  onclick="closeStuPopup()" value="취소">';
+		                var saveButtonHtml = '<input type="button" name="save" class="stuSearch desc_btn"  onclick="join_stu_save()" value="등록">';
+		                
+		                $(".pageNos").after(saveButtonHtml);
+		                $(".pageNos").after(cancelButtonHtml);
+
+		                buttonsAdded = true;
+		            }
+		        }
+		    );
+		}
+
+
+		function showStuSearchPopup(){
+			$('input[type=radio]').prop('checked', false);
+			$(".popup_stu_search_main").animate({ scrollTop: 0 }, "fast");
+			
+			stuSearch();
+			$('.popup_stu_search').show();	
+		}
 	
 
 
@@ -82,6 +128,7 @@ function closePopup(){
 		$('.popup').find('input').prop('checked', false);
 		$('.popup').find('textarea').val('');
 		$('.popup').hide();
+		search();
 }
 
 function showPopup(class_id){
@@ -95,7 +142,6 @@ function showPopup(class_id){
 			,$("[name='classRegForm']")
 			,function(json){
 				var data = json.classList[0];
-			console.log(data.take_charge_tea)
 			$('.classRegForm').find('[name="class_name"]').val(data.class_name);
 			$('.classRegForm').find('[name="class_start_date"]').val(data.class_start_date);
 			$('.classRegForm').find('[name="class_end_date"]').val(data.class_end_date);
@@ -103,6 +149,26 @@ function showPopup(class_id){
 			$('.classRegForm').find('[name="class_subject"]').val(data.class_subject);
 			} 
 		);
+		
+		ajax(
+				"/classDetailJoinStu.do"
+				,"post"
+				,$("[name='classRegForm']")
+				,function(responseHtml){
+						var obj = $(responseHtml);
+						var searchResult = obj.find(".searchResult").html();
+						var html = 
+				'<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>등록 학생이 없습니다.</div>';
+
+				$(".searchResult").html(searchResult);
+						
+
+				if($('.impect').text() == 0 || $('.impect').text() == '0') {
+					$(".searchResult").html( html );
+				}
+			}
+	);
+		
 
 	$('.popup').show();	
 }
@@ -149,7 +215,64 @@ function update() {
 		}
 
 		function search(){
-		
+			var formObj = $("[name='searchclassForm']")
+			var checkObj_keyword1 = formObj.find("[name='keyword1']");                            
+			var checkObj_keyword2 = $("[name='keyword2']");
+			var checkObj_min_start_date = formObj.find("[name='min_start_date']");
+			var checkObj_max_start_date = formObj.find("[name='max_start_date']");
+			var checkObj_min_end_date = formObj.find("[name='min_end_date']");
+			var checkObj_max_end_date = formObj.find("[name='max_end_date']");
+			
+			
+			
+			if (checkObj_keyword1.val() !== "") {
+			    var inputValue = checkObj_keyword1.val().trim();
+
+			    if (/^(.|\n){2,20}$/.test(inputValue)) {
+			        alert("검색조건이 유효합니다.");
+			    } else {
+			        alert("검색조건은 임의문자 2~20자만 입력 가능하고 공백으로 구성은 안됩니다.");
+			        checkObj_keyword1.val(""); 
+			    }
+			}
+				
+				if (checkObj_keyword2.val() !== "") {
+				var inputValue = checkObj_keyword2.val().trim();
+
+				  if (/^(.|\n){2,20}$/.test(inputValue)) {
+				    alert("검색조건이 유효합니다.");
+				} else {
+				    alert("검색조건은 임의문자 2~20자만 입력 가능하고 공백으로 구성은 안됩니다.");
+				    checkObj_keyword2.val(""); 
+				}
+			}	
+			
+			if(checkObj_min_start_date.val()==""
+				&& checkObj_max_start_date.val()!=""){
+				alert("최소 개강일을 설정해주세요.")
+			return;
+		}
+			else{
+				if(checkObj_min_start_date.val()>
+				checkObj_max_start_date.val()&& checkObj_max_start_date.val()!=""){
+					alert("최소 개강일은 최대 개강일을 넘을 수 없습니다.")
+				return;
+				}
+			} 	
+				
+				
+			if(checkObj_min_end_date.val()==""
+				&& checkObj_max_end_date.val()!=""){
+				alert("최소 수료일을 설정해주세요.")
+			return;
+		}
+			else{
+				if(checkObj_min_end_date.val()>
+				checkObj_max_end_date.val()&& checkObj_max_end_date.val()!=""){
+					alert("최소 수료일은 최대 개강일을 넘을 수 없습니다.")
+				return;
+				}
+			} 	
 			ajax(
 						"/classList.do"
 						,"post"
@@ -178,7 +301,49 @@ function update() {
 			);
 		}
 
+function join_stu_save(){
+	ajax(
+			"/insertJoinStu.do"
+			,"post"
+			,$("[name='searchStuForm']")
+			,function( responseJson ){
+		    	  var insertJoinStuCnt = responseJson["insertJoinStuCnt"];
+				if( insertJoinStuCnt>=1 ){
+					alert('등록 되었습니다.');
+					closeStuPopup();
+					stuSearch();
+				} else alert("WAS 접속 실패입니다. 관리자에게 문의 바랍니다.");
+			}
+	);
+}
+function closeStuPopup(){
+	var getHead = $('.classRegForm').find('header');
+	
+		getHead.text('수업 상세 정보');
+		$('.save').text('수정');
+		$('.save').attr('onclick', 'alterInfo(this)');
+		$('.popup_stu_search').find('input').prop('checked', false);
+		$('.popup_stu_search').find('textarea').val('');
+		$('.popup_stu_search').hide();
+		ajax(
+				"/classDetailJoinStu.do"
+				,"post"
+				,$("[name='classRegForm']")
+				,function(responseHtml){
+						var obj = $(responseHtml);
+						var searchResult = obj.find(".searchResult").html();
+						var html = 
+				'<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>등록 학생이 없습니다.</div>';
 
+				$(".searchResult").html(searchResult);
+						
+
+				if($('.impect').text() == 0 || $('.impect').text() == '0') {
+					$(".searchResult").html( html );
+				}
+			}
+	);
+}
 		</script>
 		<body>
 				<form name="classSearch" class="header">
@@ -357,6 +522,41 @@ function update() {
 									<div class='desc_title'>수업 내용</div>
 			                        <textarea name="class_subject" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
 			                    </div>
+			                    <div>
+		        	<div class="flex" style="justify-content: space-between;">
+		        		<div>수강 학생 목록</div>
+		        		<span class="show" onClick="showStuSearchPopup()">+ 학생 추가</span>
+		        	</div>
+		      </div>
+		        <div name="searchResult" class="searchResult" >
+		<div class="resultCate">
+			<div>번호</div>
+			<div>이름</div>
+			<div>성별</div>
+			<div>나이</div>
+			<div>핸드폰</div>
+			<div>등록일</div>
+			<div>수강여부</div>
+		</div>
+			<div class="SearchResult_box">
+				<c:forEach var="stuList" items="${stuListMap.stuList}" varStatus="vs">
+		      		<div class="searchDetail">
+			            <div>${vs.index + 1}</div>
+			            <div>${stuList.stu_name}</div>
+			            <div>${stuList.gender}</div>
+			            <div>${stuList.age}</div>
+			            <div>${stuList.phone_num}</div>
+			            <div>${stuList.regist_date}</div>
+			            <div>
+			            <input type="checkbox" name="join_id" value="${stuList.stu_id}" ${stuList.isJoined ? 'checked' : ''}>
+		         		</div>
+		         	</div>
+	         	</c:forEach>
+			<div>
+			</div>
+	</div> 
+	</div>
+		      </div> 
 								
 						</div>	
 						<span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
@@ -367,7 +567,129 @@ function update() {
 					</div>
 			</div>
 	</div>
+<div class='popup_stu_search'>
+    <div class="dim">
+       <div class='popup_stu_search_main'>
+        <form name="searchStuForm" class="boardForm">
+					<header>
+						<div>학생 검색</div>
+					</header>
+					
+			<input type="hidden" name="class_id" class="class_id">
+							<div class="search_bar_box">
+								<tr>
+									<td>
+										<input type="text" name="keywordS" maxlength="30">
+										<select name="orand">
+													<option value="or">or
+													<option value="and">and
+										</select>
+										<input type="text" name="keywordE" maxlength="30">
+										<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
+										<input type="button" onClick="stuSearch()" name="Search" class="search" value="검색">
+									</td>
+								</tr>
+								<div class="button_box">
+									<input type="button" onClick="reSearch4()"  name="reSearch" class="desc_btn" value="초기화 후 전부검색">
+									<span class='filter' onclick="showDesc(this)"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+								</div>
+							</div>
+							<div class="desc_box">
+						<div>
+								<tr>
+									<div class="title" >성별</div>
+									<td>
+										<input type="checkbox" name="gender" value="1">남
+										<input type="checkbox" name="gender" value="2">여
+									</td>
+								</tr>  
+							</div>
+								<div>
+									<tr>
+												<div class="title">등록일</div>
+															<td>
+																<input type="date" name="min_regist_date"> ~
+																<input type="date" name="max_regist_date">
+																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
+															</td>
+									</tr>  
+								</div>
+								<div>
+									<tr>
+												<div class="title" >나이</div>
+															<td>
+																<input type="number" name="min_age"> 살 ~
+																<input type="number" name="max_age"> 살
+																<input onclick="dateEmpty(this, 'number')" type="button" name="age_reset" value="비움">
+															</td>
+									</tr>
+								</div>
+							
+								
+					</div>
+	<section>
+		<section class="count_desc">
+				<section class="searchResultCnt">
+					검색개수 : <span class="accent impect">${stuListMap.stuListCnt}</span> 
+					개
+				</section>
+			
+				<select name="rowCntPerPage" onChange="search()" class="rownum">
+							<option value="10">10 
+							<option value="15">15 
+							<option value="20">20 
+				</select>&nbsp;행 보기
+		</section>
+	</section>	
+						
+	<div name="searchResult" class="searchResult" >
+		<div class="resultCate">
+			<div>번호</div>
+			<div>이름</div>
+			<div>성별</div>
+			<div>나이</div>
+			<div>핸드폰</div>
+			<div>등록일</div>
+			<div>수강여부</div>
+		</div>
+			<div class="SearchResult_box">
+				<c:forEach var="stuList" items="${stuListMap.stuList}" varStatus="vs">
+		      		<div class="searchDetail">
+			            <div>${stuListMap.begin_serialNo_desc-vs.index}</div>
+			            <div>${stuList.stu_name}</div>
+			            <div>${stuList.gender}</div>
+			            <div>${stuList.age}</div>
+			            <div>${stuList.phone_num}</div>
+			            <div>${stuList.regist_date}</div>
+			            <div><input type="checkbox" name="join_id" value="${stuList.stu_id}" ${stuList.isJoined ? 'checked' : ''}>
+						</div>
+					</div>
+	         	</c:forEach>
+			<div>
+			</div>
+	</div> 
+	</div>
+	<span class="pageNos"> 
+		<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+			<c:forEach var="pageNo" begin="${requestScope.stuListMap.begin_pageNo}" end="${requestScope.stuListMap.end_pageNo}">
+				<c:if test="${requestScope.stuListMap.selectPageNo==pageNo}">
+					<span class='isSelect'>
+						${pageNo}
+					</span>
+				</c:if>
+			<c:if test="${requestScope.stuListMap.selectPageNo!=pageNo}">
+				<span style="cursor:pointer" onClick="pageNoClick(${pageNo})">[${pageNo}]</span>
+			</c:if>  
+	</c:forEach> 
 
+		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+		<span onClick="pageNoClick(${requestScope.stuListMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+	   
+	</form>
+    </div>
+ </div>
+ </div>
 	<div class="none">
 		<form name="searchClassDetailForm" action="/classDetailForm.do" post="post">
 		</form>

@@ -174,96 +174,172 @@ function update() {
 			var formObj=$("[name='searchteaDevForm']");
 			formObj.find("[name='selectPageNo']").val(clickPageNo);
 			search();
-		}
+}
 
-		// 검색
-		function search(){
-				var formObj = $("[name='searchTeaForm']")
-			ajax(
-					"/teaList.do"
-					,"post"
-					,formObj
-					// 이 부분 내가 비동기 방식으로 보낼 Form 으로 이름 바꾸기
-					// 나머지는 안건드려도 됨
-					,function(responseHtml){
+// 검색
+function search(){
+	var formObj = $("[name='searchTeaForm']")
+	var checkObj_keyword1 = formObj.find("[name='keyword1']");                            
+	var checkObj_keyword2 = $("[name='keyword2']");                            
+	var checkObj_min_regist_date = formObj.find("[name='min_regist_date']");
+	var checkObj_max_regist_date = formObj.find("[name='max_regist_date']");
+	var checkObj_min_career = formObj.find("[name='min_career']");
+	var checkObj_max_career = formObj.find("[name='max_career']");
+	var checkObj_min_age = formObj.find("[name='min_age']");
+	var checkObj_max_age = formObj.find("[name='max_age']");
+
+	
+	if (checkObj_keyword1.val() !== "") {
+    var inputValue = checkObj_keyword1.val().trim();
+
+    if (/^(.|\n){2,20}$/.test(inputValue)) {
+        alert("검색조건이 유효합니다.");
+    } else {
+        alert("검색조건은 임의문자 2~20자만 입력 가능하고 공백으로 구성은 안됩니다.");
+        checkObj_keyword1.val(""); 
+    }
+}
+	
+	if (checkObj_keyword2.val() !== "") {
+	var inputValue = checkObj_keyword2.val().trim();
+
+	  if (/^(.|\n){2,20}$/.test(inputValue)) {
+	    alert("검색조건이 유효합니다.");
+	} else {
+	    alert("검색조건은 임의문자 2~20자만 입력 가능하고 공백으로 구성은 안됩니다.");
+	    checkObj_keyword2.val(""); 
+	}
+}
+	
+	
+	 
+ 	if(checkObj_min_regist_date.val()==""
+		&& checkObj_max_regist_date.val()!=""){
+		alert("최소 입사일을 설정해주세요.")
+	return;
+}
+else{
+	if(checkObj_min_regist_date.val()>
+	checkObj_max_regist_date.val()&& checkObj_max_regist_date.val()!=""){
+		alert("최소 입사일은 최대 입사일을 넘을 수 없습니다.")
+	return;
+	}
+} 
+
+	
+	
+	if(checkObj_min_career.val()==""
+		&& checkObj_max_career.val()!=""){
+		alert("최소 경력을 설정해주세요.")
+	return;
+}
+	
+else{
+	if(checkObj_min_career.val()>
+	checkObj_max_career.val()&& checkObj_max_career.val()!=""){
+		alert("최소 경력은 최대 경력을 넘을 수 없습니다.")
+	return;
+	}
+} 
+	
+	if(checkObj_min_age.val()==""
+		&& checkObj_max_age.val()!=""){
+		alert("최소 나이를 설정해주세요.")
+	return;
+}
+	
+	else{
+		if(checkObj_min_age.val()>
+		checkObj_max_age.val()&& checkObj_max_age.val()!=""){
+			alert("최소 나이는 최대 나이를 넘을 수 없습니다.")
+		return;
+		}
+	} 
+	
+	ajax(
+			"/teaList.do"
+			,"post"
+			,formObj
+			// 이 부분 내가 비동기 방식으로 보낼 Form 으로 이름 바꾸기
+			// 나머지는 안건드려도 됨
+			,function(responseHtml){
 					
-						var obj = $(responseHtml);
-						var searchResultCnt = obj.find(".searchResultCnt").html();
-						var searchResult = obj.find(".searchResult");
-						var pageNos = obj.find(".pageNos").html();
-						var html = 
-						'<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>검색 결과가 없습니다.</div>';
+			var obj = $(responseHtml);
+			var searchResultCnt = obj.find(".searchResultCnt").html();
+			var searchResult = obj.find(".searchResult");
+			var pageNos = obj.find(".pageNos").html();
+			var html = 
+			'<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>검색 결과가 없습니다.</div>';
 
-						$(".searchResultCnt").html(searchResultCnt);
-						$(".searchResult").html(searchResult);
-						$(".pageNos").html(pageNos);
-						$('.pageNos').show();
+			$(".searchResultCnt").html(searchResultCnt);
+			$(".searchResult").html(searchResult);
+			$(".pageNos").html(pageNos);
+			$('.pageNos').show();
 
-						if($('.impect').text() == 0 || $('.impect').text() == '0') {
-							$(".searchResult").html( html );
-							$('.pageNos').hide();
-						}
+			if($('.impect').text() == 0 || $('.impect').text() == '0') {
+				$(".searchResult").html( html );
+				$('.pageNos').hide();
 					}
-			);
-		}
+				}
+		);
+	}
 
-
-		</script>
-		<body>
-				<form name="teaSearch" class="header">
-						<div class="header_box">
-							<div class="logo" onclick="location.replace('/adminMain.do')">
-								<img src="">
-								<div>
-									ERP
-								</div>
-							</div>
-							<table>
-								<tr class="cate_box">
-              						<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
-									<td class="main_cate active" onclick="location.replace('/teaList.do')">강사 관리</td>
-									<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
-									<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
-								</tr>
-							</table>
-							<div class="welcome_user">
-								<div>
-									
-							<div class="welcome_name">로그아웃</div>
-							
-									</div>
-								<div class="logout_btn" onclick="location.replace('/loginForm.do')"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
-							</div>
-							<br>
-						</div>
-			</form>
-
+</script>
+<body>
+	<form name="teaSearch" class="header">
+		<div class="header_box">
+		<div class="logo" onclick="location.replace('/adminMain.do')">
+		<img src="">
 			<div>
-				<form name="searchTeaForm" class="boardForm">
-					<header>
-						<div>강사 검색</div>
-					</header>
-							<div class="search_bar_box">
-								<tr>
-									<td>
-										<input type="text" name="keyword1" maxlength="30">
-										<select name="orand">
-													<option value="or">or
-													<option value="and">and
-										</select>
-										<input type="text" name="keyword2" maxlength="30">
-										<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
-										<input type="button" onClick="search()" name="Search" class="search" value="검색">
-									</td>
-								</tr>
-								<div class="button_box">
-									<input type="button" onClick="reSearch()"  name="reSearch" class="desc_btn" value="초기화 후 전부검색">
-									<input type="button" name="teaSearch" class="teaSearch desc_btn"  onclick="location.replace('/registTea.do')" value="강사 등록">
-									<span class='filter' onclick="showDesc(this)"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-								</div>
-							</div>
-							<div class="desc_box">
-						<div>
+				ERP
+			</div>
+		</div>
+		<table>
+			<tr class="cate_box">
+            <td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+			<td class="main_cate active" onclick="location.replace('/teaList.do')">강사 관리</td>
+			<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
+			<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
+		</tr>
+		</table>
+			<div class="welcome_user">
+				<div>
+			<div class="welcome_name">로그아웃</div>
+							
+		</div>
+			<div class="logout_btn" onclick="location.replace('/loginForm.do')"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
+		</div>
+		<br>
+		</div>
+		</form>
+
+		<div>
+			<form name="searchTeaForm" class="boardForm">
+			<header>
+				<div>강사 검색</div>
+			</header>
+				<div class="search_bar_box">
+			<tr>
+				<td>
+					<input type="text" name="keyword1" maxlength="30">
+					<select name="orand">
+					<option value="or">or
+					<option value="and">and
+					</select>
+			<input type="text" name="keyword2" maxlength="30">
+			<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
+			<input type="button" onClick="search()" name="Search" class="search" value="검색">
+			</td>
+			</tr>
+			
+			<div class="button_box">
+				<input type="button" onClick="reSearch()"  name="reSearch" class="desc_btn" value="초기화 후 전부검색">
+				<input type="button" name="teaSearch" class="teaSearch desc_btn"  onclick="location.replace('/registTea.do')" value="강사 등록">
+				<span class='filter' onclick="showDesc(this)"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+			</div>
+			</div>
+				<div class="desc_box">
+					<div>
 								<tr>
 									<div class="title" >성별</div>
 									<td>

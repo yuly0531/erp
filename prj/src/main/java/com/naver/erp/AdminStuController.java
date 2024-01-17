@@ -56,6 +56,33 @@ public class AdminStuController {
 		return mav;
 	}
 	
+	// 학생 관리(리스트) 접속, 검색
+	@RequestMapping( value="/stuJoinList.do")
+	public ModelAndView stuJoinList(
+			AdminDTO adminDTO
+			,HttpSession session
+	){
+		
+		String mid;
+		if((String)session.getAttribute("stu_id")!=null) {
+			mid = (String)session.getAttribute("stu_id");
+		}
+		else if((String)session.getAttribute("tea_id")!=null) {
+			mid = (String)session.getAttribute("tea_id");
+		}
+		else {
+			mid = (String)session.getAttribute("mana_id");
+		}
+		
+		String whatRole = mainDAO.whatRole(mid);
+		Map<String,Object> stuListMap = getStuListMap( adminDTO );
+		ModelAndView mav = new ModelAndView();
+		// html 복사를 위해서 만든 더미 파일
+		mav.setViewName( "dumClassList.jsp" );
+		mav.addObject(   "stuListMap" , stuListMap     );
+		mav.addObject(   "whatRole" , whatRole     );
+		return mav;
+	}
 	// 학생 리스트 불러오는 메소드
 		public Map<String,Object> getStuListMap(AdminDTO adminDTO){
 			Map<String,Object> resultMap = new HashMap<String,Object>();

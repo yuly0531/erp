@@ -136,7 +136,8 @@ body > form.header:last-of-type {
   color: dimgray;
 }
 .cancel,
-.save {
+.save,
+.show {
   display: inline-block;
   border-radius: 5px;
   width: 100px; height: 30px;
@@ -156,7 +157,8 @@ body > form.header:last-of-type {
   background-color: #A4A4A4;
   color: #fff;
 }
-.cancel {
+.cancel
+,.show {
   border: 1px solid lightgrey;
 }
 .save:hover {

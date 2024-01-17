@@ -78,26 +78,175 @@ function goTeaListForm(){
     document.teaListForm.submit();
 }
 
-/*	유효성 체크 추가
- 	function checkTeaRegForm(){
-	var formObj = $("[name='teaRegForm']");
-		if( !checkTea_id(formObj.find("[name='tea_id']"))  ) { return; }
-	} */
-
-
-
-
-
 function save(){
 	var formObj = $("[name='teaRegForm']"); 
-     
+	var checkObj_tea_id = formObj.find("[name='tea_id']");
+	var checkObj_tea_pwd = $("[name='tea_pwd']");
+	var checkObj_re_Pwd = $("[name='re_Pwd']");
+	var checkObj_tea_name = $("[name='tea_name']");
+	var checkObj_tea_jumin_num1 = $("[name='tea_jumin_num1']");
+	var checkObj_tea_jumin_num2 = $("[name='tea_jumin_num2']");
+	var checkObj_tea_phone = $("[name='tea_phone']");
+	var checkObj_tea_emergency_name = $("[name='tea_emergency_name']");
+	var checkObj_tea_emergency_relation = $("[name='tea_emergency_relation']");
+	var checkObj_tea_emergency_phone = $("[name='tea_emergency_phone']");
+	var checkObj_past_company_name = $("[name='past_company_name']");	
+	var checkObj_salary = $("[name='salary']");	
+	var checkObj_hire_date = $("[name='hire_date']");	
+	var checkObj_fire_date = $("[name='fire_date']");
+	var checkObj_tea_joinClass = $("[name='tea_joinClass']");
+	var checkObj_tea_etc = $("[name='tea_etc']");
+
+	  if(checkVal(
+		        checkObj_tea_id
+		          ,"아이디는 영소문자 또는 숫자로 구성되고 4~15자리"
+		          ,/^[a-z0-9]{4,15}$/
+		        )==false){
+		          checkObj_tea_id.focus();
+		          return;
+		  }
+	  if(checkVal(
+		        checkObj_tea_pwd
+		          ,"암호는 영소문 또는 숫자로 구성되고 4~12자 입력해야 합니다."
+		          ,/^[a-z0-9]{4,12}$/
+		        )==false){
+		          checkObj_tea_pwd.focus();
+		          return;
+		  }
+	
+	  if(
+		checkObj_tea_pwd.val()
+		!=
+		checkObj_re_Pwd.val())
+		  
+		{alert("입력한 암호와 다릅니다. 재입력 요망")
+		return;
+	}
+	  
+	  if(checkVal(
+		         checkObj_tea_name
+		          ,"강사명은 2~10자이고 한글로만 입력됩니다."
+		          ,/^[가-힣]{2,10}$/
+		        )==false){
+		          checkObj_tea_name.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_jumin_num1
+		          ,"주민번호 앞6자리를 입력하세요. "
+		          ,/^[0-9]{6}$/
+		        )==false){
+		          checkObj_tea_jumin_num1.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_jumin_num2
+		          ,"주민번호 뒤7자리를 입력하세요. 재입력 요망"
+		          ,/^[0-9]{7}$/
+		        )==false){
+		          checkObj_tea_jumin_num2.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_phone
+		          ,"핸드폰 번호는 숫자로만 구성되고 -은 제외합니다."
+		          ,/^[0-9]{8,13}$/
+		        )==false){
+		          checkObj_tea_phone.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_emergency_name
+		          ,"비상연락명은 2~10자 이고 한글로만 구성됩니다.재입력 요망"
+		          ,/^[가-힣]{2,10}$/
+		        )==false){
+		          checkObj_tea_emergency_name.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_emergency_relation
+		          ,"연락 받는 사람의 관계는 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_tea_emergency_relation.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_emergency_phone
+		          ,"비상연락망은 숫자로만 구성되고 -은 제외합니다."
+		          ,/^[0-9]{8,13}$/
+		        )==false){
+		          checkObj_tea_emergency_phone.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_past_company_name
+		          ,"회사명은 한글,영어로만 구성되고 1~20자로 구성됩니다."
+		          ,/^[a-z가-힣]{1,20}$/
+		        )==false){
+		          checkObj_past_company_name.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_salary
+		          ,"연봉은 숫자만 입력하세요."
+		          ,/^[0-9]{3,6}$/
+		        )==false){
+		          checkObj_salary.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_hire_date
+		         ,"입사일은 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_hire_date.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_fire_date
+		         ,"퇴사일은 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_fire_date.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_joinClass
+		         ,"담당수업은 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_tea_joinClass.focus();
+		          return;
+	 }
+	  
+	  if(checkVal(
+		         checkObj_tea_etc
+		         ,"기타내용은 임의 문자 2~500자 입력해야하고 공백으로 이루어질수 없습니다."
+		         ,/^(.|\n){2,500}$/
+		          )==false){
+		          checkObj_tea_etc.focus();
+		          return;
+		      }
+	  
    	ajax(
       "/registTeaProc.do"
       ,"post"
       ,formObj
       ,function(responseJson){
-    	  var teaRegCnt = responseJson["teaRegCnt"];
-         if(teaRegCnt>=1) {
+          var teaRegCnt = responseJson["teaRegCnt"];
+    	  if(teaRegCnt>=1) {
             alert("강사 정보가 등록되었습니다.");
             goTeaListForm();
          }
@@ -152,7 +301,7 @@ function save(){
                     </td>
                     <td>암호확인</td>
                     <td colspan="2">
-                        <input type="password" name="rePwd" maxlength="20">
+                        <input type="password" name="re_Pwd" maxlength="20">
                     </td>
                     </div>
              <div> 

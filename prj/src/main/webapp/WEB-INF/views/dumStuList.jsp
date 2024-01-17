@@ -135,83 +135,27 @@
 			search();
 		}
 
-	function search(){
-		var formObj = $("[name='searchStuForm']")
-		var checkObj_keywordS = formObj.find("[name='keywordS']");                            
-		var checkObj_keywordE = $("[name='keywordE']");
-		//var checkObj_gender = formObj.find("[name='gender']");
-		var checkObj_min_regist_date = formObj.find("[name='min_regist_date']");
-		var checkObj_max_regist_date = formObj.find("[name='max_regist_date']");
-		var checkObj_min_age = formObj.find("[name='min_age']");
-		var checkObj_max_age = formObj.find("[name='max_age']");
-		
-		if (checkObj_keywordS.val() !== "") {
-		var inputValue = checkObj_keywordS.val().trim();
-
-		    if (/^(.|\n){2,20}$/.test(inputValue)) {
-		        alert("검색조건이 유효합니다.");
-		    } else {
-		        alert("검색조건은 임의문자 2~20자만 입력 가능하고 공백으로 구성은 안됩니다.");
-		        checkObj_keywordS.val(""); 
-		    }
-		}
-			
-			if (checkObj_keywordE.val() !== "") {
-			var inputValue = checkObj_keywordE.val().trim();
-
-			  if (/^(.|\n){2,20}$/.test(inputValue)) {
-			    alert("검색조건이 유효합니다.");
-			} else {
-			    alert("검색조건은 임의문자 2~20자만 입력 가능하고 공백으로 구성은 안됩니다.");
-			    checkObj_keywordE.val(""); 
-			}
-		}	
-			
-			
-			if(checkObj_min_regist_date.val()==""
-				&& checkObj_max_regist_date.val()!=""){
-				alert("최소 등록일을 설정해주세요.")
-			return;
-		}
-		else{
-			if(checkObj_min_regist_date.val()>
-			checkObj_max_regist_date.val()&& checkObj_max_regist_date.val()!=""){
-				alert("최소 등록일은 최대 등록일을 넘을 수 없습니다.")
-			return;
-			}
-		} 	
-			
-			if(checkObj_min_age.val()==""
-				&& checkObj_max_age.val()!=""){
-				alert("최소 나이를 설정해주세요.")
-			return;
-		}
-			
-			else{
-				if(checkObj_min_age.val()>
-				checkObj_max_age.val()&& checkObj_max_age.val()!=""){
-					alert("최소 나이는 최대 나이를 넘을 수 없습니다.")
-				return;
-				}
-			} 
-					
+		function search(){
+			var formObj = $("[name='searchStuForm']")
 			ajax(
-					"/stuList.do"
-					,"post"
-					,formObj
-					,function(responseHtml){
-						var obj = $(responseHtml);
-						var sort = obj.find(".sort").html();
-						var searchResultCnt = obj.find(".searchResultCnt").html();
-						var searchResult = obj.find(".searchResult");
-						var pageNos = obj.find(".pageNos").html();
-						var html = 
+						"/stuList.do"
+						,"post"
+						,formObj
+						,function(responseHtml){
+								var obj = $(responseHtml);
+								var sort = obj.find(".sort").html();
+								var searchResultCnt = obj.find(".searchResultCnt").html();
+								var searchResult = obj.find(".searchResult");
+								var pageNos = obj.find(".pageNos").html();
+								var html = 
 						'<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>검색 결과가 없습니다.</div>';
+
 						$(".searchResultCnt").html(searchResultCnt);
 						$(".searchResult").html(searchResult);
 						$(".pageNos").html(pageNos);
 						$('.pageNos').show();
 								
+
 						if($('.impect').text() == 0 || $('.impect').text() == '0') {
 							$(".searchResult").html( html );
 							$('.pageNos').hide();
@@ -225,20 +169,39 @@
 		<body>
 				<form name="stuSearch" class="header">
 						<div class="header_box">
-							<div class="logo" onclick="location.replace('/adminMain.do')">
-								<img src="">
-								<div>
-									ERP
-								</div>
-							</div>
-							<table>
-								<tr class="cate_box">
-              						<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
-									<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
-									<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
-									<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
-								</tr>
-							</table>
+							<c:if test="${whatRole eq '강사'}">
+          <div class="logo" onclick="location.replace('/teaMain.do')">
+            <img src="">
+            <div>
+              ERP
+            </div>
+          </div>
+          <table>
+            <tr class="cate_box">
+			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
+			<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
+			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
+			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
+          </tr>
+          </table>
+		</c:if> 
+		<c:if test="${whatRole eq '관리자'}">
+          	<div class="logo" onclick="location.replace('/adminMain.do')">
+				<img src="">
+				<div>
+					ERP
+				</div>
+			</div>
+			<table>
+				<tr class="cate_box">
+	         		<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
+					<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
+					<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
+					<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
+				</tr>
+			</table>
+		</c:if> 
 							<div class="welcome_user">
 								<div>
 									
@@ -308,28 +271,6 @@
 							
 								
 					</div>
-	<input type="hidden" name="selectPageNo" value="1">
-	<input type="hidden" name="stuSort_fName">
-	<input type="hidden" name="stuSort_age">
-	<input type="hidden" name="stuSort_level_edu">
-	<input type="hidden" name="stuSort_yeoncha">
-	<input type="hidden" name="stuSort_can_dispatch_date">
-	<input type="hidden" name="stuSort_consultation_date">
-	<input type="hidden" name="stuSort_dev_year_standard_date">
-	<section>
-		<section class="count_desc">
-				<section class="searchResultCnt">
-					검색개수 : <span class="accent impect">${stuListMap.stuListCnt}</span> 
-					개
-				</section>
-			
-				<select name="rowCntPerPage" onChange="search()" class="rownum">
-							<option value="10">10 
-							<option value="15">15 
-							<option value="20">20 
-				</select>&nbsp;행 보기
-		</section>
-	</section>	
 						
 	<div name="searchResult" class="searchResult" >
 		<div class="resultCate">
@@ -342,8 +283,8 @@
 		</div>
 			<div class="SearchResult_box">
 				<c:forEach var="stuList" items="${stuListMap.stuList}" varStatus="vs">
-		      		<div class="searchDetail" onclick="showPopup('${stuList.stu_id}')">
-			            <div>${stuListMap.begin_serialNo_desc-vs.index}</div>
+		      		<div class="searchDetail">
+			            <div>${vs.index + 1}</div>
 			            <div>${stuList.stu_name}</div>
 			            <div>${stuList.gender}</div>
 			            <div>${stuList.age}</div>
@@ -355,23 +296,7 @@
 			</div>
 	</div> 
 	</div>
-	<span class="pageNos"> 
-		<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-			<c:forEach var="pageNo" begin="${requestScope.stuListMap.begin_pageNo}" end="${requestScope.stuListMap.end_pageNo}">
-				<c:if test="${requestScope.stuListMap.selectPageNo==pageNo}">
-					<span class='isSelect'>
-						${pageNo}
-					</span>
-				</c:if>
-			<c:if test="${requestScope.stuListMap.selectPageNo!=pageNo}">
-				<span style="cursor:pointer" onClick="pageNoClick(${pageNo})">[${pageNo}]</span>
-			</c:if>  
-	</c:forEach> 
-
-		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-		<span onClick="pageNoClick(${requestScope.stuListMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-	</div>    
+   
 			</form>
 		</div> 
 		

@@ -86,10 +86,13 @@ public class AdminDTO {
    @Size(min=2, max=30, message="수업내용은 1~500자 입니다.")	
    @Pattern(regexp="^[^><]{1,500}$", message="수업 내용은 1~500자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")
    private String class_subject;
+   private List<String> join_id;
    
    // 수업 검색 ---------------------------------
    private String keyword1;
    private String keyword2;
+   private String keywordS;
+   private String keywordE;
    private String orand;
    private String min_start_date;
    private String max_start_date;
@@ -107,42 +110,36 @@ public class AdminDTO {
       return id;
    }
    public void setId(String id) {
-	   System.out.println(id+"id");
       this.id = id;
    }
    public String getPwd() {
       return pwd;
    }
    public void setPwd(String pwd) {
-	   System.out.println(pwd+"pwd");
       this.pwd = pwd;
    }
    public String getName() {
       return name;
    }
    public void setName(String name) {
-	   System.out.println(name+"name");
       this.name = name;
    }
    public String getJumin_num1() {
       return jumin_num1;
    }
    public void setJumin_num1(String jumin_num1) {
-	   System.out.println(jumin_num1+"jumin_num1");
       this.jumin_num1 = jumin_num1;
    }
    public String getJumin_num2() {
       return jumin_num2;
    }
    public void setJumin_num2(String jumin_num2) {
-	   System.out.println(jumin_num2+"jumin_num2");
       this.jumin_num2 = jumin_num2;
    }
    public String getPhone() {
       return phone;
    }
    public void setPhone(String phone) {
-	   System.out.println(phone+"phone");
       this.phone = phone;
    }
    public String getEmergency_name() {
@@ -243,7 +240,14 @@ public class AdminDTO {
    public void setClass_subject(String class_subject) {
       this.class_subject = class_subject;
    }
-   public int getSelectPageNo() {
+   
+   public List<String> getJoin_id() {
+	return join_id;
+}
+public void setJoin_id(List<String> join_id) {
+	this.join_id = join_id;
+}
+public int getSelectPageNo() {
       return selectPageNo;
    }
    public void setSelectPageNo(int selectPageNo) {
@@ -382,7 +386,6 @@ public class AdminDTO {
 		return keyword1;
 	}
 	public void setKeyword1(String keyword1) {
-		System.out.println(keyword1);
 		this.keyword1 = keyword1;
 	}
 	public String getKeyword2() {
@@ -390,6 +393,20 @@ public class AdminDTO {
 	}
 	public void setKeyword2(String keyword2) {
 		this.keyword2 = keyword2;
+	}
+	
+	public String getKeywordS() {
+		return keywordS;
+	}
+	public void setKeywordS(String keywordS) {
+		System.out.println(keywordS+"keywordS");
+		this.keywordS = keywordS;
+	}
+	public String getKeywordE() {
+		return keywordE;
+	}
+	public void setKeywordE(String keywordE) {
+		this.keywordE = keywordE;
 	}
 	public String getOrand() {
 		return orand;

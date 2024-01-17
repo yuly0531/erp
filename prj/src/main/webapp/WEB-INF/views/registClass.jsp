@@ -75,25 +75,78 @@
 
 function saveData(){
 
-
- 	var formObj = $("[name='registClassForm']"); 
+ 	var formObj = $("[name='registClassForm']");
+	var checkObj_class_name = formObj.find("[name='class_name']");
+	var checkObj_class_start_date = formObj.find("[name='class_start_date']");
+	var checkObj_class_end_date = formObj.find("[name='class_end_date']");
+	var checkObj_take_charge_tea = formObj.find("[name='take_charge_tea']");
+	var checkObj_class_subject = formObj.find("[name='class_subject']");
+	
+	
+	if(checkVal(
+	        checkObj_class_name
+	          ,"수업명은 2~15자리 한글,영어로만 입력됩니다."
+	          ,/^[a-z가-힣]{2,15}$/
+	        )==false){
+	          checkObj_class_name.focus();
+	          return;
+	  }
  	
+	if(checkVal(
+	        checkObj_class_start_date
+	          ,"개강일은 필수 선택사항입니다."
+	          ,/^[^ ]{1,}$/
+	        )==false){
+	          checkObj_class_start_date.focus();
+	          return;
+	  }
+	
+	if(checkVal(
+	        checkObj_class_end_date
+	          ,"종강일은 필수 선택사항 입니다."
+	          ,/^[^ ]{1,}$/
+	        )==false){
+	          checkObj_class_end_date.focus();
+	          return;
+	  }
+	if(
+		checkObj_class_start_date.val()
+		>
+		checkObj_class_end_date.val())
+		{alert("개강일은 종강일 보다 미래 일 수 없습니다.")
+		return;
+		}
+	
+	 if(checkVal(
+	         checkObj_take_charge_tea
+	          ,"담당강사명은 필수 선택사항입 니다."
+	          ,/^[^ ]{1,}$/
+	        )==false){
+	          checkObj_take_charge_tea.focus();
+	          return;
+	      }
+	
+	 if(checkVal(
+	         checkObj_class_subject
+	          ,"수업내용은 임의 문자 2~500자 입력해야하고 공백으로 이루어질수 없습니다."
+	          ,/^(.|\n){2,500}$/
+	        )==false){
+	          checkObj_class_subject.focus();
+	          return;
+	      }
+	
    ajax(
       "/registClassProc.admin.do"
       ,"post"
       ,formObj
       ,function(responseJson){
-    	  var classRegCnt = responseJson["classRegCnt"];
-     	  var errorMsg = responseJson["errorMsg"];
+    	 var classRegCnt = responseJson["classRegCnt"];
          if(classRegCnt>=1) {
             alert("수업 정보가 등록되었습니다.");
             goClassListForm();
          }
-         else if(classRegCnt==-21){
-        	 alert(errorMsg);
-         }
          else{
-            alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
+            alert("수업 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
          }
     });
   }
@@ -151,12 +204,9 @@ function saveData(){
                     <td>담당 강사명</td>
                         <select name="take_charge_tea">
 				     	    <option value="">	
-							<option value="asd">권웅순
-							<option value="asd">권웅순
-							<option value="asd">권웅순
-							<option value="asd">권웅순
-							<option value="asd">권웅순
-							<option value="asd">권웅순
+							<option value="wer">헌병은
+							<option value="ert">아아아
+							
 						</select>
                     </td>
                 </div>

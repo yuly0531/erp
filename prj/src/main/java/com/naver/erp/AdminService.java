@@ -13,6 +13,7 @@ public interface AdminService {
 
 	// 수업
 	int insertClassInfo(AdminDTO adminDTO)  throws Exception;
+	int insertJoinStu(AdminDTO adminDTO)  throws Exception;
 	int deleteClassInfo(AdminDTO adminDTO) throws Exception;
 	int updateClassInfo(AdminDTO adminDTO) throws Exception;
 }

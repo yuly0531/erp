@@ -98,7 +98,17 @@ public class AdminServiceImpl implements AdminService{
 		
 		return classRegCnt;
 	}
-
+	
+	@Override
+	public int insertJoinStu(AdminDTO adminDTO)  throws Exception {
+		int insertJoinStuCnt  = 0;
+		// insert 테이블이 여러 개 나오면 추후 더 추가
+		insertJoinStuCnt = this.adminDAO.delectJoinStu(adminDTO);
+		insertJoinStuCnt = this.adminDAO.insertJoinStu(adminDTO);
+		
+		return insertJoinStuCnt;
+	}
+	
 
 	@Override
 	public int deleteClassInfo(AdminDTO adminDTO) {
