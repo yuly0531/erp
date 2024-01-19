@@ -19,6 +19,15 @@ public interface ExamDAO {
 	int examproblem(ExamDTO examDTO);
 	int deleteExamInfo(ExamDTO examDTO);
 	int updateExamInfo(ExamDTO examDTO);
-	int updateExamproblem(ExamDTO examDTO);
+	int updateExamproblem1(ExamDTO examDTO);
+	int updateExamproblem2(ExamDTO examDTO);
+	int updateExamproblem3(ExamDTO examDTO);
+	int updateExamproblem4(ExamDTO examDTO);
+	int updateExamproblem5(ExamDTO examDTO);
+	int updateExamproblem6(ExamDTO examDTO);
+	int updateExamproblem7(ExamDTO examDTO);
+	int updateExamproblem8(ExamDTO examDTO);
+	int updateExamproblem9(ExamDTO examDTO);
+	int updateExamproblem10(ExamDTO examDTO);
 
 }

@@ -150,15 +150,12 @@ public class ExamController {
 	public int updateExamInfo(
 			ExamDTO examDTO
 			) throws Exception {
-				
 		int updateExamCnt = 0;
-		
 		try {
 			updateExamCnt = this.examService.updateExamInfo(examDTO);
 		} catch (Exception e) {
 			updateExamCnt = -1;
 		}
-
 		return updateExamCnt;
 	}
 	

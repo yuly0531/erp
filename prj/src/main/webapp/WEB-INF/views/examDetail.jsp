@@ -12,35 +12,50 @@
 <script>
 
 function goExamListForm(){
-	document.ExamListForm.method="post";
-	document.ExamListForm.action="/examList.do";
-	document.ExamListForm.submit();
+   document.ExamListForm.method="post";
+   document.ExamListForm.action="/examList.do";
+   document.ExamListForm.submit();
 }
 
-function checkExamUpForm(){
+ function checkExamUpForm(){
 
-		var formObj = $("[name='examUpDelForm']");
-		if( !checkTeaId(formObj.find("[name='tea_id']"))  )   { return; }
-		
-		
-		if( confirm("정말 수정하시겠습니까?")==false ) { return; }
-		ajax(
-				"/updateExamInfo.do"
-				,"post"
-				,formObj
-				, function( responseJson ){
-					var examUpCnt = responseJson["updateExamCnt"];
-					if( examUpCnt==1 ){
-						alert("수정이 성공했습니다.");
-						document.examListForm.submit();
-					}						
-					else{
-						alert("수정 실패! 관리자에게 문의 바랍니다.");
-					}
+      var formObj = $("[name='examDetail']");
+      
+      if( confirm("정말 수정하시겠습니까?")==false ) { return; }
+      ajax(
+            "/updateExamInfo.do"
+            ,"post"
+            ,$("[name='examDetail']")
+            , function( updateExamCnt ){
+               alert(updateExamCnt)
+               if( updateExamCnt>=1 ){
+                  alert("수정이 성공했습니다.");
+                  document.examListForm.submit();
+               }                  
+               else{
+                  alert("수정 실패! 관리자에게 문의 바랍니다.");
+               }
 
-				}
-		);
-}
+            }
+      );
+} 
+
+/* function checkExamUpForm() {
+   var formObj = $("[name='examDetail']")
+   ajax(
+         "/updateExamInfo.do"
+         ,"post"
+         ,formObj
+         ,function( updateExamCnt ){
+            console.log(updateExamCnt);
+            if( updateExamCnt>=1 ){
+               alert("수정되었습니다.");
+               document.examListForm.submit();
+            } 
+            else {alert("WAS 접속 실패입니다. 관리자에게 문의 바랍니다.")};
+         }
+   );
+} */
 
 </script>
 
@@ -59,8 +74,8 @@ function checkExamUpForm(){
           <tr class="cate_box">
          <td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
          <td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
-         <td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
-         <td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
+         <td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+         <td class="main_cate active" onclick="location.replace('/examList.do')">시험 출제</td>
          <td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
       </table>
@@ -77,19 +92,23 @@ function checkExamUpForm(){
   <form name="examDetail" class="boardForm">
   <div class="inform">
       <div class="dev_user">
-	        <div>
-	          	시험 제목 : 
-	            <input type="text" name="exam_name" value="${examDetailMap.examDetailInfo[0].exam_name}"><br>
-	            <br>
-	        </div>
-	             <div> 
-	             	시험 응시일 :
-	                <input type="date" name="exam_date" value="${examDetailMap.examDetailInfo[0].exam_date}">
-	                <br>
-	                <br><input type=hidden name="tea_id" value="${sessionScope.tea_id}">
+           <div>
+                시험 제목 : 
+               <input type="text" name="exam_name" value="${examDetailMap.examDetailInfo[0].exam_name}"><br>
+               <br>
+           </div>
+                <div> 
+                   시험 응시일 :
+                   <input type="date" name="exam_date" value="${examDetailMap.examDetailInfo[0].exam_date}">
+                   <br>
+                   <br><input type=text name="tea_id" value="${sessionScope.tea_id}">
+                   <br><input type=text name="exam_id" value="${param.exam_id}">
+                     
+                   
 
-	     </div>
+        </div>
      </div>
+
 <c:forEach var="examDetail" items="${examDetailMap.examDetailProblem}" varStatus="vs">
     <div>
         <div>문제 ${vs.index + 1}번</div><br>
@@ -101,11 +120,13 @@ function checkExamUpForm(){
     </div>
 </c:forEach>
 
-        		
-		      
+ 
+              
+            
 
     <span onclick="location.replace('/examList.do')" name="cancel" class="cancel">이전</span>
     <span onclick="checkExamUpForm();" name="save" class="save">수정</span>
+    <span onclick="checkExamDelForm();" name="save" class="save">삭제</span>
     </div>
    </form>
   <form name="examListForm" class="no dumP_form" method="post" action="/examList.do"></form>

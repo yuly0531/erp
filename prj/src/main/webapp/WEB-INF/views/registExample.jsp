@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
 function goExamListForm(){
-    document.examListForm.submit();
+    document.goExamListForm.submit();
 }
 
 function saveData(){
@@ -49,7 +49,7 @@ function saveData(){
 			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
 			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 신청</td>
-			<td class="main_cate active" onclick="location.replace('/registExample.do')">시험 출제</td>
+			<td class="main_cate active" onclick="location.replace('/examList.do')">시험 출제</td>
 			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
       </table>
@@ -157,6 +157,6 @@ function saveData(){
     <span onclick="location.replace('/examList.do')" name="cancel" class="cancel">취소</span>
     <span onclick="saveData();" name="save" class="save">저장</span>
    </form>
-  <form name="examListForm" class="no dumP_form" method="post" action="/examList.do"></form>
+  <form name="goExamListForm" class="no dumP_form" method="post" action="/examList.do"></form>
 </body>
 </html>
