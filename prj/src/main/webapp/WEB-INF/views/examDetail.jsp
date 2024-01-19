@@ -97,6 +97,7 @@ function checkExamUpForm(){
         <div><br>${vs.index + 1}번 답 : 
             <input type="text" name="exam_answer${vs.index + 1}" value="${examDetailMap.examDetailAnswer[vs.index].exam_answer}"> 
         </div>
+        <input type="hidden" name="exam_no${vs.index + 1}" value="${examDetailMap.examDetailProblem[vs.index].exam_no}">
     </div>
 </c:forEach>
 

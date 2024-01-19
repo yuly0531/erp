@@ -116,7 +116,7 @@
               ,(select emergency_name from stu_emergency_info sei where sei.stu_id= s.stu_id)   	"emergency_name" 
               ,(select emergency_relation from stu_emergency_info sei where sei.stu_id= s.stu_id)   "emergency_relation"
               ,(select emergency_phone from stu_emergency_info sei where sei.stu_id= s.stu_id)   	"emergency_phone"     
-              ,(select class_id from class_join_stu cjs where cjs.stu_id= s.stu_id)   				"class_id"
+              <!-- ,(select class_id from class_join_stu cjs where cjs.stu_id= s.stu_id)   				"class_id" -->
          from student s
          where stu_id = #{id}
     </select> 

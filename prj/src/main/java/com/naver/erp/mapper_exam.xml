@@ -224,6 +224,7 @@
      	 select * from (   select rownum RNUM, zxcvb.* from (    
             select
                 exam_id "exam_id"
+                ,exam_no "exam_no"
                 ,exam_question    "exam_question"  
             from examproblem  
             where exam_id = ${exam_id}
@@ -236,6 +237,7 @@
      	  select * from (   select rownum RNUM, zxcvb.* from (    
             select
                 exam_id "exam_id"
+                ,exam_no "exam_no"
                 ,exam_answer  "exam_answer"   
             from examproblem  
             where exam_id = ${exam_id}

@@ -309,13 +309,6 @@
 								
 					</div>
 	<input type="hidden" name="selectPageNo" value="1">
-	<input type="hidden" name="stuSort_fName">
-	<input type="hidden" name="stuSort_age">
-	<input type="hidden" name="stuSort_level_edu">
-	<input type="hidden" name="stuSort_yeoncha">
-	<input type="hidden" name="stuSort_can_dispatch_date">
-	<input type="hidden" name="stuSort_consultation_date">
-	<input type="hidden" name="stuSort_dev_year_standard_date">
 	<section>
 		<section class="count_desc">
 				<section class="searchResultCnt">
@@ -443,7 +436,7 @@
 						<span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
 						<span onclick="deleteInfo()" name="delete" class="delete">삭제</span>
 						<span onclick="update()" name="save" class="save">저장</span>
-						<input type="hidden" name="id" class="id">
+						<input type="text" name="id" class="id">
 					</form>
 			</div>
 		</div>
