@@ -43,6 +43,7 @@
 	var endclock = formObj.find('[name=dayoff_end]').val()
 	formObj.find('[name=dayoff_start]').val(startclock);
 	formObj.find('[name=dayoff_end]').val(endclock);
+	
 		ajax(
 				"/insertStuOff.do"
 				,"post"
@@ -142,7 +143,7 @@
 				<tr class="cate_box">
           			<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
 					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가신청</td>
-					<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
+					<td class="main_cate" onclick="location.replace('/examList.do')">시험응시</td>
 					<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
 				</tr>
 			</table>
@@ -422,10 +423,6 @@
 		</select>
    	</div>
 	   <div>
-			신청자 :
-	            <input type="text" name="stu_name">
-	   </div>
-	   <div>
 	         내용
 	            <textarea cols="100" rows="15" name="etc"></textarea>
 	   </div> <br>
@@ -465,10 +462,6 @@
 			<option value="기타">기타
 		</select>
    	</div>
-	   <div>
-			신청자 :
-	            <input type="text" name="tea_name">
-	   </div>
 	   <div>
 	         내용
 	            <textarea cols="100" rows="15" name="tea_etc"></textarea>

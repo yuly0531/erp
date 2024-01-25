@@ -17,27 +17,250 @@ function goExamListForm(){
    document.ExamListForm.submit();
 }
 
- function checkExamUpForm(){
+function checkExamUpForm(){
 
-      var formObj = $("[name='examDetail']");
-      
-      if( confirm("정말 수정하시겠습니까?")==false ) { return; }
-      ajax(
-            "/updateExamInfo.do"
-            ,"post"
-            ,$("[name='examDetail']")
-            , function( updateExamCnt ){
-               alert(updateExamCnt)
-               if( updateExamCnt>=1 ){
-                  alert("수정이 성공했습니다.");
-                  document.examListForm.submit();
-               }                  
-               else{
-                  alert("수정 실패! 관리자에게 문의 바랍니다.");
-               }
+    var formObj = $("[name='examDetail']");
+    
+    var checkObj_exam_name = formObj.find("[name='exam_name']");
+    var checkObj_exam_date = formObj.find("[name='exam_date']");
+    var checkObj_exam_question1 = formObj.find("[name='exam_question${vs.index + 1}']");
+    var checkObj_exam_question2 = formObj.find("[name='exam_question${vs.index + 2}']");
+    var checkObj_exam_question3 = formObj.find("[name='exam_question${vs.index + 3}']");
+    var checkObj_exam_question4 = formObj.find("[name='exam_question${vs.index + 4}']");
+    var checkObj_exam_question5 = formObj.find("[name='exam_question${vs.index + 5}']");
+    var checkObj_exam_question6 = formObj.find("[name='exam_question${vs.index + 6}']");
+    var checkObj_exam_question7 = formObj.find("[name='exam_question${vs.index + 7}']");
+    var checkObj_exam_question8 = formObj.find("[name='exam_question${vs.index + 8}']");
+    var checkObj_exam_question9 = formObj.find("[name='exam_question${vs.index + 9}']");
+    var checkObj_exam_question10 = formObj.find("[name='exam_question${vs.index + 10}']");
+    
+    var checkObj_exam_answer1 = formObj.find("[name='exam_answer${vs.index + 1}']");
+    var checkObj_exam_answer2 = formObj.find("[name='exam_answer${vs.index + 2}']");
+    var checkObj_exam_answer3 = formObj.find("[name='exam_answer${vs.index + 3}']");
+    var checkObj_exam_answer4 = formObj.find("[name='exam_answer${vs.index + 4}']");
+    var checkObj_exam_answer5 = formObj.find("[name='exam_answer${vs.index + 5}']");
+    var checkObj_exam_answer6 = formObj.find("[name='exam_answer${vs.index + 6}']");
+    var checkObj_exam_answer7 = formObj.find("[name='exam_answer${vs.index + 7}']");
+    var checkObj_exam_answer8 = formObj.find("[name='exam_answer${vs.index + 8}']");
+    var checkObj_exam_answer9 = formObj.find("[name='exam_answer${vs.index + 9}']");
+    var checkObj_exam_answer10 = formObj.find("[name='exam_answer${vs.index + 10}']");
+   
+    
+   if(checkVal(
+         checkObj_exam_name
+            , "시험 제목은 공백으로만 이루어질 수 없습니다."
+            , /[^ ]/
+         )==false){
+      checkObj_exam_name.focus()
+            return;
+         }
+   
+   if(checkObj_exam_date.val()==""){
+        alert("시험 응시일을 지정해 주세요.")
+        checkObj_exam_date.focus()
+        return;
+    }
+   
+        
+        if(checkVal(
+              checkObj_exam_question1
+                , "1번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question1.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question2
+              , "2번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question2.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question3
+              , "3번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question3.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question4
+              , "4번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question4.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question5
+              , "5번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question5.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question6
+              , "6번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question6.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question7
+              , "7번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question7.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question8
+              , "8번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question8.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question9
+              , "9번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question9.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_question10
+              , "10번 문제를 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_question10.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer2
+              , "2번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer2.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer3
+              , "3번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer3.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer4
+              , "4번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer4.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer5
+              , "5번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer5.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer6
+              , "6번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer6.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer7
+              , "7번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer7.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer8
+              , "8번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer8.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer9
+              , "9번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer9.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer10
+              , "10번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer10.focus()
+                return;
+             }
+        
+        if(checkVal(
+              checkObj_exam_answer1
+              , "1번 정답을 입력해 주세요."
+                , /[^ ]/
+             )==false){
+           checkObj_exam_answer1.focus()
+                return;
+             }
+        
+       
+    
 
-            }
-      );
+    if( confirm("정말 수정하시겠습니까?")==false ) { return; }
+    ajax(
+          "/updateExamInfo.do"
+          ,"post"
+          ,$("[name='examDetail']")
+          , function( updateExamCnt ){
+             if( updateExamCnt>=1 ){
+                alert("수정이 성공했습니다.");
+                document.examListForm.submit();
+             }                  
+             else{
+                alert("수정 실패! 관리자에게 문의 바랍니다.");
+             }
+
+          }
+    );
 } 
  function checkExamDelForm(){
 
@@ -120,7 +343,7 @@ function goExamListForm(){
           <tr class="cate_box">
 	        <td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
 			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
-			<td class="main_cate" onclick="location.replace('/examList.do')">시험응시</td>
+			<td class="main_cate active" onclick="location.replace('/examList.do')">시험응시</td>
 			<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
           </tr>
       </c:if>

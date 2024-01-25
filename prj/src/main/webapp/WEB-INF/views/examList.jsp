@@ -37,26 +37,7 @@ function init(){
    );
    
 } 
-function gyeoljae(){
 
-   ajax(
-         "/gyeoljaeList.do"
-         ,"post"
-         ,$("[name='gyeoljaeSearchForm']")
-         ,function(responseHtml){
-            var obj = $(responseHtml);
-            var searchResultCnt = obj.find(".searchResultCnt2").html();
-            var searchResult = obj.find(".search_list").html();
-
-            var html = 
-            '<div class="isEmpty"><i class="fa fa-search" aria-hidden="true"></i>검색 결과가 없습니다.</div>';
-
-            $(".searchResultCnt2").html( searchResultCnt );
-            $(".search_list_all").html( searchResult );
-            
-         }
-   );
-}
 
 function goBoardDetailForm(b_no){
    $("[name='boardDetailForm'] [name='b_no']").val(b_no);
@@ -74,7 +55,9 @@ function goExamDetailForm(exam_id){
 	document.examDetail.submit();
 }
 
-
+function alertMsg(msg){
+	alert(msg)
+}
 
 
 </script>
@@ -91,13 +74,22 @@ function goExamDetailForm(exam_id){
         </div>
       </div>
       <table>
+      <c:if test="${whatRole eq '강사'}">
           <tr class="cate_box">
          <td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
          <td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
          <td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
          <td class="main_cate active" onclick="location.replace('/examList.do')">시험 출제</td>
-         <td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
+      </c:if>
+      <c:if test="${whatRole eq '학생'}">
+          <tr class="cate_box">
+	        <td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
+			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
+			<td class="main_cate active" onclick="location.replace('/examList.do')">시험응시</td>
+			<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+          </tr>
+      </c:if>
       </table>
       <div class="welcome_user">
         <div>
@@ -111,33 +103,87 @@ function goExamDetailForm(exam_id){
   </form>
   <form name="examList" class="examList">
   <div class="main">
-  <div class="btn" style="cursor: pointer;" onclick="location.replace('/registExample.do')">
-        새로운 시험 출제
-     </div>
-             <div name="searchResult" class="searchResult" >
+  
+      <c:if test="${whatRole eq '강사'}">
+	  	<div class="btn" style="cursor: pointer;" onclick="location.replace('/registExample.do')">
+	        새로운 시험 출제
+	     </div>
+     </c:if>
+    <div name="searchResult" class="searchResult" >
       <div class="resultCate">
-         <div>번호</div>
+         <div>시험 여부</div>
          <div>시험명</div>
          <div>시험 응시일</div>
          <div>출제 강사명</div>
+      <c:if test="${whatRole eq '학생'}">
+      	 <div>점수</div>
+      </c:if>
       </div>
-         <div class="SearchResult_box">
-<c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
-      <div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
-            <div>${examListMap.begin_serialNo_desc-vs.index}</div>
+     
+      <c:if test="${whatRole eq '강사'}">
+	<c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
+     <div class="SearchResult_box">
+     <c:if test="${examList.is_end eq '응시 전'}">
+      	<div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
+     </c:if>
+     <c:if test="${examList.is_end eq '응시 종료'}">
+      	<div class="searchDetail" onclick="showPopup('${examList.exam_id}')">
+     </c:if>
+     <c:if test="${examList.is_end eq '응시 중'}">
+      	<div class="searchDetail" onclick="alertMsg('시험 응시 당일은 문제 수정, 학생 점수 확인이 불가능합니다.')">
+     </c:if>
+            <div>${examList.is_end}</div>
             <div>${examList.exam_name}</div>
             <div>${examList.exam_date}</div>
             <div>${examList.tea_name}</div>
          </div>
          </c:forEach>
+        </c:if>
+         <c:if test="${whatRole eq '학생'}">
+	<c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
+     <div class="SearchResult_box">
+     <c:if test="${examList.is_end eq '응시 전'}">
+      	<div class="searchDetail" onclick="alertMsg('시험 응시 날짜가 아닙니다.')">
+     </c:if>
+     <c:if test="${examList.is_end eq '응시 종료'}">
+      	<div class="searchDetail">
+     </c:if>
+     <c:if test="${examList.is_end eq '응시 중'}">
+      	<div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
+     </c:if>
+            <div>${examList.is_end}</div>
+            <div>${examList.exam_name}</div>
+            <div>${examList.exam_date}</div>
+            <div>${examList.tea_name}</div>
+            <div>${examList.score}</div>
+         </div>
+         </c:forEach>
+        </c:if>
    </div> 
+   
    </div>
       
     </form>
-  <div>
-  <form name="examDetail" action="/examDetail.do" post="post">
+    <div class='popup'>
+			<div class="dim">
+				<div class='popup_main'>
+					<form name="stuRegForm" class="boardForm stuRegForm">
+						<header>시험 '**' 학생 성적 정보</header>
+							<div class="inform">
+									 <div name="searchResult" class="searchResult" >
+								      <div class="resultCate">
+								         <div>학생명</div>
+								         <div>성적</div>
+								      </div>
+								   	 </div>    
+			                    </div>
+                    </form>
+                 </div>
+              </div>
+          </div>
+					                   
+  <form name="examDetail" class="no dumP_form" action="/examDetail.do" post="post">
   	<input type="hidden" name="exam_id">
   </form>
-  </div>
 </body>
 </html>

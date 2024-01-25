@@ -88,7 +88,7 @@
         , stu_id
         , score
    ) values( 
-   		#{exam_name}
+   		#{exam_id}
    		,#{stu_id}
    		,#{score}      
     )
@@ -187,6 +187,12 @@
 	       count(*)
 	          from exam
 	          where 1=1
+	          <if test="tea_id!=null and tea_id.length()>0">
+	          and tea_id = #{tea_id}
+	          </if>
+	          <if test="stu_id!=null and stu_id.length()>0">
+	          and class_id=(select class_id from class_join_stu where stu_id = #{stu_id})
+	          </if>
 	          
           </select> 
      <select id="getExamListCntAll" resultType="int" >
@@ -197,11 +203,20 @@
           
 	  <select id="getExamList" resultType="java.util.Map" >
 	     select
-	       	  exam_id                           "exam_id"
+	     <![CDATA[
+	     	  case
+	               when  to_char(exam_date,'yyyy-mm-dd') < to_char(sysdate,'yyyy-mm-dd') then '응시 종료'    
+	               when  to_char(exam_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd') then '응시 중'  
+	               when  to_char(exam_date,'yyyy-mm-dd') > to_char(sysdate,'yyyy-mm-dd') then '응시 전'       
+               end "is_end"
+               ]]>
+	       	  ,exam_id                           "exam_id"
 	          , exam_name                        "exam_name"
 	          ,to_char(e.exam_date,'yyyy-mm-dd')   "exam_date"
 	          , (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_name"
-
+	          <if test="stu_id!=null and stu_id.length()>0">
+			  ,nvl((select score||'점' from examresult er where stu_id = #{stu_id} and e.exam_id = er.exam_id), '-') "score"
+	          </if>
 	          from exam e
 	          where 1=1
 	          <if test="tea_id!=null and tea_id.length()>0">

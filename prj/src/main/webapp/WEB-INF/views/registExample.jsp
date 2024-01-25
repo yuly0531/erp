@@ -17,21 +17,244 @@ function goExamListForm(){
 }
 
 function saveData(){
-	  var formObj = $("[name='examListForm']");  
- ajax(
-    "/registExamProc.do"
-    ,"post"
-    ,formObj
-    ,function(responseJson){
-  	  var examRegCnt = responseJson["examRegCnt"];
-       if(examRegCnt>=1) {
-          alert("시험 정보가 등록되었습니다.");
-          goExamListForm();
-       }
-       else{
-          alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
-       }
-  });
+    var formObj = $("[name='examListForm']");  
+    var checkObj_exam_name = formObj.find("[name='exam_name']");
+    var checkObj_exam_date = formObj.find("[name='exam_date']");
+    
+    var checkObj_exam_question1 = formObj.find("[name='exam_question1']");
+    var checkObj_exam_question2 = formObj.find("[name='exam_question2']");
+    var checkObj_exam_question3 = formObj.find("[name='exam_question3']");
+    var checkObj_exam_question4 = formObj.find("[name='exam_question4']");
+    var checkObj_exam_question5 = formObj.find("[name='exam_question5']");
+    var checkObj_exam_question6 = formObj.find("[name='exam_question6']");
+    var checkObj_exam_question7 = formObj.find("[name='exam_question7']");
+    var checkObj_exam_question8 = formObj.find("[name='exam_question8']");
+    var checkObj_exam_question9 = formObj.find("[name='exam_question9']");
+    var checkObj_exam_question10 = formObj.find("[name='exam_question10']");
+    
+    var checkObj_exam_answer1 = formObj.find("[name='exam_answer1']");
+    var checkObj_exam_answer2 = formObj.find("[name='exam_answer2']");
+    var checkObj_exam_answer3 = formObj.find("[name='exam_answer3']");
+    var checkObj_exam_answer4 = formObj.find("[name='exam_answer4']");
+    var checkObj_exam_answer5 = formObj.find("[name='exam_answer5']");
+    var checkObj_exam_answer6 = formObj.find("[name='exam_answer6']");
+    var checkObj_exam_answer7 = formObj.find("[name='exam_answer7']");
+    var checkObj_exam_answer8 = formObj.find("[name='exam_answer8']");
+    var checkObj_exam_answer9 = formObj.find("[name='exam_answer9']");
+    var checkObj_exam_answer10 = formObj.find("[name='exam_answer10']");
+    
+    
+    
+    if(checkVal(
+          checkObj_exam_name
+             , "시험 제목은 공백으로만 이루어질 수 없습니다."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_name.focus()
+             return;
+          }
+    
+    if(checkObj_exam_date.val()==""){
+         alert("시험 응시일을 지정해 주세요.")
+         checkObj_exam_date.focus()
+         return;
+     }
+    
+    if(checkVal(
+          checkObj_exam_question1
+             , "1번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question1.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer1
+             , "1번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer1.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question2
+             , "2번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question2.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer2
+             , "2번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer2.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question3
+             , "3번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question3.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer3
+             , "3번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer3.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question4
+             , "4번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question4.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer4
+             , "4번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer4.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question5
+             , "5번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question5.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer5
+             , "5번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer5.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question6
+             , "6번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question6.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer6
+             , "6번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer6.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question7
+             , "7번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question7.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer7
+             , "7번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer7.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question8
+             , "8번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question8.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer8
+             , "8번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer8.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question9
+             , "9번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question9.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer9
+             , "9번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer9.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_question10
+             , "10번 문제를 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_question10.focus()
+             return;
+          }
+    
+    if(checkVal(
+          checkObj_exam_answer10
+             , "10번 정답을 입력해 주세요."
+             , /[^ ]/
+          )==false){
+       checkObj_exam_answer10.focus()
+             return;
+          }
+    
+    
+ajax(
+   "/registExamProc.do"
+   ,"post"
+   ,formObj
+   ,function(responseJson){
+      var examRegCnt = responseJson["examRegCnt"];
+      if(examRegCnt>=1) {
+         alert("시험 정보가 등록되었습니다.");
+         goExamListForm();
+      }
+      else{
+         alert("정보 등록 중 오류가 발생했습니다. 다시 시도해주십시오.")
+      }
+ });
 }
   </script>
 </head>

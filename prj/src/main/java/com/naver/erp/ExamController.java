@@ -34,15 +34,26 @@ public class ExamController {
 			ExamDTO examDTO
 			,HttpSession session
 	){
-		String tea_id = (String) session.getAttribute("tea_id");
-	    examDTO.setTea_id(tea_id);
-		String stu_id = (String) session.getAttribute("stu_id");
-	    examDTO.setStu_id(stu_id);
+		String mid;
+		if((String)session.getAttribute("stu_id")!=null) {
+			mid = (String)session.getAttribute("stu_id");
+		    examDTO.setStu_id(mid);
+		}
+		else if((String)session.getAttribute("tea_id")!=null) {
+			mid = (String)session.getAttribute("tea_id");
+		    examDTO.setTea_id(mid);
+		}
+		else {
+			mid = (String)session.getAttribute("mana_id");
+		}
+		
+		String whatRole = mainDAO.whatRole(mid);
 	    
 		Map<String,Object> examListMap = getExamListMap( examDTO );
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "examList.jsp" );
 		mav.addObject(   "examListMap" , examListMap     );
+		mav.addObject(   "whatRole" , whatRole     );
 		
 		return  mav;
 	}
@@ -95,17 +106,17 @@ public class ExamController {
 			String mid;
 			if((String)session.getAttribute("stu_id")!=null) {
 				mid = (String)session.getAttribute("stu_id");
+			    examDTO.setStu_id(mid);
 			}
 			else if((String)session.getAttribute("tea_id")!=null) {
 				mid = (String)session.getAttribute("tea_id");
+			    examDTO.setTea_id(mid);
 			}
 			else {
 				mid = (String)session.getAttribute("mana_id");
 			}
 			
 			String whatRole = mainDAO.whatRole(mid);
-			String tea_id = (String) session.getAttribute("mid");
-		    examDTO.setTea_id(tea_id);
 		    examDTO.setExam_id(exam_id);
 		    
 			Map<String,Object> examDetailMap = examDetailMap( examDTO );
