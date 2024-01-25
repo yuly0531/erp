@@ -225,20 +225,39 @@
 		<body>
 				<form name="stuSearch" class="header">
 						<div class="header_box">
-							<div class="logo" onclick="location.replace('/adminMain.do')">
-								<img src="">
-								<div>
-									ERP
-								</div>
-							</div>
-							<table>
-								<tr class="cate_box">
-              						<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
-									<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
-									<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
-									<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
-								</tr>
-							</table>
+							<c:if test="${whatRole eq '강사'}">
+          <div class="logo" onclick="location.replace('/teaMain.do')">
+            <img src="">
+            <div>
+              ERP
+            </div>
+          </div>
+          <table>
+            <tr class="cate_box">
+			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
+			<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
+			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
+			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
+          </tr>
+          </table>
+		</c:if> 
+		<c:if test="${whatRole eq '관리자'}">
+          	<div class="logo" onclick="location.replace('/adminMain.do')">
+				<img src="">
+				<div>
+					ERP
+				</div>
+			</div>
+			<table>
+				<tr class="cate_box">
+	         		<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
+					<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
+					<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
+					<td class="main_cate" onclick="location.replace('/dayOff.do')">결재 관리</td>
+				</tr>
+			</table>
+		</c:if> 
 							<div class="welcome_user">
 								<div>
 									

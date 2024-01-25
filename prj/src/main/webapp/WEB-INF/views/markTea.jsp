@@ -13,8 +13,21 @@
 </head>
 <script>
 $(function(){
-	hidePopup();
-});
+	
+		   window.onpageshow = function(event) {
+		   if (event.persisted) {
+		              ﻿location.reload(true);﻿
+			    }
+			}
+			$(window).bind("pageshow", function(event) {
+			if (event.originalEvent && event.originalEvent.persisted){
+			              //todo
+			              ﻿location.reload(true);﻿
+			    }
+			});﻿
+			hidePopup();
+	});
+	
 function hidePopup(){
 	$("#insertForm").hide();
 	$("#updateForm").hide();
@@ -131,7 +144,14 @@ function deleteData(){
     	출결 등록
     </header>
     <div>
-        학생명<input type="text" name="stu_name">
+        학생명
+        <select name="stu_name">
+	   	    <option value="">	</option>
+	   	    <c:forEach var="stu" items="${student}" varStatus="vs">
+			<option value="${stu.stu_name}">${stu.stu_name}-${stu.phone_num}</option>
+			</c:forEach>
+		</select>
+		
      </div>
     <div>날짜 <input type="date" name="attend_date">
 	   </div>

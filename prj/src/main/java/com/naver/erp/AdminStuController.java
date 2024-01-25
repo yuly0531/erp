@@ -34,7 +34,6 @@ public class AdminStuController {
 			AdminDTO adminDTO
 			,HttpSession session
 	){
-		
 		String mid;
 		if((String)session.getAttribute("stu_id")!=null) {
 			mid = (String)session.getAttribute("stu_id");

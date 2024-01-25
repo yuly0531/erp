@@ -39,23 +39,60 @@ function goExamListForm(){
             }
       );
 } 
+ function checkExamDelForm(){
 
-/* function checkExamUpForm() {
-   var formObj = $("[name='examDetail']")
-   ajax(
-         "/updateExamInfo.do"
-         ,"post"
-         ,formObj
-         ,function( updateExamCnt ){
-            console.log(updateExamCnt);
-            if( updateExamCnt>=1 ){
-               alert("수정되었습니다.");
-               document.examListForm.submit();
-            } 
-            else {alert("WAS 접속 실패입니다. 관리자에게 문의 바랍니다.")};
-         }
-   );
-} */
+     var formObj = $("[name='examDetail']");
+     
+     if( confirm("정말 삭제하시겠습니까?")==false ) { return; }
+     ajax(
+           "/deleteExamInfo.do"
+           ,"post"
+           ,$("[name='examDetail']")
+           , function( deleteExamCnt ){
+              if( deleteExamCnt>=1 ){
+                 alert("시험이 삭제되었습니다.");
+                 document.examListForm.submit();
+              }                  
+              else{
+                 alert("삭제 실패! 관리자에게 문의 바랍니다.");
+              }
+
+           }
+     );
+} 
+
+ 
+ function checkExamGradeForm() {
+	    if( confirm("제출 하시겠습니까? 제출 이후 수정이 불가능합니다.")==false ) { return; }
+	    var score = 0;
+	    for (var i = 1; i <= 10; i++) {
+	        if ($('[name="exam_answer' + i + '"]').val() === $('input[name="stu_exam_answer' + i + '"]').val()) {
+	        	score = score + 10;
+	        }
+	    }
+	    
+	    $('[name="score"]').val(score)
+	    
+	     ajax(
+	           "/registExamScore.do"
+	           ,"post"
+	           ,$("[name='examDetail']")
+	           , function( examScoreRegCnt ){
+	              if( examScoreRegCnt>=1 ){
+	                 alert("제출이 완료되었습니다.\n시험 성적 : "+score+"점");
+	                 document.examListForm.submit();
+	              }                  
+	              else{
+	                 alert("제출 실패! 관리자에게 문의 바랍니다.");
+	              }
+
+	           }
+	     );
+	    
+	}
+
+
+
 
 </script>
 
@@ -71,13 +108,22 @@ function goExamListForm(){
         </div>
       </div>
       <table>
+      <c:if test="${whatRole eq '강사'}">
           <tr class="cate_box">
          <td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
          <td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
          <td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
          <td class="main_cate active" onclick="location.replace('/examList.do')">시험 출제</td>
-         <td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
+      </c:if>
+      <c:if test="${whatRole eq '학생'}">
+          <tr class="cate_box">
+	        <td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
+			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
+			<td class="main_cate" onclick="location.replace('/examList.do')">시험응시</td>
+			<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+          </tr>
+      </c:if>
       </table>
       <div class="welcome_user">
         <div>
@@ -100,33 +146,44 @@ function goExamListForm(){
                 <div> 
                    시험 응시일 :
                    <input type="date" name="exam_date" value="${examDetailMap.examDetailInfo[0].exam_date}">
-                   <br>
-                   <br><input type=text name="tea_id" value="${sessionScope.tea_id}">
-                   <br><input type=text name="exam_id" value="${param.exam_id}">
-                     
-                   
-
+                   <br><input type="hidden" name="tea_id" value="${sessionScope.tea_id}">
+                   <input type="hidden" name="stu_id" value="${sessionScope.stu_id}">
+                   <input type="hidden" name="exam_id" value="${param.exam_id}">
         </div>
      </div>
 
-<c:forEach var="examDetail" items="${examDetailMap.examDetailProblem}" varStatus="vs">
-    <div>
-        <div>문제 ${vs.index + 1}번</div><br>
-        <textarea name="exam_question${vs.index + 1}" cols="10" rows="7" maxlength="300">${examDetailMap.examDetailProblem[vs.index].exam_question}</textarea>
-        <div><br>${vs.index + 1}번 답 : 
-            <input type="text" name="exam_answer${vs.index + 1}" value="${examDetailMap.examDetailAnswer[vs.index].exam_answer}"> 
-        </div>
-        <input type="hidden" name="exam_no${vs.index + 1}" value="${examDetailMap.examDetailProblem[vs.index].exam_no}">
-    </div>
-</c:forEach>
-
- 
-              
-            
-
+<c:if test="${whatRole eq '강사'}">
+	<c:forEach var="examDetail" items="${examDetailMap.examDetailProblem}" varStatus="vs">
+	    <div>
+	        <div>문제 ${vs.index + 1}번</div><br>
+	        <textarea name="exam_question${vs.index + 1}" cols="10" rows="7" maxlength="300">${examDetailMap.examDetailProblem[vs.index].exam_question}</textarea>
+	        <div><br>${vs.index + 1}번 답 : 
+	            <input type="text" name="exam_answer${vs.index + 1}" value="${examDetailMap.examDetailAnswer[vs.index].exam_answer}"> 
+	        </div>
+	        <input type="hidden" name="exam_no${vs.index + 1}" value="${examDetailMap.examDetailProblem[vs.index].exam_no}">
+	    </div>
+	</c:forEach>
+	
     <span onclick="location.replace('/examList.do')" name="cancel" class="cancel">이전</span>
     <span onclick="checkExamUpForm();" name="save" class="save">수정</span>
     <span onclick="checkExamDelForm();" name="save" class="save">삭제</span>
+</c:if>
+<c:if test="${whatRole eq '학생'}">
+	<c:forEach var="examDetail" items="${examDetailMap.examDetailProblem}" varStatus="vs">
+	    <div>
+	        <div>문제 ${vs.index + 1}번</div><br>
+	        <textarea name="exam_question${vs.index + 1}" cols="10" rows="7" maxlength="300" readonly>${examDetailMap.examDetailProblem[vs.index].exam_question}</textarea>
+	        <div><br>${vs.index + 1}번 답 : 
+	        <input type="text" name="stu_exam_answer${vs.index + 1}"> 
+	            <input type="hidden" name="exam_answer${vs.index + 1}" value="${examDetailMap.examDetailAnswer[vs.index].exam_answer}"> 
+	        </div>
+	        <input type="hidden" name="exam_no${vs.index + 1}" value="${examDetailMap.examDetailProblem[vs.index].exam_no}">
+	    </div>
+	</c:forEach>
+	<input type="hidden" name="score">
+    <span onclick="location.replace('/examList.do')" name="cancel" class="cancel">이전</span>
+    <span onclick="checkExamGradeForm();" name="save" class="save">제출</span>
+</c:if>
     </div>
    </form>
   <form name="examListForm" class="no dumP_form" method="post" action="/examList.do"></form>

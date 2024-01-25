@@ -20,16 +20,23 @@ public class ExamServiceImpl implements ExamService{
 		examRegCnt = this.examDAO.examproblem(examDTO);
 		return examRegCnt;
 	}
-
+	
+	@Override
+	public int insertExamScore(ExamDTO examDTO)  throws Exception {
+		int examScoreRegCnt  = 0;
+		examScoreRegCnt = this.examDAO.insertExamScore(examDTO);
+		return examScoreRegCnt;
+	}
+	
 
 	@Override
-	public int deleteExamInfo(ExamDTO examDTO) {
-		int deleteExamCnt = 0;
-		// delete 테이블이 여러 개 나오면 추후 더 추가
-		deleteExamCnt = this.examDAO.deleteExamInfo(examDTO);
-		
-		return deleteExamCnt;
-	}
+	   public int deleteExamInfo(ExamDTO examDTO) {
+	      int deleteExamCnt = 0;
+	      // delete 테이블이 여러 개 나오면 추후 더 추가
+	      deleteExamCnt = this.examDAO.deleteExamproblem(examDTO);
+	      deleteExamCnt = this.examDAO.deleteExamInfo(examDTO);
+	      return deleteExamCnt;
+	   }
 
 	
 	@Override

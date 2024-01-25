@@ -14,8 +14,20 @@
 </head>
 <script>
 $(function(){
-	
-});
+	  
+	   window.onpageshow = function(event) {
+	   if (event.persisted) {
+	              ﻿location.reload(true);﻿
+		    }
+		}
+		$(window).bind("pageshow", function(event) {
+		if (event.originalEvent && event.originalEvent.persisted){
+		              //todo
+		              ﻿location.reload(true);﻿
+		    }
+		});﻿
+
+})
 
 function goMarkForm(){
     document.markForm.submit();
@@ -35,7 +47,7 @@ function goMarkForm(){
 								<tr class="cate_box">
               						<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
 									<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
-									<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
+									<td class="main_cate" onclick="location.replace('/examList.do')">시험응시</td>
 									<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
 								</tr>
 							</table>
@@ -105,5 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         calendar.render();
     });
+    
+
 </script>
 </html>

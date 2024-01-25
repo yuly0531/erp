@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.Import"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common.jsp"%>
 
@@ -11,9 +12,24 @@
 <script src="/js/main.min.js"></script>
  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.0/dist/Chart.min.js"></script> 
 </head>
 <script>
-$(function(){  })
+$(function(){
+	  
+	   window.onpageshow = function(event) {
+	   if (event.persisted) {
+	              ﻿location.reload(true);﻿
+		    }
+		}
+		$(window).bind("pageshow", function(event) {
+		if (event.originalEvent && event.originalEvent.persisted){
+		              //todo
+		              ﻿location.reload(true);﻿
+		    }
+		});﻿
+
+})
 
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -24,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             events:[ <c:forEach var="calendar" items="${selectCalendarMap.selectCalendar}" varStatus="vs">
             <c:if test="${sessionScope.stu_id==calendar.stu_id}">
             {
-            	title:"${calendar.stu_name}"+"${calendar.attend_status}",
+            	title:"${calendar.stu_name}"+"-"+"${calendar.attend_status}",
                 start:"${calendar.attend_date}",
                 color:
                 <c:if test="${calendar.attend_status eq '출석'}">
@@ -63,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								<tr class="cate_box">
               						<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
 									<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
-									<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
+									<td class="main_cate" onclick="location.replace('/examList.do')">시험응시</td>
 									<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
 								</tr>
 							</table>
@@ -86,7 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <div  style="width: 600px;height: 600px;border: 2px solid lightgray;  text-align:center; float: left; padding:5px; background-color: white"><b>출석 현황</b><br>
 					<div id='calendar'></div>
 					</div>
-					<div style="width: 600px;margin-left:10px ; height: 600px; border: 2px solid lightgray;  text-align:center; float: left; padding:11px ;background-color: white"><b>수업 참여율</b></div>
+					<div style="width: 600px;margin-left:10px ; height: 600px; border: 2px solid lightgray;  text-align:center; float: left; padding:11px ;background-color: white">
+					<b>수업 참여율</b> 
+					<br><br><br>
+					<canvas id=chart></canvas>
+					<br>
+				
 					</div>
 					<div style="width: 1300px ">
 					<div style="width: 600px;margin-top: 20px; height: 600px; border: 2px solid lightgray;  text-align:center; float: left; padding:11px;background-color: white"><b>시험정보</b><br>
@@ -100,16 +121,48 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 <script>
 var ATTEND_DATE = [];
-<c:forEach var="map" items="${getCalendar.selectCalendarList}" varStatus="vs">
-ATTEND_DATE.push("${map}")
+<c:forEach var="map" items="${selectCalendarMap.selectCalendar}" varStatus="vs">
+ATTEND_DATE.push("${map.attend_date}")
 </c:forEach>
 
 var ATTEND_STATUS = [];
-<c:forEach var="map" items="${getCalendarMap.selectCalendarList}" varStatus="vs">
-
-ATTEND_STATUS.push("${map.ATTEND_STATUS}")
-
+<c:forEach var="map" items="${selectCalendarMap.selectCalendar}" varStatus="vs">
+<c:if test="${sessionScope.stu_id==map.stu_id}">
+ATTEND_STATUS.push("${map.stu_name}")
+</c:if>
 </c:forEach>
+
+new Chart(document.getElementById("chart"), {
+    type: 'pie',
+    data: {
+      labels: ['출석','지각','조퇴','결석'],
+      datasets: [{ 
+          data: ['50','30','10','10'],
+          label: "출석률",
+          backgroundColor: ['blue','green','gold','red'],
+          hoverOffset: 4,
+          fill: false
+        }
+      ]
+    },
+    options: {
+    	legend: {
+        labels: {
+            // 이 더 특정한 폰트 속성은 전역 속성을 덮어씁니다
+            fontColor: 'black',
+            fontSize:14,
+        }
+    },
+      title: {
+        display: true,
+        position:'bottom',
+        fontSize: 15,
+        fontStyle:'bold',
+        text: ATTEND_STATUS[0]+ '님의 출석률입니다.',
+      }
+    }
+  });
+    
 </script>
 
 </html>

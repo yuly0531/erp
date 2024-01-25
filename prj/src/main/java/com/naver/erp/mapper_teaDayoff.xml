@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.erp.DayOffDAO">
+
+<sql id="teaDayoffWhere">
+	
+	 <if test="keyword1!=null and keyword1.length()>0">
+        and( upper((select tea_name from teacher te
+         where te.tea_id= sd.tea_id))
+         	LIKE upper('%${keyword1}%') 
+   		
+   		or upper(TEA_DAYOFF_KIND)
+         LIKE upper('%${keyword1}%')
+        
+        or upper(PAYMENT_STATUS)
+         LIKE upper('%${keyword1}%') )
+   </if>
+</sql>
+
+<select id="getTeaOffDetail" parameterType="com.naver.erp.DayOffDTO" resultType="java.util.Map" >
+	   
+select
+	to_char(Sd.APPLICATION_DATE,'YYYY-MM-DD AM HH:MI') "TEA_APPLICATION_DATE" 
+	,to_char(Sd.DAYOFF_START,'YYYY-MM-DD AM HH:MI') "TEA_DAYOFF_START" 
+	,to_char(Sd.DAYOFF_END,'YYYY-MM-DD AM HH:MI') "TEA_DAYOFF_END"
+	,Sd.TEA_DAYOFF_KIND   "TEA_DAYOFF_KIND" 
+	,Sd.tea_id "TEA_ID"                     
+	,(select tea_name from teacher te where te.tea_id= Sd.tea_id) "tea_name"                     
+	,Sd.PAYMENT_STATUS "TEA_PAYMENT_STATUS"
+	,Sd.etc "TEA_ETC"
+	from tea_dayoff  Sd
+		where day_id =#{day_id}
+ </select> 
+
+
+<select id="getTeaOffCnt" resultType="int" >
+	     select
+	       count(*)
+         from tea_dayoff
+         where 1=1
+         <include refid="teaDayoffWhere"/>
+    </select> 
+
+<select id="getTeaOffCntAll" resultType="int" >
+	     select
+	       count(*)
+	     from tea_dayoff
+</select>
+
+<select id="getTeaOff" resultType="java.util.Map" >
+select
+	day_id		"TEA_DAY_ID"
+	,(select tea_name from teacher te where te.tea_id= sd.tea_id) "tea_name"                     
+    ,to_char(APPLICATION_DATE,'yyyy-mm-dd')         "TEA_APPLICATION_DATE"  
+    ,to_char(DAYOFF_START,'yyyy-mm-dd')             "TEA_DAYOFF_START"
+    ,to_char(DAYOFF_END,'yyyy-mm-dd')               "TEA_DAYOFF_END"
+    ,PAYMENT_STATUS     "TEA_PAYMENT_STATUS"               
+    ,TEA_DAYOFF_KIND "TEA_DAYOFF_KIND"
+from tea_dayoff  sd 
+	where 1=1
+    <include refid="teaDayoffWhere"/>
+</select>
+
+
+<insert id="insertTeaOff" parameterType="com.naver.erp.DayOffDTO" >
+	insert into tea_dayoff(
+			DAY_ID
+			,TEA_ID
+			,DAYOFF_START
+			,DAYOFF_END
+			,TEA_DAYOFF_KIND
+			,PAYMENT_STATUS
+			,etc
+		) values(
+		 (select (nvl(max(day_id),0)+1) from tea_dayoff)
+			,#{tea_id}
+			,to_date(#{start_date},'yyyy-mm-dd')			
+			,to_date(#{end_date},'yyyy-mm-dd')
+			,#{dayoffKind}
+			,'미결재'
+			,#{etc}
+		)
+</insert>
+
+	<delete id = "deleteTeaOff" parameterType="com.naver.erp.DayOffDTO" >
+   			delete from tea_dayoff
+   				where day_id=#{day_id}
+  </delete>
+
+<update id = "upTeaOff" parameterType="com.naver.erp.DayOffDTO" >
+	update tea_dayoff
+		set
+			DAYOFF_START 	 = to_date(#{start_date},'yyyy-mm-dd')
+			,DAYOFF_END	 	 = to_date(#{end_date},'yyyy-mm-dd')
+			,TEA_DAYOFF_KIND = #{dayoffKind}
+			,ETC 		 	 = #{etc} 		
+		where 
+			day_id =#{day_id}	 
+</update>
+
+ <update id = "updateTeaDayoffStatus" parameterType="com.naver.erp.DayOffDTO" >
+	update tea_dayoff
+		set
+			PAYMENT_STATUS = #{PAYMENT_STATUS}					
+		where 
+			day_id=#{day_id}	 
+</update>
+
+</mapper>

@@ -19,6 +19,7 @@ public class MainController {
 	@Autowired
 	private MainDAO mainDAO;
 	
+	
 	 @RequestMapping( value="/adminMain.do")
 		public ModelAndView manaList(
 		){
@@ -49,8 +50,13 @@ public class MainController {
 	}
 	
 	@RequestMapping( value="/teaMain.do")
-	public ModelAndView teaMain(){
+	public ModelAndView teaMain(
+			ExamDTO examDTO,
+			HttpSession session
+		){
 		ModelAndView mav = new ModelAndView();
+		String tea_id = (String) session.getAttribute("tea_id");
+	    examDTO.setTea_id(tea_id);
 		mav.setViewName("teaMain.jsp");
 		return mav;
 	}
@@ -60,42 +66,14 @@ public class MainController {
 	public ModelAndView registExample(
 			ExamDTO examDTO,
 			HttpSession session){
-		String tea_id = (String) session.getAttribute("mid");
+		String tea_id = (String) session.getAttribute("tea_id");
 	    examDTO.setTea_id(tea_id);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registExample.jsp");
 		return mav;
 	}
-	@RequestMapping( value="/dayOff.do")
-	public ModelAndView dayOff(
-			HttpSession session
-		){
-		String mid;
-		if((String)session.getAttribute("stu_id")!=null) {
-			mid = (String)session.getAttribute("stu_id");
-		}
-		else if((String)session.getAttribute("tea_id")!=null) {
-			mid = (String)session.getAttribute("tea_id");
-		}
-		else {
-			mid = (String)session.getAttribute("mana_id");
-		}
-		
-		String whatRole = mainDAO.whatRole(mid);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("dayOff.jsp");
-		mav.addObject("whatRole",whatRole);
-		return mav;
-	}
+	
 	   
-	@RequestMapping( value="/teacherMain.do")
-	public ModelAndView TeacherMain(
-	){
-		Map<String, Object> TeacherMainMap = TeacherMainList();
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("teacherMain.jsp");
-	      mav.addObject("TeacherMainMap", TeacherMainMap);
-		return mav;}
 	
 
 	   public Map<String, Object> TeacherMainList() {

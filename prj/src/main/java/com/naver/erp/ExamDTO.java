@@ -62,14 +62,12 @@ public String getExam_name() {
 	return exam_name;
 }
 public void setExam_name(String exam_name) {
-	System.out.println(exam_name);
 	this.exam_name = exam_name;
 }
 public String getExam_date() {
 	return exam_date;
 }
 public void setExam_date(String exam_date) {
-	System.out.println(exam_date);
 	this.exam_date = exam_date;
 }
 public String getTea_id() {

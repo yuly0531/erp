@@ -1,10 +1,12 @@
 package com.naver.erp;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.websocket.Session;
@@ -27,6 +29,8 @@ public class CalendarController{
 	private CalendarDAO calendarDAO;
 	@Autowired
 	private MainDAO mainDAO;
+	@Autowired
+	private AdminDAO adminDAO;
 	
 
 	
@@ -34,15 +38,19 @@ public class CalendarController{
 	public ModelAndView studentMain(
 			HttpSession session
 			,CalendarDTO calendarDTO
+			,AdminDTO adminDTO
 			
 	){
+		session.getAttribute("stu_id");
 		Map<String, Object> studentMainMap = StudentMainList();
 		Map<String, Object> selectCalendarMap = selectCalendar(calendarDTO);
-		session.getAttribute("stu_id");
+		List<Map<String, String>> classListMap = adminDAO.getClassList(adminDTO);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("studentMain.jsp");
 	    mav.addObject("studentMainMap", studentMainMap);
 	    mav.addObject("selectCalendarMap", selectCalendarMap);
+	    mav.addObject("classListMap",classListMap);
 		return mav;}
 	
 
@@ -74,13 +82,17 @@ public class CalendarController{
 	// 강사용 학생 출석확인 페이지
 	@RequestMapping( value="/markTea.do")
 	public ModelAndView markTea(HttpSession session,
-			CalendarDTO calendarDTO){
+			CalendarDTO calendarDTO,AdminDTO adminDTO){
 		session.getAttribute("tea_id");
+		AdminStuController astu = new AdminStuController();
 		Map<String,Object> getCalendarMap = getCalendar(calendarDTO);
+		List<Map<String, String>> getstuMap = adminDAO.getStuList(adminDTO);
+
+		System.out.println(getstuMap.get(0).get("phone_num"));
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("markTea.jsp");
 		mav.addObject("getCalendarMap",getCalendarMap);
-		
+		mav.addObject("student",getstuMap );
 		return mav;
 	}
 	

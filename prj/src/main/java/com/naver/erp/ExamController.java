@@ -21,6 +21,8 @@ public class ExamController {
 
 	@Autowired
 	private ExamDAO examDAO;  
+	@Autowired
+	private MainDAO mainDAO;  
 
 	@Autowired
 	private ExamService examService; 
@@ -32,8 +34,10 @@ public class ExamController {
 			ExamDTO examDTO
 			,HttpSession session
 	){
-		String tea_id = (String) session.getAttribute("mid");
+		String tea_id = (String) session.getAttribute("tea_id");
 	    examDTO.setTea_id(tea_id);
+		String stu_id = (String) session.getAttribute("stu_id");
+	    examDTO.setStu_id(stu_id);
 	    
 		Map<String,Object> examListMap = getExamListMap( examDTO );
 		ModelAndView mav = new ModelAndView();
@@ -88,6 +92,18 @@ public class ExamController {
 				,HttpSession session
 				,@RequestParam(value="exam_id") int exam_id
 		){
+			String mid;
+			if((String)session.getAttribute("stu_id")!=null) {
+				mid = (String)session.getAttribute("stu_id");
+			}
+			else if((String)session.getAttribute("tea_id")!=null) {
+				mid = (String)session.getAttribute("tea_id");
+			}
+			else {
+				mid = (String)session.getAttribute("mana_id");
+			}
+			
+			String whatRole = mainDAO.whatRole(mid);
 			String tea_id = (String) session.getAttribute("mid");
 		    examDTO.setTea_id(tea_id);
 		    examDTO.setExam_id(exam_id);
@@ -96,6 +112,7 @@ public class ExamController {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName( "examDetail.jsp" );
 			mav.addObject(   "examDetailMap" , examDetailMap     );
+			mav.addObject(   "whatRole" , whatRole     );
 			
 			return  mav;
 		}
@@ -191,6 +208,27 @@ public class ExamController {
 	}
 	
 	
-	
+	// 성적 등록
+		@RequestMapping(
+				value="/registExamScore.do" 
+				,method=RequestMethod.POST
+				,produces="application/json;charset=UTF-8"
+		)
+		@ResponseBody
+		public int registExamScore(  
+				ExamDTO  examDTO
+
+		){
+			int examScoreRegCnt = 0;
+			try{
+				examScoreRegCnt = this.examService.insertExamScore(examDTO);
+			}
+			catch(Exception ex){
+				examScoreRegCnt = -1;
+			}
+		
+			return examScoreRegCnt;
+			
+		}
 
 }

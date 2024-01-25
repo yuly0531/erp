@@ -11,7 +11,7 @@
            attend_date,
            attend_status 
       )values( 
-      	(select (nvl(max(att_id),0)+1) from ATTENDCHECK)
+      	(select (nvl(max(to_number(att_id)),0)+1) from ATTENDCHECK)
          ,(select stu_id from student where stu_name=#{stu_name})
          ,to_date(#{attend_date},'yyyy-mm-dd')
          ,#{attend_status}

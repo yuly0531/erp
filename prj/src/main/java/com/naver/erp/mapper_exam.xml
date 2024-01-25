@@ -81,17 +81,18 @@
         (select exam_id from exam where exam_name=#{exam_name} and exam_date=to_date(#{exam_date}, 'yyyy-mm-dd'))
     FROM DUAL
 </insert>
-   
-<!-- <insert id="examresult" parameterType="com.naver.erp.ExamDTO">
-		insert into examresult (
-		exam_id
-		, stu_id
-		, score
-		) values ( (select exam_id from exam where exam_id=#{exam_id})
-		, #{stu_id}
-		, #{score}
-		)
-	</insert> -->
+
+<insert id="insertExamScore" parameterType="com.naver.erp.ExamDTO" >
+   insert into examresult (
+        exam_id
+        , stu_id
+        , score
+   ) values( 
+   		#{exam_name}
+   		,#{stu_id}
+   		,#{score}      
+    )
+</insert> 
 	   
  <update id="updateExamInfo" parameterType="com.naver.erp.ExamDTO">
    update EXAM
@@ -172,10 +173,13 @@
         WHERE exam_id = ${exam_id} AND exam_no = ${exam_no10}
     </update>
 
-   <!--
+	<delete id="deleteExamproblem" parameterType="com.naver.erp.ExamDTO">
+       delete from examproblem where exam_id = ${exam_id} 
+       </delete>
+    
     <delete id="deleteExamInfo" parameterType="com.naver.erp.ExamDTO">
-    	delete from exam where exam_id = ${exam_id}
-    </delete> -->
+       delete from exam where exam_id = ${exam_id}
+    </delete>  
     
 	
    <select id="getExamListCnt" resultType="int" >
@@ -200,6 +204,12 @@
 
 	          from exam e
 	          where 1=1
+	          <if test="tea_id!=null and tea_id.length()>0">
+	          and tea_id = #{tea_id}
+	          </if>
+	          <if test="stu_id!=null and stu_id.length()>0">
+	          and class_id=(select class_id from class_join_stu where stu_id = #{stu_id})
+	          </if>
 	  
           </select> 
       
