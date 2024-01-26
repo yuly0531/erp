@@ -59,6 +59,28 @@ function alertMsg(msg){
 	alert(msg)
 }
 
+function showPopup(exam_id,exam_name,class_id){
+	var headerElement = document.querySelector(".popup_main header");
+	headerElement.textContent = exam_name + " - 학생 응시 결과";
+	$(".popup_main").animate({ scrollTop: 0 }, "fast");
+	$('.class_id').val(class_id);
+	ajax(
+			"/examList.do"
+			,"post"
+			,$("[name='stuScoreForm']")
+			,function(responseHtml){
+				var scoreResult = $(responseHtml).find(".scoreResult");
+				$(".scoreResult").html(scoreResult);
+				
+			}
+	)
+
+			$(".popup").show()
+}
+
+function closePopup(){
+		$('.popup').hide();
+}
 
 </script>
 
@@ -127,7 +149,7 @@ function alertMsg(msg){
       	<div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
      </c:if>
      <c:if test="${examList.is_end eq '응시 종료'}">
-      	<div class="searchDetail" onclick="showPopup('${examList.exam_id}')">
+      	<div class="searchDetail" onclick="showPopup('${examList.exam_id}','${examList.exam_name}','${examList.class_id}')">
      </c:if>
      <c:if test="${examList.is_end eq '응시 중'}">
       	<div class="searchDetail" onclick="alertMsg('시험 응시 당일은 문제 수정, 학생 점수 확인이 불가능합니다.')">
@@ -139,25 +161,27 @@ function alertMsg(msg){
          </div>
          </c:forEach>
         </c:if>
+        
+        
          <c:if test="${whatRole eq '학생'}">
-	<c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
-     <div class="SearchResult_box">
-     <c:if test="${examList.is_end eq '응시 전'}">
-      	<div class="searchDetail" onclick="alertMsg('시험 응시 날짜가 아닙니다.')">
-     </c:if>
-     <c:if test="${examList.is_end eq '응시 종료'}">
-      	<div class="searchDetail">
-     </c:if>
-     <c:if test="${examList.is_end eq '응시 중'}">
-      	<div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
-     </c:if>
-            <div>${examList.is_end}</div>
-            <div>${examList.exam_name}</div>
-            <div>${examList.exam_date}</div>
-            <div>${examList.tea_name}</div>
-            <div>${examList.score}</div>
-         </div>
-         </c:forEach>
+			<c:forEach var="examList" items="${examListMap.examList}" varStatus="vs">
+			     <div class="SearchResult_box">
+			     <c:if test="${examList.is_end eq '응시 전'}">
+			      	<div class="searchDetail" onclick="alertMsg('시험 응시 날짜가 아닙니다.')">
+			     </c:if>
+			     <c:if test="${examList.is_end eq '응시 종료'}">
+			      	<div class="searchDetail">
+			     </c:if>
+			     <c:if test="${examList.is_end eq '응시 중'}">
+			      	<div class="searchDetail" onclick="goExamDetailForm('${examList.exam_id}')">
+			     </c:if>
+		            <div>${examList.is_end}</div>
+		            <div>${examList.exam_name}</div>
+		            <div>${examList.exam_date}</div>
+		            <div>${examList.tea_name}</div>
+		            <div>${examList.score}</div>
+		         </div>
+	         </c:forEach>
         </c:if>
    </div> 
    
@@ -167,16 +191,26 @@ function alertMsg(msg){
     <div class='popup'>
 			<div class="dim">
 				<div class='popup_main'>
-					<form name="stuRegForm" class="boardForm stuRegForm">
+					<form name="stuScoreForm" class="boardForm stuRegForm">
 						<header>시험 '**' 학생 성적 정보</header>
 							<div class="inform">
-									 <div name="searchResult" class="searchResult" >
-								      <div class="resultCate">
+									 <div name="scoreResult" class="scoreResult" >
+								      <div class="scoreResultCate">
 								         <div>학생명</div>
 								         <div>성적</div>
 								      </div>
+								      <div class="result">
+											<c:forEach var="stuExamScoreList" items="${stuExamScoreListMap.StuExamScoreList}" varStatus="vs">
+									         	<div class="flex">
+									         	<div>${stuExamScoreList.stu_name }</div>
+									         	<div>${stuExamScoreList.score }</div>
+									         	</div>
+									         </c:forEach>
+								      </div>
 								   	 </div>    
 			                    </div>
+			                    <span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
+  						<input type="hidden" name="class_id" class="class_id">
                     </form>
                  </div>
               </div>

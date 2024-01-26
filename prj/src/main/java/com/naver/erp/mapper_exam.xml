@@ -214,6 +214,7 @@
 	          , exam_name                        "exam_name"
 	          ,to_char(e.exam_date,'yyyy-mm-dd')   "exam_date"
 	          , (select tea_name from teacher t where e.tea_id = t.tea_id)       "tea_name"
+	          ,class_id "class_id"
 	          <if test="stu_id!=null and stu_id.length()>0">
 			  ,nvl((select score||'점' from examresult er where stu_id = #{stu_id} and e.exam_id = er.exam_id), '-') "score"
 	          </if>
@@ -263,7 +264,15 @@
           ) zxcvb) where RNUM>=1 and RNUM<=10
             ]]>
       </select>
-      
+       <select id="getStuExamScoreList" resultType="java.util.Map">
+	    	select 
+                stu_name "stu_name"
+                ,nvl((select score||'점' from examresult er where s.stu_id = er.stu_id),'미응시') "score"
+            from student s
+            where 
+            	s.stu_id in 
+            	(select stu_id from class_join_stu where class_id = ${class_id})
+      </select>
       
       
       

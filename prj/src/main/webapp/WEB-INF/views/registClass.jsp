@@ -203,10 +203,10 @@ function saveData(){
                     <div>
                     <td>담당 강사명</td>
                         <select name="take_charge_tea">
-				     	    <option value="">	
-							<option value="wer">헌병은
-							<option value="ert">아아아
-							
+                        	<option value="">
+                        <c:forEach var="teacherList" items="${teacherListMap.teacherList}" varStatus="vs">
+                        	<option value="${teacherList.tea_id}">${teacherList.tea_name}
+                        </c:forEach>								
 						</select>
                     </td>
                 </div>

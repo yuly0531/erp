@@ -60,31 +60,29 @@ public class AdminDTO {
    // 수업 -------------------------------------
    private String class_id;
    
-   @NotEmpty(message="수업명은 필수 입력입니다.")
-   @NotNull (message="수업명은 필수 입력입니다.")
-   @NotBlank(message="공백으로 구성되면 안됩니다.")
-   @Size(min=2, max=30, message="수업명은 2~30자 입니다.")
-   @Pattern(regexp="^[^ ]{2,30}$",message="수업명은 2~30자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")
+   /* 
+   @Size(max=30, message="수업명은 2~30자 입니다.")
+   @Pattern(regexp="^[^ ]{2,30}$",message="수업명은 2~30자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")*/
    private String class_name;
    
-
-   @NotEmpty(message="개강일은 필수 입력입니다.")
-   @NotNull (message="개강일은 필수 입력입니다.")
+   /*@NotEmpty(message="개강일은 필수 입력입니다.")
+   @NotNull (message="개강일은 필수 입력입니다.")*/
    private String class_start_date;
 
-   @NotEmpty(message="종강일은 필수 입력입니다.")
-   @NotNull (message="종강일은 필수 입력입니다.")
+   /*@NotEmpty(message="종강일은 필수 입력입니다.")
+   @NotNull (message="종강일은 필수 입력입니다.")*/
    private String class_end_date;
 
-   @NotEmpty(message="담당 감사명은 필수 입력입니다.")
-   @NotNull (message="담당 감사명은 필수 입력입니다.")
+   /*@NotEmpty(message="담당 감사명은 필수 입력입니다.")
+   @NotNull (message="담당 감사명은 필수 입력입니다.")*/
    private String take_charge_tea;
 
-   @NotEmpty(message="수업내용은 필수 입력입니다.")
+   /*@NotEmpty(message="수업내용은 필수 입력입니다.")
    @NotNull (message="수업내용은 필수 입력입니다.")
    @NotBlank(message="공백으로 구성되면 안됩니다.")
-   @Size(min=2, max=30, message="수업내용은 1~500자 입니다.")	
-   @Pattern(regexp="^[^><]{1,500}$", message="수업 내용은 1~500자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")
+   @Size(min=1, max=500, message="수업내용은 1~500자 입니다.")	
+   @Pattern(regexp="^[^><]{1,500}$", 
+   message="수업 내용은 1~500자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")*/
    private String class_subject;
    private List<String> join_id;
    

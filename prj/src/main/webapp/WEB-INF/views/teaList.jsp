@@ -154,6 +154,124 @@ function showPopup(tea_id){
 // update Cnt 이름, alert창 문구 바꾸기
 function update() {
 		var formObj = $("[name='teaRegForm']")
+		var checkObj_tea_pwd = $("[name='tea_pwd']");
+		var checkObj_rePwd = $("[name='rePwd']");
+		var checkObj_tea_phone = $("[name='tea_phone']");
+		var checkObj_tea_emergency_name = $("[name='tea_emergency_name']");
+		var checkObj_tea_emergency_relation = $("[name='tea_emergency_relation']");
+		var checkObj_tea_emergency_phone = $("[name='tea_emergency_phone']");
+		var checkObj_past_company_name = $("[name='past_company_name']");	
+		var checkObj_salary = $("[name='salary']");	
+		var checkObj_hire_date = $("[name='hire_date']");	
+		var checkObj_fire_date = $("[name='fire_date']");
+		var checkObj_tea_etc = $("[name='tea_etc']");
+
+		
+		 if(checkVal(
+			       checkObj_tea_pwd
+			         ,"암호는 영소문 또는 숫자로 구성되고 4~12자 입력해야 합니다."
+			         ,/^[a-z0-9]{4,12}$/
+			        )==false){
+			         checkObj_tea_pwd.focus();
+			         return;
+			  }
+		 
+		 if(
+			checkObj_tea_pwd.val()
+			!=
+			checkObj_rePwd.val())
+			  
+			{alert("입력한 암호와 다릅니다. 재입력 요망")
+			return;
+			}
+		 
+		 if(checkVal(
+		         checkObj_tea_phone
+		          ,"핸드폰 번호는 숫자로만 구성되고 -은 제외합니다."
+		          ,/^[0-9]{8,13}$/
+		        )==false){
+		          checkObj_tea_phone.focus();
+		          return;
+		      }
+		 
+		 if(checkVal(
+		         checkObj_tea_emergency_name
+		          ,"비상연락명은 2~10자 이고 한글로만 구성됩니다.재입력 요망"
+		          ,/^[가-힣]{2,10}$/
+		        )==false){
+		          checkObj_tea_emergency_name.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_emergency_relation
+		          ,"연락 받는 사람의 관계는 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_tea_emergency_relation.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_tea_emergency_phone
+		          ,"비상연락망은 숫자로만 구성되고 -은 제외합니다."
+		          ,/^[0-9]{8,13}$/
+		        )==false){
+		          checkObj_tea_emergency_phone.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_past_company_name
+		          ,"회사명은 한글,영어로만 구성되고 1~20자로 구성됩니다."
+		          ,/^[a-z가-힣]{1,20}$/
+		        )==false){
+		          checkObj_past_company_name.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_salary
+		          ,"연봉은 숫자만 입력하세요."
+		          ,/^[0-9]{3,6}$/
+		        )==false){
+		          checkObj_salary.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_hire_date
+		         ,"입사일은 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_hire_date.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_fire_date
+		         ,"퇴사일은 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_fire_date.focus();
+		          return;
+		      }
+	  else{
+			if(checkObj_hire_date.val()>
+			checkObj_fire_date.val()&& checkObj_fire_date.val()!=""){
+				alert("입사일은 퇴사일 보다 빠를 수 없습니다.")
+			return;
+			}
+	  }	
+			if(checkVal(
+			         checkObj_tea_etc
+			         ,"기타내용은 임의 문자 2~500자 입력해야하고 공백으로 이루어질수 없습니다."
+			         ,/^(.|\n){2,500}$/
+			          )==false){
+			          checkObj_tea_etc.focus();
+			          return;
+			      } 
+		 
 		ajax(
 				"/updateTeaInfo.do"
 				,"post"

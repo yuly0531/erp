@@ -94,7 +94,9 @@ public class AdminServiceImpl implements AdminService{
 	public int insertClassInfo(AdminDTO adminDTO)  throws Exception {
 		int classRegCnt  = 0;
 		// insert 테이블이 여러 개 나오면 추후 더 추가
+		System.out.println(1);
 		classRegCnt = this.adminDAO.insertClassInfo(adminDTO);
+		System.out.println(2);
 		
 		return classRegCnt;
 	}

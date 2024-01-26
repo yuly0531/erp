@@ -30,7 +30,7 @@ public class ExamController {
 	
 	// 시험 리스트 접속, 검색
 	@RequestMapping( value="/examList.do")
-	public ModelAndView searchFreeDev(
+	public ModelAndView examList(
 			ExamDTO examDTO
 			,HttpSession session
 	){
@@ -53,6 +53,14 @@ public class ExamController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "examList.jsp" );
 		mav.addObject(   "examListMap" , examListMap     );
+
+		
+		if(examDTO.getClass_id()!=null && examDTO.getClass_id()!="" ) {
+		Map<String,Object> stuExamScoreListMap = getStuExamScoreList( examDTO );
+		mav.addObject(   "stuExamScoreListMap" , stuExamScoreListMap     );
+		System.out.println(stuExamScoreListMap);
+		}
+
 		mav.addObject(   "whatRole" , whatRole     );
 		
 		return  mav;
@@ -95,6 +103,18 @@ public class ExamController {
 			
 			return resultMap;
 		}
+		
+		public Map<String,Object> getStuExamScoreList(ExamDTO examDTO){
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			List<Map<String,String>> StuExamScoreList;
+			StuExamScoreList       =  this.examDAO.getStuExamScoreList( examDTO  );
+
+			resultMap.put(  "StuExamScoreList"       , StuExamScoreList        );
+			resultMap.put(  "examDTO"  , examDTO );
+			
+			return resultMap;
+		}
+		
 		
 		// 시험 상세
 		@RequestMapping( value="/examDetail.do")
@@ -146,6 +166,7 @@ public class ExamController {
 				return resultMap;
 			}
  
+			
 	// 시험 삭제
 	@RequestMapping(
 			value="/deleteExamInfo.do"

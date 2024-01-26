@@ -207,6 +207,14 @@
 	          where class_id = ${class_id}
 	  
           </select> 
+          
+    <select id="getTeacherList" resultType="java.util.Map" >
+	    select
+		    tea_id  "tea_id"
+		    ,tea_name   "tea_name"
+	    from teacher
+    </select>
+    
     <insert id="insertJoinStu" parameterType="com.naver.erp.AdminDTO" >
           INSERT INTO class_join_stu (
            class_id

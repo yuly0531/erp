@@ -15,6 +15,7 @@ public interface ExamDAO {
 	List<Map<String,String>> getExamDetailInfo(ExamDTO examDTO);
 	List<Map<String,String>> getExamDetailProblem(ExamDTO examDTO);
 	List<Map<String,String>> getExamDetailAnswer(ExamDTO examDTO);
+	List<Map<String,String>> getStuExamScoreList(ExamDTO examDTO);
 	int insertExamInfo(ExamDTO examDTO);
 	int insertExamScore(ExamDTO examDTO);
 	int examproblem(ExamDTO examDTO);

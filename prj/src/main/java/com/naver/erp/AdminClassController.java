@@ -46,6 +46,7 @@ public class AdminClassController {
 		public Map<String,Object> getClassListMap(AdminDTO adminDTO){
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 			List<Map<String,String>> classList;
+			List<Map<String,String>> teacherList;
 			int classListCnt;
 			int classListCntAll;
 			Map<String,Integer> pagingMap;
@@ -67,8 +68,10 @@ public class AdminClassController {
 			
 			
 			classList       =  this.adminDAO.getClassList( adminDTO  );
+			teacherList       =  this.adminDAO.getTeacherList();
 
 			resultMap.put(  "classList"       , classList        );
+			resultMap.put(  "teacherList"       , teacherList        );
 			resultMap.put(  "classListCnt"    , classListCnt     );
 			resultMap.put(  "classListCntAll" , classListCntAll  );
 			resultMap.put(  "adminDTO"  , adminDTO );
@@ -103,7 +106,6 @@ public class AdminClassController {
 		List<Map<String, String>> classList;
 		
 		classList = this.adminDAO.getClassDetailInfo(adminDTO);
-
 		resultMap.put("classList", classList);
 		
 		return resultMap;
@@ -196,10 +198,10 @@ public class AdminClassController {
 		Map<String,String> responseMap = new HashMap<String,String>();
 		String errorMsg = "";
 		int classRegCnt = 0;
-		
 		try{
 			errorMsg = Util.getErrorMsgFromBindingResult(bindingResult);
 			if( errorMsg!=null && errorMsg.length()>0 ) {
+				System.out.println(errorMsg);
 				classRegCnt = -21;
 			}
 			else {

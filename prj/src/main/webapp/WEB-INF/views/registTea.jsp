@@ -94,7 +94,6 @@ function save(){
 	var checkObj_salary = $("[name='salary']");	
 	var checkObj_hire_date = $("[name='hire_date']");	
 	var checkObj_fire_date = $("[name='fire_date']");
-	var checkObj_tea_joinClass = $("[name='tea_joinClass']");
 	var checkObj_tea_etc = $("[name='tea_etc']");
 
 	  if(checkVal(
@@ -222,14 +221,6 @@ function save(){
 		          return;
 		      }
 	  
-	  if(checkVal(
-		         checkObj_tea_joinClass
-		         ,"담당수업은 필수 선택사항입니다."
-		          ,/^[^ ]{1,}$/
-		          )==false){
-		          checkObj_tea_joinClass.focus();
-		          return;
-	 }
 	  
 	  if(checkVal(
 		         checkObj_tea_etc
@@ -372,18 +363,7 @@ function save(){
 
 		          
 		        </tr>
-     	      <div>
-		        <tr>
-		          <th>담당 수업 : </th>
-		          <select name="tea_joinClass">
-		             <option value=""></option>
-		             <option value="1">어쩌구</option>
-		             <option value="2">어쩌구</option>
-		             <option value="3">어쩌구</option>
-		          </select>
-		          
-		        </tr>
-		      </div>
+     	      
 		      <div>
 		        <div>기타</div>
 		        <textarea name="tea_etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>

@@ -128,6 +128,8 @@ function closePopup(){
 		$('.popup').find('input').prop('checked', false);
 		$('.popup').find('textarea').val('');
 		$('.popup').hide();
+		buttonsAdded = false;
+		$(".pageNos").nextAll('input[type="button"]').remove();
 		search();
 }
 
@@ -191,7 +193,66 @@ function alterInfo(e) {
 }
 
 function update() {
+ 	var formObj = $("[name='classRegForm']");
+	var checkObj_class_name = formObj.find("[name='class_name']");
+	var checkObj_class_start_date = formObj.find("[name='class_start_date']");
+	var checkObj_class_end_date = formObj.find("[name='class_end_date']");
+	var checkObj_take_charge_tea = formObj.find("[name='take_charge_tea']");
+	var checkObj_class_subject = formObj.find("[name='class_subject']");
 
+	if(checkVal(
+	        checkObj_class_name
+	          ,"수업명은 2~15자리 한글,영어로만 입력됩니다."
+	          ,/^[a-z가-힣]{2,15}$/
+	        )==false){
+	          checkObj_class_name.focus();
+	          return;
+	  }
+ 	
+	if(checkVal(
+	        checkObj_class_start_date
+	          ,"개강일은 필수 선택사항입니다."
+	          ,/^[^ ]{1,}$/
+	        )==false){
+	          checkObj_class_start_date.focus();
+	          return;
+	  }
+	
+	if(checkVal(
+	        checkObj_class_end_date
+	          ,"종강일은 필수 선택사항 입니다."
+	          ,/^[^ ]{1,}$/
+	        )==false){
+	          checkObj_class_end_date.focus();
+	          return;
+	  }
+	if(
+		checkObj_class_start_date.val()
+		>
+		checkObj_class_end_date.val())
+		{alert("개강일은 종강일 보다 미래 일 수 없습니다.")
+		return;
+		}
+	
+	 if(checkVal(
+	         checkObj_take_charge_tea
+	          ,"담당강사명은 필수 선택사항입 니다."
+	          ,/^[^ ]{1,}$/
+	        )==false){
+	          checkObj_take_charge_tea.focus();
+	          return;
+	      }
+	
+	 if(checkVal(
+	         checkObj_class_subject
+	          ,"수업내용은 임의 문자 2~500자 입력해야하고 공백으로 이루어질수 없습니다."
+	          ,/^(.|\n){2,500}$/
+	        )==false){
+	          checkObj_class_subject.focus();
+	          return;
+	      }
+ 	
+ 	
 		ajax(
 				"/updateClassInfo.do"
 				,"post"
@@ -510,12 +571,9 @@ function closeStuPopup(){
 									<div class='desc_title'>담당 강사명</div>
 										<select name="take_charge_tea">
 								     	    <option value="">	
-											<option value="asd">권웅순
-											<option value="asd1">권웅순
-											<option value="asd2">권웅순
-											<option value="asd3">권웅순
-											<option value="asd4">권웅순
-											<option value="asd5">권웅순
+											<c:forEach var="teacherList" items="${classListMap.teacherList}" varStatus="vs">
+					                        	<option value="${teacherList.tea_id}">${teacherList.tea_name}
+					                        </c:forEach>	
 										</select>
 								</div>
 								<div class='flex'>

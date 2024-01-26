@@ -6,6 +6,7 @@ import java.util.Map;
 public class ExamDTO {
 
    // 시험 -------------------------------------
+   private String class_id;
    private int exam_id;
    private String exam_name;
    private String exam_date;
@@ -52,6 +53,12 @@ public class ExamDTO {
    private int end_rowNo;
    // -----------------------------------------
 
+public String getClass_id() {
+	return class_id;
+}
+public void setClass_id(String class_id) {
+	this.class_id = class_id;
+}
 public int getExam_id() {
 	return exam_id;
 }

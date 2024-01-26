@@ -85,7 +85,6 @@ function saveData(){
 	var checkObj_emergency_name = formObj.find("[name='emergency_name']");
 	var checkObj_emergency_relation = formObj.find("[name='emergency_relation']");
 	var checkObj_emergency_phone = formObj.find("[name='emergency_phone']");
-	//var checkObj_joinClass = formObj.find("[name='joinClass']");
 	var checkObj_etc = formObj.find("[name='etc']");	  
 	  
 	if(checkVal(
@@ -293,24 +292,13 @@ function saveData(){
                         </select>
                     </td>
                     </div>
-                    <div style="border-bottom: 1px solid lightgray;">
+                    <div>
                     <td>전화번호 :</td>
                     <td>
                         <input type="tel" name="emergency_phone"  maxlength="11"> 
                     </td>
                 </div>  
-     	      <div>
-		        <tr>
-		          <th>수강 수업 : </th>
-		          <select name="joinClass">
-		             <option value=""></option>
-		             <option value="1">어쩌구</option>
-		             <option value="2">어쩌구</option>
-		             <option value="3">어쩌구</option>
-		          </select>
-		          
-		        </tr>
-		      </div>
+     	      
 		      <div>
 		        <div>기타</div>
 		        <textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>

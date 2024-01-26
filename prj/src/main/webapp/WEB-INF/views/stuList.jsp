@@ -101,7 +101,6 @@
 					$('.stuRegForm').find('[name="emergency_name"]').val(data.emergency_name);
 					$('.stuRegForm').find('[name="emergency_phone"]').val(data.emergency_phone);
 					$('.stuRegForm').find('[name="emergency_relation"]').val(data.emergency_relation);
-					$('.stuRegForm').find('[name="joinClass"]').val(data.class_id);
 	
 				} 
 			);
@@ -112,6 +111,86 @@
 
 	function update() {
 		var formObj = $("[name='stuRegForm']")
+		var checkObj_pwd = $("[name='pwd']");
+		var checkObj_rePwd = $("[name='rePwd']");
+		var checkObj_name = $("[name='name']");
+		var checkObj_phone = $("[name='phone']");
+		var checkObj_emergency_name = $("[name='emergency_name']");
+		var checkObj_emergency_relation = $("[name='emergency_relation']");
+		var checkObj_emergency_phone = $("[name='emergency_phone']");
+		var checkObj_etc = formObj.find("[name='etc']");	  
+
+		 if(checkVal(
+			       checkObj_pwd
+			         ,"암호는 영소문 또는 숫자로 구성되고 4~12자 입력해야 합니다."
+			         ,/^[a-z0-9]{4,12}$/
+			        )==false){
+			         checkObj_pwd.focus();
+			         return;
+			  }
+		 
+		 if(
+			checkObj_pwd.val()
+			!=
+			checkObj_rePwd.val())
+			  
+			{alert("입력한 암호와 다릅니다. 재입력 요망")
+			return;
+			}	
+		 
+		 if(checkVal(
+		         checkObj_name
+		          ,"학생명은 2~10자이고 한글로만 입력됩니다."
+		          ,/^[가-힣]{2,10}$/
+		        )==false){
+		          checkObj_name.focus();
+		          return;
+		      }
+		 if(checkVal(
+		         checkObj_phone
+		          ,"핸드폰 번호는 숫자로만 구성되고 -은 제외합니다."
+		          ,/^[0-9]{8,13}$/
+		        )==false){
+		          checkObj_phone.focus();
+		          return;
+		      }
+		
+		 
+		 if(checkVal(
+		         checkObj_emergency_name
+		          ,"비상연락명은 2~10자 이고 한글로만 구성됩니다.재입력 요망"
+		          ,/^[가-힣]{2,10}$/
+		        )==false){
+		          checkObj_emergency_name.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_emergency_relation
+		          ,"연락 받는 사람의 관계는 필수 선택사항입니다."
+		          ,/^[^ ]{1,}$/
+		          )==false){
+		          checkObj_emergency_relation.focus();
+		          return;
+		      }
+	  
+	  if(checkVal(
+		         checkObj_emergency_phone
+		          ,"비상연락망은 숫자로만 구성되고 -은 제외합니다."
+		          ,/^[0-9]{8,13}$/
+		        )==false){
+		          checkObj_emergency_phone.focus();
+		          return;
+		      }
+	  if(checkVal(
+		         checkObj_etc
+		         ,"기타내용은 임의 문자 2~500자 입력해야하고 공백으로 이루어질수 없습니다."
+		         ,/^(.|\n){2,500}$/
+		          )==false){
+		          checkObj_etc.focus();
+		          return;
+		      } 
+	  
 		ajax(
 				"/updateStuInfo.do"
 				,"post"
@@ -434,19 +513,11 @@
 					                            <option value="지인">지인</option>
 					                        </select>
 					                    </div>
-					                    <div class='flex' style="border-bottom: 1px solid lightgray;">
+					                    <div class='flex'>
 					                    	전화번호 :
 					                        <input type="tel" name="emergency_phone"  maxlength="11"> 
 					                	</div>  
-					     	      		<div class='flex'>
-					     	      			수강 수업 :
-									          <select name="joinClass">
-									             <option value=""></option>
-									             <option value="1">어쩌구</option>
-									             <option value="2">어쩌구</option>
-									             <option value="3">어쩌구</option>
-									          </select>
-							      		</div>
+					     	      		
 					     	      		<div>
 							        	<div>기타</div>
 							        	<textarea name="etc" cols="30" rows="10" maxlength="300" placeholder="최대 300자 입력"></textarea>
@@ -455,7 +526,7 @@
 						<span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
 						<span onclick="deleteInfo()" name="delete" class="delete">삭제</span>
 						<span onclick="update()" name="save" class="save">저장</span>
-						<input type="text" name="id" class="id">
+						<input type="hidden" name="id" class="id">
 					</form>
 			</div>
 		</div>

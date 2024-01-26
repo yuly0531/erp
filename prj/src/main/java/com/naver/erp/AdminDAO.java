@@ -49,6 +49,7 @@ public interface AdminDAO {
 	// 수업
 	int getClassListCnt(AdminDTO adminDTO);
 	int getClassListCntAll();
+	List<Map<String,String>> getTeacherList();
 	List<Map<String,String>> getClassList(AdminDTO adminDTO);
 	List<Map<String,String>> getClassDetailInfo(AdminDTO adminDTO);
 	List<Map<String,String>> getStuJoinList(AdminDTO adminDTO);

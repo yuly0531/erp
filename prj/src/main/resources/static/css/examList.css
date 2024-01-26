@@ -59,9 +59,12 @@ body > form:first-child {
 body > form:last-of-type {
   width: 85%;
 }
-.boardForm {
-  background: rgba(223, 223, 255, 0.3);
-  overflow: scroll;
+.boardForm > div {
+  border-radius: 5px;
+  margin: 0 0 10px;
+  background: #fff;
+  padding: 15px;
+  height: 70%;
 }
 .boardForm > div {
   border-radius: 5px;
@@ -128,7 +131,7 @@ body > form:last-of-type {
   font-size: 10px;
   color: dimgray;
 }
-.today_btn,
+.delete,
 .cancel,
 .save {
   display: inline-block;
@@ -138,16 +141,18 @@ body > form:last-of-type {
   text-align: center;
   font-weight: 400;
   margin: 10px 0 0;
+  font-size: 14px;
   padding: 0 10px;
   transition: .25s;
+  color: #A4A4A4;
   background: #fff;
   margin-right: 10px;
   cursor: pointer;
 }
 .cancel,
 .save  {
-  font-size: 14px;
-  color: #0000CD;
+  background-color: #A4A4A4;
+  color: #fff;
 }
 .today_btn {
   font-size: 10px;
@@ -290,4 +295,33 @@ body > form:last-of-type {
 }
 .dumP_form {
   position: absolute;
+}
+.scoreResultCate{
+  font-size:17px;
+  font-weight: bold;
+  height: 10%;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  text-align:center;
+  border-top: 3px solid #A4A4A4; 
+  border-bottom: 1px solid #A4A4A4;
+  padding: 20px
+}
+.result{
+  font-size:17px;
+  height: 10%;
+  align-items: center;
+  width: 100%;
+  text-align:center;
+  padding: 10px
+}
+.flex {
+  display: flex;
+  align-items: center;
+  text-align:center;
+  justify-content: space-around;
+  width: 100%;
+  height: 50px;
 }

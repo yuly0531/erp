@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 	@Autowired
 	private MainDAO mainDAO;
+	@Autowired
+	private AdminDAO adminDAO;
 	
 	
 	 @RequestMapping( value="/adminMain.do")
@@ -105,12 +107,27 @@ public class MainController {
 	@RequestMapping( value="/registClass.do")
 	public ModelAndView registClass( 
 			){
+		
+		Map<String, Object> teacherListMap = getTeacherList();
 				ModelAndView mav = new ModelAndView();
 				mav.setViewName("registClass.jsp");
+			    mav.addObject("teacherListMap", teacherListMap);
 				return mav;
 	}
 	
 
+
+   public Map<String, Object> getTeacherList() {
+	 Map<String, Object> resultMap = new HashMap<String, Object>();
+	 List<Map<String, String>> teacherList; 
+	 
+	 
+	 teacherList = this.adminDAO.getTeacherList();
+	 
+	 resultMap.put("teacherList", teacherList); 
+
+	 return resultMap; 
+	 }
 	
 }
 
