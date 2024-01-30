@@ -13,5 +13,9 @@ public interface MainDAO {
 	List<Map<String,String>> TeacherMainList();
 	List<Map<String,String>> getManaList();
 	List<Map<String,String>> getClassList();
+	List<Map<String,String>> getRegistStuCnt();
+	List<Map<String,String>> getTeaCnt();
+	List<Map<String,String>> getClassInfoCnt();
+	List<Map<String,String>> getdayoffInfo();
 	String whatRole(String mid);
 }

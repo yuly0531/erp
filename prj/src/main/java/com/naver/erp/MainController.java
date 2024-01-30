@@ -29,17 +29,31 @@ public class MainController {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("adminMain.jsp");
 		      mav.addObject("ManaListMap", ManaListMap);
-			return mav;}
+			return mav;
+		}
 		
 
 		   public Map<String, Object> getManaList() {
 			 Map<String, Object> resultMap = new HashMap<String, Object>();
 			 List<Map<String, String>> ManaList; 
+			 List<Map<String,String>> RegistStuCnt;
+			 List<Map<String,String>> teaCnt;
+			 List<Map<String,String>> classInfoCnt;
+			 List<Map<String,String>> dayoffInfo;
 			 
 			 
 			 ManaList = this.mainDAO.getManaList();
+			 RegistStuCnt = this.mainDAO.getRegistStuCnt();
+			 teaCnt = this.mainDAO.getTeaCnt();
+			 classInfoCnt = this.mainDAO.getClassInfoCnt();
+			 dayoffInfo = this.mainDAO.getdayoffInfo();
+			 
 			 
 			 resultMap.put("ManaList", ManaList); 
+			 resultMap.put("RegistStuCnt", RegistStuCnt); 
+			 resultMap.put("teaCnt", teaCnt); 
+			 resultMap.put("classInfoCnt", classInfoCnt); 
+			 resultMap.put("dayoffInfo", dayoffInfo); 
 
 			 return resultMap; 
 			 }

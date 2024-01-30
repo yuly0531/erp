@@ -27,4 +27,72 @@
 		    END "role"
 	    from dual
 	</select>
+	<!-- 서니 -->
+	<select id="getRegistStuCnt" resultType="java.util.Map">
+		select 
+	    (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')) "COUNT_0"
+	    , (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate-1,'yyyy-mm-dd')) "COUNT_1"
+	    , (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate-2,'yyyy-mm-dd')) "COUNT_2"
+	    , (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate-3,'yyyy-mm-dd')) "COUNT_3"
+	    , (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate-4,'yyyy-mm-dd')) "COUNT_4"
+	    , (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate-5,'yyyy-mm-dd')) "COUNT_5"
+	    , (select count(*) from student where to_char(regist_date,'yyyy-mm-dd') = to_char(sysdate-6,'yyyy-mm-dd')) "COUNT_6"
+	    from dual
+    </select>
+    
+	<select id="getTeaCnt" resultType="java.util.Map">
+	    SELECT 
+	    all_tea_cnt,
+	    dayoff_tea_cnt,
+	    all_tea_cnt - dayoff_tea_cnt AS work_tea_cnt
+		FROM (
+		    SELECT 
+		        (SELECT COUNT(*) FROM teacher) AS all_tea_cnt,
+		        (SELECT COUNT(*) 
+		         FROM teacher t
+		         WHERE t.tea_id = (
+		             SELECT td.tea_id 
+		             FROM tea_dayoff td 
+		             WHERE TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd')) BETWEEN TO_NUMBER(TO_CHAR(dayoff_start,'yyyymmdd')) AND TO_NUMBER(TO_CHAR(dayoff_end,'yyyymmdd'))
+		         )
+		        ) AS dayoff_tea_cnt
+		    FROM dual
+		)
+	</select>
+	
+	<select id="getClassInfoCnt" resultType="java.util.Map">
+		SELECT 
+	        (select count(*) from class)  "all_class_cnt"
+	        ,(select count(*) 
+	         FROM class
+	         WHERE 
+	             TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd')) BETWEEN TO_NUMBER(TO_CHAR(class_start_date,'yyyymmdd')) AND TO_NUMBER(TO_CHAR(class_end_date,'yyyymmdd'))) "due_class_cnt"
+	        ,(select count(*) 
+	         FROM class
+	         WHERE 
+	         <![CDATA[
+	             TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd')) < TO_NUMBER(TO_CHAR(class_start_date,'yyyymmdd'))) "yet_class_cnt"
+	        ,(select count(*) 
+	         FROM class
+	         WHERE 
+	             TO_NUMBER(TO_CHAR(SYSDATE,'yyyymmdd')) > TO_NUMBER(TO_CHAR(class_end_date,'yyyymmdd'))) "end_class_cnt"
+	    	]]>
+	    from dual
+    </select>
+	<select id="getdayoffInfo" resultType="java.util.Map">
+	    select
+		   (select stu_name from student s where df.stu_id = s.stu_id) "who_name"
+		   ,to_char(application_date,'yyyy-mm-dd') "regist_date"                               
+		   ,payment_status "status"                            
+		   ,dayoff_kind "dayoff_kind"
+		from dayoff df
+		union all
+		select
+		   (select tea_name from teacher t where df.tea_id = t.tea_id)
+		   ,to_char(application_date,'yyyy-mm-dd')                    
+		   ,payment_status
+		   ,tea_dayoff_kind
+		from tea_dayoff df
+    </select>
+	<!-- 서니 -->
 </mapper>

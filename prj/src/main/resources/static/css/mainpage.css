@@ -116,7 +116,7 @@ body {
 .main_info > div {
   background: #fff;
   border-radius: 7px;
-  width: 50%; height: 200px;
+  width: 100%; height: 450px;
   box-shadow: 0 0 10px rgb(0 , 0, 0, .05);
   overflow: hidden;
 }
@@ -346,4 +346,22 @@ body {
 .middle {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+.flex{
+	padding : 15px;
+	text-align: center;
+}
+.flex > div:not(.status) {
+	width:25%;	
+}
+
+.flex > .status{
+	width:13%;	
+    font-weight: bold;
+    line-height: 5px;
+    background: #a4a4a4;
+    color: #fff;
+    padding: 10px 8px;
+    border-radius: 2px;
+	
 }
