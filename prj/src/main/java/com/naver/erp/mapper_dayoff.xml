@@ -3,44 +3,45 @@
 
 <mapper namespace="com.naver.erp.DayOffDAO">
 <sql id="dayoffWhere">
-	
-	 <if test="keyword1!=null and keyword1.length()>0">
+	<if test="keyword1!=null and keyword1.length()>0">
         and( upper((select stu_name from student st
          where st.stu_id= d.stu_id))
          	LIKE upper('%${keyword1}%') 
-   		
-   		or upper(DAYOFF_KIND)
+   		or upper(d.dayoff_kind)
          LIKE upper('%${keyword1}%')
-        
-        or upper(PAYMENT_STATUS)
+        or upper(d.payment_status)
          LIKE upper('%${keyword1}%') )
-   </if>
+         </if>
+         <if test = "payment!='전체' and payment!=null and payment.length>0">
+            and d.PAYMENT_STATUS = #{payment}
+         </if>
+   
 </sql>
 
-<select id="getStuOffDetail" parameterType="com.naver.erp.DayOffDTO" resultType="java.util.Map" >
+<select id="getStuOffDetail" parameterType="java.lang.String" resultType="com.naver.erp.DayOffDTO" >
 	   <!--  이 mapper는 팝업 떴을 때 데이터 불러오는 구문. 팝업 다 채울수있게 해줘. 기본 베이스는 다했으니까
 	    긴급 연락처, 경력에서 데이터 볼수있게 추가해줘 
 	    ,신청일 ,휴가 시작일, 종료일, 휴가종류, 신청자 아이디, 신청자 이름, 내용, 
 	    결재상태
 	    -->
 select
-	to_char(d.APPLICATION_DATE,'YYYY-MM-DD AM HH:MI') "APPLICATION_DATE" 
-	,to_char(d.DAYOFF_START,'YYYY-MM-DD AM HH:MI') "DAYOFF_START" 
-	,to_char(d.DAYOFF_END,'YYYY-MM-DD AM HH:MI') "DAYOFF_END"
-	,d.DAYOFF_KIND   "DAYOFF_KIND" 
-	,d.stu_id "STU_ID"                     
+	to_char(d.APPLICATION_DATE,'YYYY-MM-DD AM HH:MI') "application_date" 
+	,to_char(d.DAYOFF_START,'YYYY-MM-DD AM HH:MI') "dayoff_start" 
+	,to_char(d.DAYOFF_END,'YYYY-MM-DD AM HH:MI') "dayoff_end"
+	,d.DAYOFF_KIND   "dayoff_kind" 
+	,d.stu_id "stu_id"                     
 	,(select stu_name from student st where st.stu_id= d.stu_id) "stu_name"                     
-	,d.PAYMENT_STATUS "PAYMENT_STATUS"
-	,d.etc "ETC"
+	,d.PAYMENT_STATUS "payment_status"
+	,d.etc "etc"
 	from dayoff  d
-	where day_id =#{DAY_ID}
+	where d.day_id =#{day_id}
  </select> 
 
 
 <select id="getStuOffCnt" resultType="int" >
 	     select
 	       count(*)
-         from dayoff
+         from dayoff d
          where 1=1
          <include refid="dayoffWhere"/>
     </select> 
@@ -53,42 +54,37 @@ select
 
 <select id="getStuOff" resultType="java.util.Map" >
 select
-	day_id		"day_id"
+	d.day_id		"day_id"
 	,(select stu_name from student st where st.stu_id= d.stu_id) "stu_name"                     
-    ,to_char(APPLICATION_DATE,'yyyy-mm-dd')         "APPLICATION_DATE"  
-    ,to_char(DAYOFF_START,'yyyy-mm-dd')             "DAYOFF_START"
-    ,to_char(DAYOFF_END,'yyyy-mm-dd')               "DAYOFF_END"
-    ,PAYMENT_STATUS    "PAYMENT_STATUS"                
-    ,DAYOFF_KIND 	"DAYOFF_KIND"
+    ,to_char(d.APPLICATION_DATE,'yyyy-mm-dd')         "application_date"  
+    ,to_char(d.DAYOFF_START,'yyyy-mm-dd')             "dayoff_start"
+    ,to_char(d.DAYOFF_END,'yyyy-mm-dd')               "dayoff_end"
+    ,d.PAYMENT_STATUS    "payment_status"                
+    ,d.DAYOFF_KIND 	"dayoff_kind"
 from dayoff  d 
 	where 1=1
     <include refid="dayoffWhere"/>
+    order by d.day_id desc
 </select>
-
-
-
-
-
-
 
 
 <insert id="insertStuOff" parameterType="com.naver.erp.DayOffDTO" >
 	insert into dayoff(
-			DAY_ID
-			,STU_ID
-			,DAYOFF_START
-			,DAYOFF_END
-			,DAYOFF_KIND
-			,PAYMENT_STATUS
+			day_id
+			,stu_id
+			,dayoff_start
+			,dayoff_end
+			,dayoff_kind
+			,payment_status
 			,etc
 		) values(
-		 (select (nvl(max(day_id),0)+1) from dayoff)
-			,#{STU_ID}
-			,to_date(#{DAYOFF_START},'yyyy-mm-dd hh:mi')			
-			,to_date(#{DAYOFF_END},'yyyy-mm-dd hh:mi')
-			,#{DAYOFF_KIND}
+		 (select (nvl(max(to_number(day_id)),0)+1) from dayoff)
+			,#{stu_id}
+			,TO_DATE(#{dayoff_start}, 'YYYY-MM-DD"T"HH24:MI')			
+			,TO_DATE(#{dayoff_end}, 'YYYY-MM-DD"T"HH24:MI')
+			,#{dayoff_kind}
 			,'미결재'
-			,#{ETC}
+			,#{etc}
 		)
 </insert>
 
@@ -100,9 +96,9 @@ from dayoff  d
    <update id = "upStuOff" parameterType="com.naver.erp.DayOffDTO" >
 	update dayoff
 		set
-			DAYOFF_START =to_date(#{start_date},'yyyy-mm-dd')
-			,DAYOFF_END	 =to_date(#{end_date},'yyyy-mm-dd')
-			,DAYOFF_KIND =#{dayoffKind}
+			DAYOFF_START =to_date(#{dayoff_start},'YYYY-MM-DD"T"HH24:MI')
+			,DAYOFF_END	 =to_date(#{dayoff_end},'YYYY-MM-DD"T"HH24:MI')
+			,DAYOFF_KIND =#{dayoff_kind}
 			,ETC 		 =#{etc} 		
 		where 
 			day_id=#{day_id}	 
@@ -111,7 +107,7 @@ from dayoff  d
  <update id = "updateStuDayoffStatus" parameterType="com.naver.erp.DayOffDTO" >
 	update dayoff
 		set
-			PAYMENT_STATUS = #{PAYMENT_STATUS}					
+			PAYMENT_STATUS = #{payment_status}				
 		where 
 			day_id=#{day_id}	 
 </update>

@@ -4,40 +4,42 @@
 <mapper namespace="com.naver.erp.DayOffDAO">
 
 <sql id="teaDayoffWhere">
-	
-	 <if test="keyword1!=null and keyword1.length()>0">
+	<if test="keyword1!=null and keyword1.length()>0">
         and( upper((select tea_name from teacher te
          where te.tea_id= sd.tea_id))
          	LIKE upper('%${keyword1}%') 
-   		
-   		or upper(TEA_DAYOFF_KIND)
+   		or upper(tea_dayoff_kind)
          LIKE upper('%${keyword1}%')
-        
-        or upper(PAYMENT_STATUS)
+        or upper(payment_status)
          LIKE upper('%${keyword1}%') )
-   </if>
+         </if>
+        <if test = "payment!='전체' and payment!=null and payment.length>0">
+           and payment_status = #{payment}
+         </if>
+         
+   
 </sql>
 
-<select id="getTeaOffDetail" parameterType="com.naver.erp.DayOffDTO" resultType="java.util.Map" >
+<select id="getTeaOffDetail" parameterType="java.lang.String" resultType="com.naver.erp.DayOffDTO" >
 	   
 select
-	to_char(Sd.APPLICATION_DATE,'YYYY-MM-DD AM HH:MI') "TEA_APPLICATION_DATE" 
-	,to_char(Sd.DAYOFF_START,'YYYY-MM-DD AM HH:MI') "TEA_DAYOFF_START" 
-	,to_char(Sd.DAYOFF_END,'YYYY-MM-DD AM HH:MI') "TEA_DAYOFF_END"
-	,Sd.TEA_DAYOFF_KIND   "TEA_DAYOFF_KIND" 
-	,Sd.tea_id "TEA_ID"                     
+	to_char(Sd.APPLICATION_DATE,'YYYY-MM-DD AM HH:MI') "tea_application_date" 
+	,to_char(Sd.DAYOFF_START,'YYYY-MM-DD AM HH:MI') "tea_dayoff_start" 
+	,to_char(Sd.DAYOFF_END,'YYYY-MM-DD AM HH:MI') "tea_dayoff_end"
+	,Sd.TEA_DAYOFF_KIND   "tea_dayoff_kind" 
+	,Sd.tea_id "tea_id"                     
 	,(select tea_name from teacher te where te.tea_id= Sd.tea_id) "tea_name"                     
-	,Sd.PAYMENT_STATUS "TEA_PAYMENT_STATUS"
-	,Sd.etc "TEA_ETC"
-	from tea_dayoff  Sd
-		where day_id =#{day_id}
+	,Sd.PAYMENT_STATUS "tea_payment_status"
+	,Sd.etc "tea_etc"
+	from tea_dayoff  sd
+		where day_id =#{tea_day_id}
  </select> 
 
 
 <select id="getTeaOffCnt" resultType="int" >
 	     select
 	       count(*)
-         from tea_dayoff
+         from tea_dayoff sd
          where 1=1
          <include refid="teaDayoffWhere"/>
     </select> 
@@ -50,16 +52,17 @@ select
 
 <select id="getTeaOff" resultType="java.util.Map" >
 select
-	day_id		"TEA_DAY_ID"
+	day_id		"tea_day_id"
 	,(select tea_name from teacher te where te.tea_id= sd.tea_id) "tea_name"                     
-    ,to_char(APPLICATION_DATE,'yyyy-mm-dd')         "TEA_APPLICATION_DATE"  
-    ,to_char(DAYOFF_START,'yyyy-mm-dd')             "TEA_DAYOFF_START"
-    ,to_char(DAYOFF_END,'yyyy-mm-dd')               "TEA_DAYOFF_END"
-    ,PAYMENT_STATUS     "TEA_PAYMENT_STATUS"               
-    ,TEA_DAYOFF_KIND "TEA_DAYOFF_KIND"
+    ,to_char(APPLICATION_DATE,'yyyy-mm-dd')         "tea_application_date"  
+    ,to_char(DAYOFF_START,'yyyy-mm-dd')             "tea_dayoff_start"
+    ,to_char(DAYOFF_END,'yyyy-mm-dd')               "tea_dayoff_end"
+    ,PAYMENT_STATUS     "tea_payment_status"               
+    ,TEA_DAYOFF_KIND "tea_dayoff_kind"
 from tea_dayoff  sd 
 	where 1=1
     <include refid="teaDayoffWhere"/>
+    order by day_id desc
 </select>
 
 
@@ -73,38 +76,38 @@ from tea_dayoff  sd
 			,PAYMENT_STATUS
 			,etc
 		) values(
-		 (select (nvl(max(day_id),0)+1) from tea_dayoff)
+		 (select (nvl(max(to_number(day_id)),0)+1) from tea_dayoff)
 			,#{tea_id}
-			,to_date(#{start_date},'yyyy-mm-dd')			
-			,to_date(#{end_date},'yyyy-mm-dd')
-			,#{dayoffKind}
+			,to_date(#{tea_dayoff_start},'YYYY-MM-DD"T"HH24:MI')			
+			,to_date(#{tea_dayoff_end},'YYYY-MM-DD"T"HH24:MI')
+			,#{tea_dayoff_kind}
 			,'미결재'
-			,#{etc}
+			,#{tea_etc}
 		)
 </insert>
 
 	<delete id = "deleteTeaOff" parameterType="com.naver.erp.DayOffDTO" >
    			delete from tea_dayoff
-   				where day_id=#{day_id}
+   				where day_id=#{tea_day_id}
   </delete>
 
 <update id = "upTeaOff" parameterType="com.naver.erp.DayOffDTO" >
 	update tea_dayoff
 		set
-			DAYOFF_START 	 = to_date(#{start_date},'yyyy-mm-dd')
-			,DAYOFF_END	 	 = to_date(#{end_date},'yyyy-mm-dd')
-			,TEA_DAYOFF_KIND = #{dayoffKind}
-			,ETC 		 	 = #{etc} 		
+			DAYOFF_START 	 = to_date(#{tea_dayoff_start},'YYYY-MM-DD"T"HH24:MI')
+			,DAYOFF_END	 	 = to_date(#{tea_dayoff_end},'YYYY-MM-DD"T"HH24:MI')
+			,TEA_DAYOFF_KIND = #{tea_dayoff_kind}
+			,ETC 		 	 = #{tea_etc} 		
 		where 
-			day_id =#{day_id}	 
+			day_id =#{tea_day_id}	 
 </update>
 
  <update id = "updateTeaDayoffStatus" parameterType="com.naver.erp.DayOffDTO" >
 	update tea_dayoff
 		set
-			PAYMENT_STATUS = #{PAYMENT_STATUS}					
+			PAYMENT_STATUS = #{tea_payment_status}					
 		where 
-			day_id=#{day_id}	 
+			day_id=#{tea_day_id}	 
 </update>
 
 </mapper>

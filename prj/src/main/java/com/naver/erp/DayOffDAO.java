@@ -15,19 +15,20 @@ public interface DayOffDAO {
 	int getStuOffCnt(DayOffDTO dayoffDTO);
 	int getStuOffCntAll();
 	List<Map<String,String>> getStuOff(DayOffDTO dayoffDTO);
-	List<Map<String,String>> getStuOffDetail(DayOffDTO dayoffDTO);
+	DayOffDTO getStuOffDetail(String day_id);
 	int insertStuOff(DayOffDTO dayoffDTO);
 	int deleteStuOff(DayOffDTO dayoffDTO);
 	int upStuOff(DayOffDTO dayoffDTO);
+	
 	int updateStuDayoffStatus (DayOffDTO dayoffDTO);
+	int updateTeaDayoffStatus (DayOffDTO dayoffDTO);
 	
 	//강사 결재
 	int getTeaOffCnt(DayOffDTO dayoffDTO);
 	int getTeaOffCntAll();
 	List<Map<String,String>> getTeaOff(DayOffDTO dayoffDTO);
-	List<Map<String,String>> getTeaOffDetail(DayOffDTO dayoffDTO);
+	DayOffDTO getTeaOffDetail(String tea_day_id);
 	int insertTeaOff(DayOffDTO dayoffDTO);
 	int deleteTeaOff(DayOffDTO dayoffDTO);
 	int upTeaOff(DayOffDTO dayoffDTO);
-	int updateTeaDayoffStatus (DayOffDTO dayoffDTO);
 }

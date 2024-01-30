@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,9 +23,71 @@ public class DayOffController {
 	private MainDAO mainDAO;
 	@Autowired
 	private DayOffDAO dayoffDAO;
+	@Autowired
+	private DayOffService dayoffservice;
 	
 	
+	//결재 상세보기
+	@RequestMapping(value="/dayOffDetailForm.do")
+	public ModelAndView dayOffDetailForm(
+			@RequestParam(value="day_id",required=false ) String day_id,
+			@RequestParam(value="tea_day_id",required=false ) String tea_day_id,
+			HttpSession session
+			)
+	{
+	String mid;
+	if((String)session.getAttribute("stu_id")!=null) {
+		mid = (String)session.getAttribute("stu_id");
+	}
+	else if((String)session.getAttribute("tea_id")!=null) {
+		mid = (String)session.getAttribute("tea_id");
+	}
+	else {
+		mid = (String)session.getAttribute("mana_id");
+	}
 	
+		String whatRole = mainDAO.whatRole(mid);
+		DayOffDTO dayOff = this.dayoffservice.getStuOffDetail(day_id);
+		DayOffDTO tea_dayOff = this.dayoffservice.getTeaOffDetail(tea_day_id);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("dayOffDetail.jsp");
+		mav.addObject("whatRole",whatRole);
+		mav.addObject("dayOff",dayOff);
+		mav.addObject("tea_dayOff",tea_dayOff);
+		return mav;
+	
+	}
+	
+	//결재
+	@RequestMapping(
+			value="/DayOffResult.do"
+			,method=RequestMethod.POST
+			,produces="application/json;charset=UTF-8"
+			)
+	@ResponseBody
+	public Map<String, String> DayOffResult(
+			DayOffDTO dayOffDTO
+			)
+	{
+		Map<String,String> responseMap = new HashMap<String,String>();
+		int stu_DayoffUpCnt = 0;
+		int tea_DayoffUpCnt = 0;
+		try {
+			stu_DayoffUpCnt = this.dayoffservice.updateStuDayoffStatus(dayOffDTO);
+			tea_DayoffUpCnt = this.dayoffservice.updateTeaDayoffStatus(dayOffDTO);
+		}	
+		catch(Exception ex){
+			System.out.println(ex);
+			stu_DayoffUpCnt = -1;	
+			tea_DayoffUpCnt = -1;		
+		}
+		
+		responseMap.put("stu_DayoffUpCnt",stu_DayoffUpCnt+"");
+		responseMap.put("tea_DayoffUpCnt",tea_DayoffUpCnt+"");
+	System.out.println(stu_DayoffUpCnt);
+	System.out.println(tea_DayoffUpCnt);
+		return responseMap;
+	}
 	
 	//페이지
 	@RequestMapping( value="/dayOff.do")
@@ -55,21 +118,34 @@ public class DayOffController {
 		return mav;
 	}
 	
-	// 선생 결재리스트 불러오는 메소드
+	// 모든 결재리스트 불러오는 메소드
 			public Map<String,Object> getTeaOff(DayOffDTO dayoffDTO){
 				Map<String,Object> resultMap = new HashMap<String,Object>();
 				List<Map<String,String>> tea_dayoffList;
+				List<Map<String,String>> stu_dayoffList;
 				int tea_dayoffListCnt;
 				int tea_dayoffListCntAll;
+				int stu_dayoffListCnt;
+				int stu_dayoffListCntAll;
 				Map<String,Integer> pagingMap;
+				Map<String,Integer> stu_pagingMap;
 				
 				tea_dayoffListCntAll =  this.dayoffDAO.getTeaOffCntAll();
-				tea_dayoffListCnt =  this.dayoffDAO.getTeaOffCnt(dayoffDTO );
+				tea_dayoffListCnt =  this.dayoffDAO.getTeaOffCnt(dayoffDTO);
+				stu_dayoffListCntAll =  this.dayoffDAO.getStuOffCntAll();
+				stu_dayoffListCnt =  this.dayoffDAO.getStuOffCnt(dayoffDTO);
 				
 				pagingMap = Util.getPagingMap(
 						dayoffDTO.getSelectPageNo()
 						, dayoffDTO.getRowCntPerPage()
-						, tea_dayoffListCnt
+						, tea_dayoffListCnt 
+						
+				);
+				stu_pagingMap = Util.getPagingMap(
+						dayoffDTO.getSelectPageNo()
+						, dayoffDTO.getRowCntPerPage()
+						, stu_dayoffListCnt 
+						
 				);
 				
 
@@ -79,11 +155,15 @@ public class DayOffController {
 				dayoffDTO.setEnd_rowNo((int)pagingMap.get("end_rowNo"));
 				
 				
-				tea_dayoffList       =  this.dayoffDAO.getTeaOff(dayoffDTO);
+				tea_dayoffList = this.dayoffDAO.getTeaOff(dayoffDTO);
+				stu_dayoffList = this.dayoffDAO.getStuOff(dayoffDTO);
 
 				resultMap.put(  "tea_dayoffList"       , tea_dayoffList        );
+				resultMap.put(  "stu_dayoffList"       , stu_dayoffList        );
 				resultMap.put(  "tea_dayoffListCnt"    , tea_dayoffListCnt     );
 				resultMap.put(  "tea_dayoffListCntAll" , tea_dayoffListCntAll  );
+				resultMap.put(  "stu_dayoffListCnt"    , stu_dayoffListCnt     );
+				resultMap.put(  "stu_dayoffListCntAll" , stu_dayoffListCntAll  );
 				resultMap.put(  "dayoffDTO"  , dayoffDTO );
 				
 				resultMap.put(  "begin_pageNo"          , pagingMap.get("begin_pageNo")        );
@@ -93,35 +173,20 @@ public class DayOffController {
 				resultMap.put(  "begin_serialNo_asc"    , pagingMap.get("begin_serialNo_asc")  );
 				resultMap.put(  "begin_serialNo_desc"   , pagingMap.get("begin_serialNo_desc") );
 				
+				resultMap.put(  "stu_begin_pageNo"          , stu_pagingMap.get("begin_pageNo")        );
+				resultMap.put(  "stu_end_pageNo"            , stu_pagingMap.get("end_pageNo")          );
+				resultMap.put(  "stu_selectPageNo"          , stu_pagingMap.get("selectPageNo")        );
+				resultMap.put(  "stu_last_pageNo"           , stu_pagingMap.get("last_pageNo")         );
+				resultMap.put(  "stu_begin_serialNo_asc"    , stu_pagingMap.get("begin_serialNo_asc")  );
+				resultMap.put(  "stu_begin_serialNo_desc"   , stu_pagingMap.get("begin_serialNo_desc") );
+				
 				return resultMap;
 			}
 
-		// 선생 결재 상세 정보
-		@RequestMapping(
-			 value="/tea_dayoffDetail.do",
-			 method = RequestMethod.POST,
-			 produces ="application/json;charset=UTF-8"
-		)
-		@ResponseBody
-		public Map<String, Object> tea_dayoffDetail(
-				DayOffDTO dayoffDTO
-		){
-
-			Map<String, Object> tea_dayoffDetailMap = getTeaDayOffDetailMap(dayoffDTO);
-			return tea_dayoffDetailMap;
-		}
-
-		public Map<String, Object> getTeaDayOffDetailMap(DayOffDTO dayoffDTO){
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			List<Map<String, String>> tea_dayoffList;
-			
-			tea_dayoffList = dayoffDAO.getTeaOffDetail(dayoffDTO);
-			resultMap.put("tea_dayoffList", tea_dayoffList);
-			return resultMap;
-		}
+		
 	
 		
-		//선생 결재 삭제
+		//선생 결재 삭제 
 		@RequestMapping(
 				value="/deleteTeaOff.do"
 				,method=RequestMethod.POST
@@ -159,9 +224,10 @@ public class DayOffController {
 			try {
 				updateTeaOffCnt = this.dayoffDAO.upTeaOff(dayoffDTO);
 			} catch (Exception e) {
+				System.out.println(e);
 				updateTeaOffCnt = -1;
 			}
-
+			
 			return updateTeaOffCnt;
 		}
 		
@@ -194,6 +260,7 @@ public class DayOffController {
 			}
 			
 			catch(Exception ex){
+				System.out.println(ex);
 				TeaOffRegCnt = -1;
 			}
 			responseMap.put("errorMsg", errorMsg);
@@ -245,30 +312,7 @@ public class DayOffController {
 						return resultMap;
 					}
 
-				// 학생결재 상세 정보
-				@RequestMapping(
-					 value="/dayoffDetail.do",
-					 method = RequestMethod.POST,
-					 produces ="application/json;charset=UTF-8"
-				)
-				@ResponseBody
-				public Map<String, Object> dayoffDetail(
-						DayOffDTO dayoffDTO
-				){
-
-					Map<String, Object> dayoffDetailMap = getDayOffDetailMap(dayoffDTO);
-					return dayoffDetailMap;
-				}
-
-				public Map<String, Object> getDayOffDetailMap(DayOffDTO dayoffDTO){
-					Map<String, Object> resultMap = new HashMap<String, Object>();
-					List<Map<String, String>> dayoffList;
-					
-					dayoffList = dayoffDAO.getStuOffDetail(dayoffDTO);
-					resultMap.put("dayoffList", dayoffList);
-					return resultMap;
-				}
-			
+				
 				
 				//학생 결재 삭제
 				@RequestMapping(
@@ -284,8 +328,9 @@ public class DayOffController {
 					int deleteStuOffCnt = 0;
 							
 					try {
-						deleteStuOffCnt = this.dayoffDAO.deleteStuOff(dayoffDTO);
+						deleteStuOffCnt = this.dayoffservice.deleteStuOff(dayoffDTO);
 					} catch (Exception e) {
+						System.out.println(e);
 						deleteStuOffCnt = -1;
 					}
 					
@@ -351,9 +396,7 @@ public class DayOffController {
 					return responseMap;
 				}
 			
-		
-		
-		
+				
 		
 		
 		

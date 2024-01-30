@@ -19,12 +19,38 @@
  
  function init(){
  	hidePopup();
+ 	show_and_hide()
  };
  
  function hidePopup(){
  	$("#stuOff").hide();
  	$("#teaOff").hide();
  };
+ 
+
+function show_and_hide(){
+		
+<c:if test="${whatRole eq '강사'||whatRole eq '관리자'}">
+	$("#StudayOffList").show();
+   $("#AlldayOffList").hide();
+   
+   $(".stu").mouseup(
+           function(){
+               	
+              	$("#StudayOffList").show();
+              	$("#AlldayOffList").hide();
+              	$(this).addClass('active').siblings('div').removeClass('active');
+            })
+  	$(".tea").mouseup(
+           function(){
+              	$("#StudayOffList").hide();
+              	$("#AlldayOffList").show();
+              	$(this).addClass('active').siblings('div').removeClass('active');
+              	}
+   )
+   </c:if>
+   
+}
  
  function showStuPopup(){
  	$("#stuOff").show();
@@ -34,97 +60,132 @@
  	$("#teaOff").show();
  	
  };
- 
  function save(){
-	 <c:if test="${whatRole eq '학생'}">
- 	var formObj = $("#stuOff");
-	if( confirm("신청 하시겠습니까?")==false ) { return; }
-	var startclock = formObj.find('[name=dayoff_start]').val()
-	var endclock = formObj.find('[name=dayoff_end]').val()
-	formObj.find('[name=dayoff_start]').val(startclock);
-	formObj.find('[name=dayoff_end]').val(endclock);
-	
-		ajax(
-				"/insertStuOff.do"
-				,"post"
-				,formObj
-				,function(responseJson){
-					var StuOffRegCnt = responseJson["StuOffRegCnt"]; 
-					if( StuOffRegCnt==1 ){
-						alert("신청이 완료되었습니다.");
-						document.dayOffFormLink.submit();
-					}
-					else{
-						alert( "신청에 실패하였습니다. 잠시 후에 시도해주세요.");
-					}
-				}
-		);
-		</c:if>
-		 <c:if test="${whatRole eq '강사'}">
-		 	var formObj = $("#teaOff");
-			var startclock = formObj.find('[name=tea_dayoff_start]').val()
-			var endclock = formObj.find('[name=tea_dayoff_end]').val()
-			formObj.find('[name=tea_dayoff_start]').val(startclock);
-			formObj.find('[name=tea_dayoff_end]').val(endclock);
-			alert(endclock)
-			if( confirm("신청 하시겠습니까?")==false ) { return; }
-				ajax(
-						"/insertTeaOff.do" 
-						,"post"
-						,formObj
-						,function(responseJson){
-							var TeaOffRegCnt = responseJson["TeaOffRegCnt"]; 
-							if( TeaOffRegCnt==1 ){
-								alert("신청이 완료되었습니다.");
-								document.dayOffFormLink.submit();
-							}
-							else{
-								alert( "신청에 실패하였습니다. 잠시 후에 시도해주세요.");
-							}
-						}
-				);
-				</c:if>
-	};
- </script>
-  <script>
-   
-   /* 
-    function search(){
-    	<c:if test="${sessionScope.stu_id==stu_id}">
-    	var formObj = $("#StudayOffList");
-		ajax(
-				"/dayOff.do"
-				,"post"
-				,formObj
-				,function(responseJson){
-					var DayoffRegCnt = responseJson["DayoffRegCnt"]; 
-					alert(DayoffRegCnt)
-				}
-		);
-			</c:if>
-			var formObj = $("#stuOff");
-			ajax(
-					"/dayOff.do"
+		var stuObj = $("#stuOff");
+	 	var teaObj = $("#teaOff");
+	 	<c:if test="${whatRole eq '학생'}">
+	 	var startclock = stuObj.find('[name=dayoff_start]').val()
+		var endclock = stuObj.find('[name=dayoff_end]').val()
+		if( confirm("신청 하시겠습니까?")==false ) { return; }
+			 ajax(
+					"/insertStuOff.do"
 					,"post"
+					,stuObj
 					,function(responseJson){
-						var DayoffRegCnt = responseJson["DayoffRegCnt"]; 
-						if( DayoffRegCnt==1 ){
+						var StuOffRegCnt = responseJson["StuOffRegCnt"]; 
+						if( StuOffRegCnt==1 ){
 							alert("신청이 완료되었습니다.");
-							dayOffForm();
+							document.dayOffFormLink.submit();
 						}
 						else{
 							alert( "신청에 실패하였습니다. 잠시 후에 시도해주세요.");
 						}
 					}
-    	
-    	
-    };
-    
-    */
-  
-    
-  
+			);
+			</c:if>
+			<c:if test="${whatRole eq '강사'}">
+	    	var startclock = teaObj.find('[name=tea_dayoff_start]').val()
+	    	var endclock = teaObj.find('[name=tea_dayoff_end]').val()
+			if( confirm("신청 하시겠습니까?")==false ) { return; }
+			 ajax(
+					"/insertTeaOff.do"
+					,"post"
+					,teaObj
+					,function(responseJson){
+						var TeaOffRegCnt = responseJson["TeaOffRegCnt"]; 
+						if( TeaOffRegCnt==1 ){
+							alert("신청이 완료되었습니다.");
+							document.dayOffFormLink.submit();
+						}
+						else{alert( "신청에 실패하였습니다. 잠시 후에 시도해주세요.");}
+					}
+			);
+			 </c:if>
+	 };
 
+   function payment(e,payment){
+	  var formObj = $("#StudayOffList");
+	  var formAll = $("#AlldayOffList");
+	 	formAll.find("[name='payment']").val(payment);
+        formObj.find("[name='payment']").val(payment);
+          search();
+        };
+
+function pageNoClick( clickPageNo ){
+	<c:if test="${whatRole eq '학생'}">
+	 var formStu = $("#StudayOffList");
+	 formStu.find("[name='selectPageNo']").val(clickPageNo);
+          search();
+          </c:if>
+     <c:if test="${whatRole eq '강사'|| whatRole eq '관리자'}">
+     var formAll = $("#AlldayOffList");
+     formAll.find("[name='selectPageNo']").val(clickPageNo);
+          search();
+          </c:if>
+};
+       
+     
+    
+       function search(){
+    	   <c:if test="${whatRole eq '학생'}">
+          ajax(
+        		 "/dayOff.do"
+                ,"post"
+                ,$("#StudayOffList")
+                ,function(responseHtml){
+                   var obj = $(responseHtml);
+                   var searchResultCnt = obj.find("#stuCntAll").html();
+                   var searchResult = obj.find("#stu_search_list").html();
+                   var pageNos = obj.find("#stu_pageNos").html();
+                
+                   $("#stuCntAll").html( searchResultCnt );
+             		$("#stu_search_list").html( searchResult );
+                   $("#stu_pageNos").html( pageNos );
+                   
+        		 }
+          );
+          </c:if>
+          <c:if test="${whatRole eq '강사'|| whatRole eq '관리자'}">
+          ajax(
+        		 "/dayOff.do"
+                ,"post"
+                ,$("#AlldayOffList")
+                ,function(responseHtml){
+                   var obj = $(responseHtml);
+                   var tea_searchResultCnt = obj.find("#tea_CntAll").html();
+                   var tea_searchResult = obj.find("#tea_search_list").html();
+                   var tea_pageNos = obj.find("#tea_pageNos").html();
+				$("#tea_CntAll").html( tea_searchResultCnt );
+                   $("#tea_search_list").html( tea_searchResult );
+                   $("#tea_pageNos").html( tea_pageNos );
+                  
+                  })
+                  ,ajax(
+        		 "/dayOff.do"
+                ,"post"
+                ,$("#StudayOffList")
+                ,function(responseHtml){
+                   var obj = $(responseHtml);
+                   var searchResultCnt = obj.find("#stuCntAll").html();
+                   var searchResult = obj.find("#stu_search_list").html();
+                   var pageNos = obj.find("#stu_pageNos").html();
+                	$("#stuCntAll").html( searchResultCnt );
+             		$("#stu_search_list").html( searchResult );
+                   $("#stu_pageNos").html( pageNos );
+                   
+        		 });
+          </c:if>
+       };
+       
+       function gostuDetailForm(day_id){
+    	      $("[name='DetailForm'] [name='day_id']").val(day_id);
+    	      document.DetailForm.submit();
+    	   }
+       function goteaDetailForm(tea_day_id){
+ 	      $("[name='DetailForm'] [name='tea_day_id']").val(tea_day_id);
+ 	      document.DetailForm.submit();
+ 	   }
+   
  </script>
  
  </head>
@@ -143,7 +204,7 @@
 				<tr class="cate_box">
           			<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
 					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가신청</td>
-					<td class="main_cate" onclick="location.replace('/examList.do')">시험응시</td>
+					<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
 					<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
 				</tr>
 			</table>
@@ -195,14 +256,16 @@
         </form>
         <!-- !!!!!!!!!!!학생 헤더밑에 보이는 내용들!!!!!!!! -->
         <c:if test="${whatRole eq '학생'}">
-        <form id="StudayOffList" class="day	OffList">
+        <form id="StudayOffList" class="dayOffList">
         <header>휴가 관리</header>
 		<table class="search_bar"> 
 			<tr>
 				<td class="searchbar_box">
-					<input type="text" name="keyword1">
-					<input class="search_btn" type="button" value="검색" onclick="search()">
+				 <input type="text" name="keyword1">
+				 <input type="hidden" name="payment">
+					<input class="search_btn" type="button" value="검색" onclick="search()" onkeydown="search()">
 					<input class="search_btn" type="button" value="휴가 신청" onclick="showStuPopup()">
+					
 				</td>
 			</tr>
 		</table>
@@ -212,9 +275,15 @@
 		<table>
 	        <section class="count_desc">
 	          <section class="searchResultCnt">
-	              <div class="impect">전체 : ${requestScope.getStuOff.dayoffListCnt} 개</div> 
+ <div class="impect" id="stuCntAll">전체 : ${requestScope.getStuOff.dayoffListCntAll} 개 </div> 
 	         </section>
-	          <select name="rowCntPerPage" onChange="search()" class="rownum">
+	      <section>
+	     <span  onclick="payment(this, '전체')">전체</span>
+         <span onclick="payment(this, '미결재')">미결</span>
+         <span onclick="payment(this, '승인')">승인</span>
+         <span  onclick="payment(this, '반려')">반려</span>
+         </section>
+	       <select name="rowCntPerPage" onChange="search()" class="rownum">
 	                  <option value="10">10 
 	                  <option value="15">15 
 	                  <option value="20">20 
@@ -223,10 +292,13 @@
 		</table>
 		<div>
 	</div>
-	<div class="search_list">	
+	<div class="search_list" id="stu_search_list">	
 			<div>
+			<c:if test="${empty requestScope.getStuOff.dayoffList}">
+                                 <span style="margin: 45%">정보가 없습니다.</span>
+                     </c:if>
 				<c:forEach var="board" items="${requestScope.getStuOff.dayoffList}" varStatus="vs">
-					<div onClick="goBoardDetailForm(${board.day_id})" class="search_con">
+				<div onClick="gostuDetailForm(${board.day_id})" class="search_con">
 						<div class="b_no">${requestScope.getStuOff.begin_serialNo_desc-vs.index}</div> 
 						<div class="subject">${board.dayoff_kind}</div>
 						<div class="writer">${board.stu_name}</div>
@@ -243,7 +315,7 @@
 				</c:forEach>
 			</div>
 		</div>
-		<div class="pageNos"> 
+		<div class="pageNos" id="stu_pageNos"> 
 			<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
 			<span onClick="pageNoClick(${requestScope.getStuOff.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
 			<c:forEach var="pageNo" begin="${requestScope.getStuOff.begin_pageNo}" end="${requestScope.getStuOff.end_pageNo}">
@@ -257,145 +329,166 @@
 			<span onClick="pageNoClick(${requestScope.getStuOff.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 			<span onClick="pageNoClick(${requestScope.getStuOff.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 		</div>
-	</form>
-	</c:if> <!-- !!!!!!!!!!!강사 헤더밑에 보이는 내용들!!!!!!!! -->
-        <c:if test="${whatRole eq '강사'}">
-        <form id="StuandTeadayOffList" class="day	OffList">
-        <header>휴가 관리</header>
-		<table class="search_bar"> 
-			<tr>
-				<td class="searchbar_box">
-					<input type="text" name="keyword1">
-
-					<input class="search_btn" type="button" value="검색" onclick="search()">
-					<input class="search_btn" type="button" value="휴가 신청" onclick="showTeaPopup()">
-				</td>
-			</tr>
-		</table>
-		<input type="hidden" name="selectPageNo" value="1">
-		
-		<input type="hidden" name="sort">
-		<table>
-	        <section class="count_desc">
-	          <section class="searchResultCnt">
-	              <div class="impect">전체 : ${requestScope.getStuOff.dayoffListCnt+requestScope.getTeaOff.getTeaOffCnt} 개</div> 
-	         </section>
-	          
-	            <select name="rowCntPerPage" onChange="search()" class="rownum">
-	                  <option value="10">10 
-	                  <option value="15">15 
-	                  <option value="20">20 
-	            </select>&nbsp;행 
-	        </section>
-		</table>
-		<div>
-	</div>
-	<div class="search_list">	
-			<div>
-				<c:forEach var="board" items="${requestScope.boardMap.boardList}" varStatus="vs">
-					<div onClick="goBoardDetailForm(${board.b_no})" class="search_con">
-						<div class="b_no">${requestScope.boardMap.begin_serialNo_desc-vs.index}</div> 
-						<div class="subject">${board.subject}</div>
-						<div class="writer">${board.writer}</div>
-						<div class="view_i">
-							<div class="reg_date list_reg">
-								<i class="fa fa-calendar-o" aria-hidden="true"></i>
-                <span class="reg_date">${board.reg_date}</span>
-							</div>`	
-							<div class="readcount">
-								<i class="fa fa-eye" aria-hidden="true"></i>
-                <span>${board.readcount}</span>
-							</div> 
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<div class="pageNos"> 
-			<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-			<span onClick="pageNoClick(${requestScope.boardMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-			<c:forEach var="pageNo" begin="${requestScope.boardMap.begin_pageNo}" end="${requestScope.boardMap.end_pageNo}">
-				<c:if test="${requestScope.boardMap.selectPageNo==pageNo}">
-					<span class="isClick">${pageNo}</span>
-				</c:if>
-				<c:if test="${requestScope.boardMap.selectPageNo!=pageNo}">
-					<span class="unClick" onClick="pageNoClick(${pageNo})">${pageNo}</span>
-				</c:if>
-			</c:forEach>
-			<span onClick="pageNoClick(${requestScope.boardMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-			<span onClick="pageNoClick(${requestScope.boardMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-		</div>
-	</form>
+		</form>
 	</c:if>
-        
-        <!-- !!!!!!!!!!!관리자 헤더밑에 보이는 내용들!!!!!!!! -->
-        <c:if test="${whatRole eq '관리자'}">
-        <form id="AlldayOffList" class="day	OffList">
-        <header>휴가 관리</header>
+	
+	
+	 <!-- !!!!!!!!!!!강사 및 관리자 헤더밑에 보이는 내용들!!!!!!!! -->
+        <c:if test="${whatRole eq '강사'||whatRole eq '관리자'}">
+        <div  class="choice">
+        <div class="tea" align="center" style="float: left;">강사</div>
+        <div class="stu" align="center" style="float: left;">학생</div>
+        </div>
+        <form id="AlldayOffList" class="dayOffList">
+        <header>강사</header>
 		<table class="search_bar"> 
 			<tr>
-				<td class="searchbar_box">
-					<input type="text" name="keyword1">
-
-					<input class="search_btn" type="button" value="검색" onclick="search()">
+			<td class="searchbar_box">
+			<input type="hidden" name="payment">
+				<input type="text" name="keyword1">
+					<input class="search_btn" type="button" value="검색" onclick="search()"onkeydown="search()">
+					<c:if test="${whatRole eq '강사'}">
+					<input class="search_btn" type="button" value="휴가 신청" onclick="showTeaPopup()">
+					</c:if>
 				</td>
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" value="1">
-		
 		<input type="hidden" name="sort">
 		<table>
 	        <section class="count_desc">
 	          <section class="searchResultCnt">
-	              <div class="impect">전체 : ${requestScope.getStuOff.dayoffListCnt+requestScope.getTeaOff.getTeaOffCnt} 개</div> 
+	              <div class="impect" id="tea_CntAll">전체 : ${requestScope.getTeaOff.tea_dayoffListCntAll} 개</div> 
 	         </section>
-	          
-	            <select name="rowCntPerPage" onChange="search()" class="rownum">
+	     <section>
+	     <span onclick="payment(this, '전체')">전체</span>
+         <span onclick="payment(this, '미결재')">미결</span>
+         <span onclick="payment(this,'승인')">승인</span>
+         <span onclick="payment(this,'반려')">반려</span>
+         </section>
+	          <select name="rowCntPerPage" onChange="search()" class="rownum">
 	                  <option value="10">10 
 	                  <option value="15">15 
 	                  <option value="20">20 
 	            </select>&nbsp;행 
 	        </section>
-		</table>
+	    </table>
 		<div>
 	</div>
-	<div class="search_list">	
-			<div>
-				<c:forEach var="board" items="${requestScope.boardMap.boardList}" varStatus="vs">
-					<div onClick="goBoardDetailForm(${board.b_no})" class="search_con">
-						<div class="b_no">${requestScope.boardMap.begin_serialNo_desc-vs.index}</div> 
-						<div class="subject">${board.subject}</div>
-						<div class="writer">${board.writer}</div>
+		<div class="search_list" id="tea_search_list"> 
+		
+		<c:if test="${empty requestScope.getTeaOff.tea_dayoffList}">
+                                 <span style="margin: 45%">정보가 없습니다.</span>
+                     </c:if>
+			<c:forEach var="board" items="${requestScope.getTeaOff.tea_dayoffList}" varStatus="vs">
+					<div onClick="goteaDetailForm(${board.tea_day_id})" class="search_con">
+						<div class="b_no">${requestScope.getTeaOff.begin_serialNo_desc-vs.index}</div> 
+						<div class="subject">${board.tea_dayoff_kind}</div>
+						<div class="writer">${board.tea_name}</div>
 						<div class="view_i">
 							<div class="reg_date list_reg">
 								<i class="fa fa-calendar-o" aria-hidden="true"></i>
-                <span class="reg_date">${board.reg_date}</span>
+                <span class="reg_date">${board.tea_application_date}</span>
 							</div>
 							<div class="readcount">
-								<i class="fa fa-eye" aria-hidden="true"></i>
-                <span>${board.readcount}</span>
+                <span style="font-size: 12px">${board.tea_payment_status}</span>
+							</div> 
+						</div>
+					</div>
+				</c:forEach>
+				<div class="pageNos" id="tea_pageNos"> 
+			<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+			<span onClick="pageNoClick(${requestScope.getTeaOff.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+			<c:forEach var="pageNo" begin="${requestScope.getTeaOff.begin_pageNo}" end="${requestScope.getTeaOff.end_pageNo}">
+				<c:if test="${requestScope.getTeaOff.selectPageNo==pageNo}">
+					<span class="isClick">${pageNo}</span>
+				</c:if>
+				<c:if test="${requestScope.getTeaOff.selectPageNo!=pageNo}">
+					<span class="unClick" onClick="pageNoClick(${pageNo})">${pageNo}</span>
+				</c:if>
+			</c:forEach>
+			<span onClick="pageNoClick(${requestScope.getTeaOff.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+			<span onClick="pageNoClick(${requestScope.getTeaOff.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+		</div>
+			
+			</div>
+	</form>
+	<form id="StudayOffList" class="dayOffList">
+        <header>학생</header>
+		<table class="search_bar"> 
+			<tr>
+				<td class="searchbar_box">
+				 <input type="text" name="keyword1">
+				 <input type="hidden" name="payment">
+					<input class="search_btn" type="button" value="검색" onclick="search()" onkeydown="search()">
+					<c:if test="${whatRole eq '강사'}">
+					<input class="search_btn" type="button" value="휴가 신청" onclick="showTeaPopup()">
+					</c:if>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="selectPageNo" value="1">
+		<input type="hidden" name="sort">
+		<table>
+	        <section class="count_desc">
+	          <section class="searchResultCnt">
+ <div class="impect" id="stuCntAll">전체 : ${requestScope.getStuOff.dayoffListCntAll} 개 </div> 
+	         </section>
+		      <section>
+		     <span  onclick="payment(this, '전체')">전체</span>
+	         <span onclick="payment(this, '미결재')">미결</span>
+	         <span onclick="payment(this, '승인')">승인</span>
+	         <span  onclick="payment(this, '반려')">반려</span>
+	         </section>
+	       <select name="rowCntPerPage" onChange="search()" class="rownum">
+	                  <option value="10">10 
+	                  <option value="15">15 
+	                  <option value="20">20 
+	            </select>&nbsp;행 
+	        </section>
+		</table>
+		<div>
+	</div>
+	<div class="search_list" id="stu_search_list">	
+			<div>
+			<c:if test="${empty requestScope.getStuOff.dayoffList}">
+                                 <span style="margin: 45%">검색결과가 없습니다.</span>
+                     </c:if>
+				<c:forEach var="board" items="${requestScope.getStuOff.dayoffList}" varStatus="vs">
+				<div onClick="gostuDetailForm(${board.day_id})" class="search_con">
+						<div class="b_no">${requestScope.getStuOff.begin_serialNo_desc-vs.index}</div> 
+						<div class="subject">${board.dayoff_kind}</div>
+						<div class="writer">${board.stu_name}</div>
+						<div class="view_i">
+							<div class="reg_date list_reg">
+								<i class="fa fa-calendar-o" aria-hidden="true"></i>
+                <span class="reg_date">${board.application_date}</span>
+							</div>
+							<div class="readcount">
+                <span style="font-size: 12px">${board.payment_status}</span>
 							</div> 
 						</div>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
-		<div class="pageNos"> 
+		<div class="pageNos" id="stu_pageNos"> 
 			<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-			<span onClick="pageNoClick(${requestScope.boardMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-			<c:forEach var="pageNo" begin="${requestScope.boardMap.begin_pageNo}" end="${requestScope.boardMap.end_pageNo}">
-				<c:if test="${requestScope.boardMap.selectPageNo==pageNo}">
+			<span onClick="pageNoClick(${requestScope.getStuOff.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+			<c:forEach var="pageNo" begin="${requestScope.getStuOff.begin_pageNo}" end="${requestScope.getStuOff.end_pageNo}">
+				<c:if test="${requestScope.getStuOff.selectPageNo==pageNo}">
 					<span class="isClick">${pageNo}</span>
 				</c:if>
-				<c:if test="${requestScope.boardMap.selectPageNo!=pageNo}">
+				<c:if test="${requestScope.getStuOff.selectPageNo!=pageNo}">
 					<span class="unClick" onClick="pageNoClick(${pageNo})">${pageNo}</span>
 				</c:if>
 			</c:forEach>
-			<span onClick="pageNoClick(${requestScope.boardMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-			<span onClick="pageNoClick(${requestScope.boardMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+			<span onClick="pageNoClick(${requestScope.getStuOff.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+			<span onClick="pageNoClick(${requestScope.getStuOff.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 		</div>
-	</form>
+		</form>
 	</c:if>
+        
 	  <!--  !!!!!!!!!학생 휴가신청 팝업!!!!!!!!!!!!!!!!!!!! -->
 <c:if test="${whatRole eq '학생'}">
 <form class='dayOffForm' id="stuOff">
@@ -423,11 +516,15 @@
 		</select>
    	</div>
 	   <div>
+			신청자 :
+			<input type="text">
+	   </div>
+	   <div>
 	         내용
 	            <textarea cols="100" rows="15" name="etc"></textarea>
 	   </div> <br>
    <div>
-   <input type="hidden" name="stu_id" value="${stu_id}">
+   <input type="hidden"  name="stu_id" value="${stu_id}">
     	<input type="button" value="취소" onClick="hidePopup()">
     	<input type="button" class="save_btn" value="제출" onClick="save()">
    </div> 
@@ -463,6 +560,10 @@
 		</select>
    	</div>
 	   <div>
+			신청자 :
+	            <input type="text">
+	   </div>
+	   <div>
 	         내용
 	            <textarea cols="100" rows="15" name="tea_etc"></textarea>
 	   </div> <br>
@@ -474,10 +575,12 @@
   </div>
   </div>
 </form>
+
 </c:if>
-	 
-	
-   <form name="dayOffFormLink" method="post" action="/dayOff.do">
-   </form> 
+<form name="DetailForm" action="/dayOffDetailForm.do" post="post"> 
+<input type="hidden" name="day_id">
+<input type="hidden" name="tea_day_id">
+</form>
+<form name="dayOffFormLink" method="post" action="/dayOff.do"></form> 
  </body>
  </html>
