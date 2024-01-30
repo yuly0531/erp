@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DayOffDTO {
 	
-	//학생 결재 
+		// 학생 결재 
 		private String day_id;
 		private String stu_id;
 		private String application_date;
@@ -18,7 +18,7 @@ public class DayOffDTO {
 		
 		
 		
-		//선생 결재
+		// 강사 결재
 		private String tea_day_id;
 		private String tea_id;
 		private String tea_name;
@@ -29,31 +29,31 @@ public class DayOffDTO {
 		private String tea_etc;
 		private String tea_dayoff_kind;
 		
-		//페이지
-		 private int selectPageNo;    
-		 private int rowCntPerPage;                       
-		 private int begin_rowNo;                           
-		 private int end_rowNo;
+		// 페이지
+		private int selectPageNo;    
+		private int rowCntPerPage;                       
+		private int begin_rowNo;                           
+		private int end_rowNo;
 		
 		 
-		 //결재 검색
-		 private String keyword1;
-		   private String keyword2;
+		 // 결재 검색
+		private String keyword1;
+		private String keyword2;
 		  
 		private String payment;
-		   private String orand;
-		   private String min_start_date;
-		   private String max_start_date;
-		   private String min_end_date;
-		   private String max_end_date;
+		private String orand;
+		private String min_start_date;
+		private String max_start_date;
+		private String min_end_date;
+		private String max_end_date;
 		   
 		   
-		   public String getPayment() {
-				return payment;
-			}
-			public void setPayment(String payment) {
-				this.payment = payment;
-			}
+		public String getPayment() {
+			return payment;
+		}
+		public void setPayment(String payment) {
+			this.payment = payment;
+		}
 		public String getDay_id() {
 			return day_id;
 		}

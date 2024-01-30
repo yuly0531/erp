@@ -10,14 +10,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <script>
-//alert("${requestScope.teaListMap.teaList}");
+
 $(function(){
       init();
    });
-   // body 태그 안의 모든 내용을 읽어들인 후 호출한 JavaScript 코딩 설정
-   function init(){
-     // alert("ㅎㅇ")
-   }
+
+   function init(){}
    
 	var checkTop = 0;
 
@@ -71,7 +69,6 @@ function deleteInfo(){
 				,"post"
 				,formObj
 				,function( deleteTeaCnt ){
-					alert(deleteTeaCnt)
 					if( deleteTeaCnt>=1 ){
 						alert("강사 정보가 삭제되었습니다.");
 						closePopup();
@@ -116,22 +113,14 @@ function showPopup(tea_id){
 	$('input[type=radio]').prop('checked', false);
 	$(".popup_main").animate({ scrollTop: 0 }, "fast");
 	$('.tea_id').val(tea_id);
-	// 매개변수로 들어온 tea_id 어디에 넣을지 정하는 코딩. 
-	// 어디에 넣을지 선택자로 잡아줘
+	
 	
 		ajax(
 			"/teaDetail.do"
 			,"post"
 			,$("[name='teaRegForm']")
-			// 비동기 방식으로 보낼 Form 이름. 이때는 팝업의 Form 이름 넣으면 돼. 찾아서 넣어주기.
-			// ,$("[name='searchteaDevDetailForm']")
 			,function(json){
-				// json 방식으로 받아온 데이터를 꺼낼거야. data.알리아스 로 꺼내면 됨 이제
 				var data = json.teaList[0];
-				
-				// 이런식으로 팝업에서 어디에 데이터를 넣어줄지 찾아서 불러온 데이터 넣기.
-				// select 항목들도 이렇게 넣으면 됨! 밑에는 예시니까 알아서 바꾸기
-				// no_up_id = 태그이름값과 일치 해야하고 data.tea_id = 컬럼명 과 일치해야함
 				$('.teaRegForm').find('[name="no_up_id"]').val(data.tea_id);
 				$('.teaRegForm').find('[name="tea_pwd"]') .val(data.tea_pwd);
 				$('.teaRegForm').find('[name="tea_name"]').val(data.tea_name);
@@ -151,7 +140,7 @@ function showPopup(tea_id){
 		);
 	$('.popup').show();	
 }
-// update Cnt 이름, alert창 문구 바꾸기
+
 function update() {
 		var formObj = $("[name='teaRegForm']")
 		var checkObj_tea_pwd = $("[name='tea_pwd']");
@@ -294,7 +283,7 @@ function update() {
 			search();
 }
 
-// 검색
+
 function search(){
 	var formObj = $("[name='searchTeaForm']")
 	var checkObj_keyword1 = formObj.find("[name='keyword1']");                            
@@ -378,8 +367,6 @@ else{
 			"/teaList.do"
 			,"post"
 			,formObj
-			// 이 부분 내가 비동기 방식으로 보낼 Form 으로 이름 바꾸기
-			// 나머지는 안건드려도 됨
 			,function(responseHtml){
 					
 			var obj = $(responseHtml);
@@ -445,7 +432,7 @@ else{
 					<option value="and">and
 					</select>
 			<input type="text" name="keyword2" maxlength="30">
-			<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
+			
 			<input type="button" onClick="search()" name="Search" class="search" value="검색">
 			</td>
 			</tr>
@@ -472,7 +459,7 @@ else{
 															<td>
 																<input type="date" name="min_regist_date"> ~
 																<input type="date" name="max_regist_date">
-																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
+																<input onclick="dateEmpty(this, 'date')" type="button" name="role_reset" value="비움">
 															</td>
 									</tr>  
 								</div>
@@ -520,7 +507,7 @@ else{
 						
 	<div name="searchResult" class="searchResult" >
 		<div class="resultCate">
-		<!-- 이 부분 내가 뽑을 목록으로 바꾸기 -->
+		
 			<div>번호</div>
 			<div>아이디</div>
 			<div>이름</div>
@@ -542,12 +529,10 @@ else{
 			        <div>${teList.tea_phone}</div>
 		        </div>
 	         	</c:forEach>
-			<!-- 여기에 내가 뽑고싶은 항목들 EL로 불러오기. 맵퍼에서 alias 대문자였으면 대문자로 바꿔야해 
-				 var = 내가 쓸 변수명 items = controller에서 내가 받아올 경로 	-->
 			</div>
 	</div> 
 	</div>
-	<!-- 페이징 처리는 그대로 두면 됨 -->
+	
 	<span class="pageNos"> 
 		<span onClick="pageNoClick(1)"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></span>
 		<span onClick="pageNoClick(${requestScope.teaListMap.selectPageNo}-1)"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
@@ -642,16 +627,7 @@ else{
 		   </tr>
 	    </div>
       <div>
-      
-		<!--   <tr>
-		          <th>담당 수업 : </th>
-		          <select name="tea_joinClass">
-		             <option value=""></option>
-		             <option value="1">어쩌구</option>
-		             <option value="2">어쩌구</option>
-		             <option value="3">어쩌구</option>
-		          </select>
-		        </tr>  -->
+
 	   </div>
 		<div>
 		<div>기타</div>
@@ -661,10 +637,6 @@ else{
 			<span onclick="closePopup()" name="cancel" class="cancel">닫기</span>
 			<span onclick="deleteInfo()" name="delete" class="delete">삭제</span>
 			<span onclick="update()" name="save" class="save">저장</span>
-				<!-- 수정/삭제 할 팝업이 누구인지 보여주는 hidden 태그. 
-					팝업 열 때 데이터 넣어줘야해.
-				 showPopUp()에서 매개변수로 tea_id 들어오게 하면 편해.
-				onClick="showPopUp(tea_id)" 이런식으로 만들면 됨. -->
 			<input type="hidden" name="tea_id" class="tea_id">
 		</form>
 		</div>

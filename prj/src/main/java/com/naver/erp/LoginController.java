@@ -69,7 +69,7 @@ public class LoginController {
 		}
 		return stu_loginIdCnt;
 	}
-	//////////////////////////////////////////
+	
 	@RequestMapping( 
 			value="/tea_loginProc.do" 
 			,method=RequestMethod.POST
@@ -114,7 +114,7 @@ public class LoginController {
 		return tea_loginIdCnt;
 	}
 	
-	//////////////////////////////////////////////
+
 	@RequestMapping( 
 			value="/mana_loginProc.do" 
 			,method=RequestMethod.POST

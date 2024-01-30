@@ -5,7 +5,7 @@ import java.util.Map;
  
 public class ExamDTO {
 
-   // 시험 -------------------------------------
+   // 시험
    private String class_id;
    private int exam_id;
    private String exam_name;
@@ -45,13 +45,13 @@ public class ExamDTO {
    private String exam_answer10;
    private String stu_id;
    private String score;
-   // -----------------------------------------
-   // 페이지 ------------------------------------
+   
+   // 페이지
    private int selectPageNo;                              
    private int rowCntPerPage;                       
    private int begin_rowNo;                           
    private int end_rowNo;
-   // -----------------------------------------
+   
 
 public String getClass_id() {
 	return class_id;

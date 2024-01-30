@@ -77,7 +77,7 @@ function saveData(){
 	var formObj = $("[name='stuRegForm']"); 
 	var checkObj_id = formObj.find("[name='id']");
 	var checkObj_pwd = $("[name='pwd']");
-  	//var checkObj_re_Pwd = $("[name='re_Pwd']");
+  	var checkObj_re_Pwd = $("[name='rePwd']");
 	var checkObj_name = $("[name='name']");
 	var checkObj_jumin_num1 = formObj.find("[name='jumin_num1']");
 	var checkObj_jumin_num2 = formObj.find("[name='jumin_num2']");
@@ -105,14 +105,14 @@ function saveData(){
 			     return;
 	}
 	  
-	/*   if(
+	if(
 		checkObj_pwd.val()
 		!=
 		checkObj_re_Pwd.val())  
 		 
 		{alert("입력한 암호와 다릅니다. 재입력 요망")
 		return;
-	}  */
+	}
 	
 	if(checkVal(
 			  checkObj_name

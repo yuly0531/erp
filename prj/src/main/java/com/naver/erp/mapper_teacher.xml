@@ -124,12 +124,11 @@
     from teacher
           where 1=1 
              <include refid="teaListWhere"/>
-          <!-- 여유있으면 여기 검색조건 걸러낼 where 절 짜보기 . DTO도 만져야해! jsp 검색조건들 name 값 넣어야해 DTO에서-->
+    
     </select> 
     
     <select id="getTeaDetailInfo" parameterType="com.naver.erp.AdminDTO" resultType="java.util.Map" >
-	   <!--  이 mapper는 팝업 떴을 때 데이터 불러오는 구문. 팝업 다 채울수있게 해줘. 기본 베이스는 다했으니까
-	    긴급 연락처, 경력에서 데이터 볼수있게 추가해줘 -->
+	
 	  select
           tea_id                              "tea_id"
           ,tea_pwd                            "tea_pwd"

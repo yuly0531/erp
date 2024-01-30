@@ -31,7 +31,8 @@
 		function showDesc(e) {
 			$('.desc_box').slideToggle();
 			$('.filter').toggleClass('active');
-		} 
+		}
+		
 		//플래그 추가
 		var buttonsAdded = false;
 
@@ -449,7 +450,6 @@ function closeStuPopup(){
 													<option value="and">and
 										</select>
 										<input type="text" name="keyword2" maxlength="30">
-										<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
 										<input type="button" onClick="search()" name="Search" class="search" value="검색">
 									</td>
 								</tr>
@@ -466,7 +466,7 @@ function closeStuPopup(){
 															<td>
 																<input type="date" name="min_start_date"> ~
 																<input type="date" name="max_start_date">
-																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
+																<input onclick="dateEmpty(this, 'date')" type="button" name="role_reset" value="비움">
 															</td>
 									</tr>  
 								</div>
@@ -476,7 +476,7 @@ function closeStuPopup(){
 															<td>
 																<input type="date" name="min_end_date"> ~
 																<input type="date" name="max_end_date">
-																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
+																<input onclick="dateEmpty(this, 'date')" type="button" name="role_reset" value="비움">
 															</td>
 									</tr>  
 								</div>
@@ -643,7 +643,6 @@ function closeStuPopup(){
 													<option value="and">and
 										</select>
 										<input type="text" name="keywordE" maxlength="30">
-										<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
 										<input type="button" onClick="stuSearch()" name="Search" class="search" value="검색">
 									</td>
 								</tr>
@@ -668,7 +667,7 @@ function closeStuPopup(){
 															<td>
 																<input type="date" name="min_regist_date"> ~
 																<input type="date" name="max_regist_date">
-																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
+																<input onclick="dateEmpty(this, 'date')" type="button" name="role_reset" value="비움">
 															</td>
 									</tr>  
 								</div>

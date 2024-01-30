@@ -18,7 +18,7 @@
  
  
  function init(){
- 	hidePopup();
+ 	 hidePopup(); 
  	show_and_hide()
  };
  
@@ -186,15 +186,22 @@ function pageNoClick( clickPageNo ){
  	      document.DetailForm.submit();
  	   }
    
+       function teaStu(contentId) {
+           var content = document.getElementById(contentId);
+           if (content.style.display === "none") {
+               content.style.display = "block";
+           } else {
+               content.style.display = "none";
+           }
+       }
  </script>
  
  </head>
  <body>
  <form class="header">
         <div class="header_box">
-        <!-- !!!!!!!!!!!학생 헤더!!!!!!!! -->
         <c:if test="${whatRole eq '학생'}">
-          	<div class="logo" onclick="location.replace('/studentMain.do')">
+          	<div class="logo" onclick="location.replace('/stuMain.do')">
 				<img src="">
 				<div>
 					학원명
@@ -202,15 +209,13 @@ function pageNoClick( clickPageNo ){
 			</div>
 			<table>
 				<tr class="cate_box">
-          			<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
-					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가신청</td>
-					<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
-					<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+          			<td class="main_cate" onclick="location.replace('/mark.do')">출석 현황</td>
+					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 신청</td>
+					<td class="main_cate" onclick="location.replace('/examList.do')">시험</td>
 				</tr>
 			</table>
 		</c:if> 
 		
-		 <!-- !!!!!!!!!!!강사 헤더!!!!!!!! -->
         <c:if test="${whatRole eq '강사'}">
           <div class="logo" onclick="location.replace('/teaMain.do')">
             <img src="">
@@ -224,12 +229,11 @@ function pageNoClick( clickPageNo ){
 			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
 			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
-			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
           </table>
 		</c:if> 
 		
-		<!-- !!!!!!!!!!!관리자 헤더!!!!!!!! -->
+		
 		<c:if test="${whatRole eq '관리자'}">
           	<div class="logo" onclick="location.replace('/adminMain.do')">
 				<img src="">
@@ -242,7 +246,10 @@ function pageNoClick( clickPageNo ){
 	         		<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 					<td class="main_cate" onclick="location.replace('/teaList.do')">강사 관리</td>
 					<td class="main_cate" onclick="location.replace('/classList.do')">수업 관리</td>
-					<td class="main_cate active" onclick="location.replace('/dayOff.do')">결재 관리</td>
+					<td class="main_cate active" onclick="teaStu('teaStu')">결재 관리</td>
+<!-- 					 <td id="teaStu" style="display: none; margin-left: 20px;"></td> -->
+        			<td class="tea" name="tea" align="center" style="float: left;" onclick="AlldayOffList">ㄴ강사</td>
+        			<td class="stu" name="stu" align="center" style="float: left;" onclick="StudayOffList">ㄴ학생</td>
 				</tr>
 			</table>
 		</c:if> 
@@ -254,7 +261,7 @@ function pageNoClick( clickPageNo ){
 		</div>
         </div>
         </form>
-        <!-- !!!!!!!!!!!학생 헤더밑에 보이는 내용들!!!!!!!! -->
+        
         <c:if test="${whatRole eq '학생'}">
         <form id="StudayOffList" class="dayOffList">
         <header>휴가 관리</header>
@@ -333,12 +340,8 @@ function pageNoClick( clickPageNo ){
 	</c:if>
 	
 	
-	 <!-- !!!!!!!!!!!강사 및 관리자 헤더밑에 보이는 내용들!!!!!!!! -->
+	 
         <c:if test="${whatRole eq '강사'||whatRole eq '관리자'}">
-        <div  class="choice">
-        <div class="tea" align="center" style="float: left;">강사</div>
-        <div class="stu" align="center" style="float: left;">학생</div>
-        </div>
         <form id="AlldayOffList" class="dayOffList">
         <header>강사</header>
 		<table class="search_bar"> 
@@ -489,7 +492,7 @@ function pageNoClick( clickPageNo ){
 		</form>
 	</c:if>
         
-	  <!--  !!!!!!!!!학생 휴가신청 팝업!!!!!!!!!!!!!!!!!!!! -->
+	  
 <c:if test="${whatRole eq '학생'}">
 <form class='dayOffForm' id="stuOff">
 	<div class="dim">
@@ -533,7 +536,7 @@ function pageNoClick( clickPageNo ){
 </form>
 </c:if>
 
- <!-- !!!!!!!!!강사 휴가신청 팝업!!!!!!!!!!!!!!!!!!!! -->
+ 
 <c:if test="${whatRole eq '강사'}">
 <form class='dayOffForm' id="teaOff">
 	<div class="dim">

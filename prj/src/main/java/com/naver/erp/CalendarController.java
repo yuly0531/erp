@@ -34,7 +34,7 @@ public class CalendarController{
 	
 
 	
-	@RequestMapping(value="/studentMain.do")
+	@RequestMapping(value="/stuMain.do")
 	public ModelAndView studentMain(
 			HttpSession session
 			,CalendarDTO calendarDTO
@@ -47,7 +47,7 @@ public class CalendarController{
 		List<Map<String, String>> classListMap = adminDAO.getClassList(adminDTO);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("studentMain.jsp");
+		mav.setViewName("stuMain.jsp");
 	    mav.addObject("studentMainMap", studentMainMap);
 	    mav.addObject("selectCalendarMap", selectCalendarMap);
 	    mav.addObject("classListMap",classListMap);
@@ -87,8 +87,7 @@ public class CalendarController{
 		AdminStuController astu = new AdminStuController();
 		Map<String,Object> getCalendarMap = getCalendar(calendarDTO);
 		List<Map<String, String>> getstuMap = adminDAO.getStuList(adminDTO);
-
-		System.out.println(getstuMap.get(0).get("phone_num"));
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("markTea.jsp");
 		mav.addObject("getCalendarMap",getCalendarMap);
@@ -147,7 +146,6 @@ public class CalendarController{
 				catch(Exception ex){
 					calendarRegCnt = -1;
 				}
-			System.out.println(calendarRegCnt);
 				return calendarRegCnt;
 				
 			};
@@ -163,15 +161,13 @@ public class CalendarController{
 					calendarRegCnt = this.calendarDAO.deleteCalendar(calendarDTO);
 								}
 					catch(Exception ex){
-						System.out.println(ex);
 						calendarRegCnt = -1;
 					}
 					return calendarRegCnt;
 					
 				}
 			
-// 모든 일정 불러오기
-		// 성공함	
+			// 모든 일정 불러오기	
 			public Map<String, Object> getCalendar(
 					 CalendarDTO calendarDTO   ) {
 				 Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -181,8 +177,7 @@ public class CalendarController{
 				return resultMap; 
 				 }
 			
-// 선택된 일정 불러오기 (학생페이지)
-			//이거안되네..
+			// 선택된 일정 불러오기 (학생 페이지)
 			 public Map<String, Object> selectCalendar(
 					 CalendarDTO calendarDTO   ) {
 				 Map<String, Object> resultMap = new HashMap<String, Object>();

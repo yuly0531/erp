@@ -13,7 +13,7 @@
 		<body>
 				<form name="stuSearch" class="header">
 						<div class="header_box">
-							<div class="logo" onclick="location.replace('/studentMain.do')">
+							<div class="logo" onclick="location.replace('/stuMain.do')">
 								<img src="">
 								<div>
 									학원명
@@ -21,10 +21,9 @@
 							</div>
 							<table>
 								<tr class="cate_box">
-              						<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
-									<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
-									<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
-									<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+                        			<td class="main_cate" onclick="location.replace('/mark.do')">출석 현황</td>
+									<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 신청</td>
+									<td class="main_cate" onclick="location.replace('/examList.do')">시험</td>
 								</tr>
 							</table>
 							<div class="welcome_user">

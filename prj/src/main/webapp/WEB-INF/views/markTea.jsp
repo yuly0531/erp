@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-<title>학생출석관리</title>
+<title>학생 출석 관리</title>
 <link href="css/stuList.css" rel="stylesheet">
 <link rel="stylesheet" href="/js/main.min.css">
 <script src="/js/main.min.js"></script>
@@ -21,7 +21,6 @@ $(function(){
 			}
 			$(window).bind("pageshow", function(event) {
 			if (event.originalEvent && event.originalEvent.persisted){
-			              //todo
 			              ﻿location.reload(true);﻿
 			    }
 			});﻿
@@ -113,11 +112,10 @@ function deleteData(){
 							</div>
 							<table>
 								<tr class="cate_box">
-              						<td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
+									<td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
 									<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
-									<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
-									<td class="main_cate" onclick="location.replace('/registExample.do')">시험 출제</td>
-									<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
+									<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+									<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
 								</tr>
 							</table>
 							<div class="welcome_user">
@@ -175,7 +173,7 @@ function deleteData(){
    </form>
    
    
-   <!--  !!!!!!!!!!!!!수정!!!!!!!!!!!!!!!!!! -->
+   
    
    <form class='calendarForm' id="updateForm">
 	<div class="dim">
@@ -223,9 +221,9 @@ document.addEventListener('DOMContentLoaded', function() {
     		      center: 'title',
     		      right: 'addEventButton dayGridMonth,dayGridWeek,dayGridDay'
     		    }, customButtons: {
-                    addEventButton: { // 추가한 버튼 설정
-                        text : "출결 등록",  // 버튼 내용
-                        click : function(){ // 버튼 클릭 시 이벤트 추가
+                    addEventButton: { 
+                        text : "출결 등록",  
+                        click : function(){ 
                         	showInsert();
                         }
                     }
@@ -261,26 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
                
                if(conf){
             	   showUpdate(info.event.id,info.event.title,date);
-            	   
-            	   /*
-                	$.ajax({
-                        url: "/deleteCalendar.do", // 이 부분에 실제 이벤트를 삭제하는 서버의 URL을 입력해주세요.
-                        type: 'POST',
-                        data: {
-                            id: info.event.id // 이 부분에 실제 이벤트의 ID를 입력해주세요.
-                        },
-                        success: function(response) {
-                        	if(response == '1'){
-                               alert('일정이 성공적으로 삭제되었습니다');
-                               document.markTeaForm.submit();
-                            } else {
-                                alert('오류가 발생했습니다. 다시 시도해주세요');
-                            }
-                        },
-                        error: function(e){
-                            alert('오류가 발생했습니다. 다시 시도해주세요');
-                        }
-                    });*/
                 }
               }
         });

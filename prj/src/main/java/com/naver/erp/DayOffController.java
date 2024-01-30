@@ -77,15 +77,12 @@ public class DayOffController {
 			tea_DayoffUpCnt = this.dayoffservice.updateTeaDayoffStatus(dayOffDTO);
 		}	
 		catch(Exception ex){
-			System.out.println(ex);
 			stu_DayoffUpCnt = -1;	
 			tea_DayoffUpCnt = -1;		
 		}
 		
 		responseMap.put("stu_DayoffUpCnt",stu_DayoffUpCnt+"");
 		responseMap.put("tea_DayoffUpCnt",tea_DayoffUpCnt+"");
-	System.out.println(stu_DayoffUpCnt);
-	System.out.println(tea_DayoffUpCnt);
 		return responseMap;
 	}
 	
@@ -118,7 +115,7 @@ public class DayOffController {
 		return mav;
 	}
 	
-	// 모든 결재리스트 불러오는 메소드
+	// 모든 결재 리스트 불러오는 메소드
 			public Map<String,Object> getTeaOff(DayOffDTO dayoffDTO){
 				Map<String,Object> resultMap = new HashMap<String,Object>();
 				List<Map<String,String>> tea_dayoffList;
@@ -186,7 +183,7 @@ public class DayOffController {
 		
 	
 		
-		//선생 결재 삭제 
+		// 강사 결재 삭제 
 		@RequestMapping(
 				value="/deleteTeaOff.do"
 				,method=RequestMethod.POST
@@ -208,7 +205,7 @@ public class DayOffController {
 			return deleteTeaOffCnt;
 		}
 	 
-		//선생 결재 수정
+		// 강사 결재 수정
 		@RequestMapping(
 				value="/updateTeaOff.do"
 				,method=RequestMethod.POST
@@ -224,7 +221,6 @@ public class DayOffController {
 			try {
 				updateTeaOffCnt = this.dayoffDAO.upTeaOff(dayoffDTO);
 			} catch (Exception e) {
-				System.out.println(e);
 				updateTeaOffCnt = -1;
 			}
 			
@@ -232,7 +228,7 @@ public class DayOffController {
 		}
 		
 		
-		//선생 결재 등록
+		// 강사 결재 등록
 		@RequestMapping(
 				value="/insertTeaOff.do" 
 				,method=RequestMethod.POST
@@ -260,16 +256,14 @@ public class DayOffController {
 			}
 			
 			catch(Exception ex){
-				System.out.println(ex);
 				TeaOffRegCnt = -1;
 			}
 			responseMap.put("errorMsg", errorMsg);
 			responseMap.put("TeaOffRegCnt" , TeaOffRegCnt+"" );
 			return responseMap;
 		}
-	
-		///////////////////////여기서부터 학생 결재!!!!!
-		// 학생 결재리스트 불러오는 메소드
+
+		// 학생 결재 리스트 불러오는 메소드
 					public Map<String,Object> getStuOff(DayOffDTO dayoffDTO){
 						Map<String,Object> resultMap = new HashMap<String,Object>();
 						List<Map<String,String>> dayoffList;
@@ -330,7 +324,6 @@ public class DayOffController {
 					try {
 						deleteStuOffCnt = this.dayoffservice.deleteStuOff(dayoffDTO);
 					} catch (Exception e) {
-						System.out.println(e);
 						deleteStuOffCnt = -1;
 					}
 					
@@ -388,7 +381,6 @@ public class DayOffController {
 					}
 					
 					catch(Exception ex){
-						System.out.println(ex);
 						StuOffRegCnt = -1;
 					}
 					responseMap.put("errorMsg", errorMsg);

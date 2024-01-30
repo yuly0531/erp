@@ -137,9 +137,9 @@ function result(resultText){
 <body>
 	<form class="header">
         <div class="header_box">
-        <!-- !!!!!!!!!!!학생 헤더!!!!!!!! -->
+        
         <c:if test="${whatRole eq '학생'}">
-          	<div class="logo" onclick="location.replace('/studentMain.do')">
+          	<div class="logo" onclick="location.replace('/stuMain.do')">
 				<img src="">
 				<div>
 					학원명
@@ -147,15 +147,14 @@ function result(resultText){
 			</div>
 			<table>
 				<tr class="cate_box">
-          			<td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
-					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가신청</td>
-					<td class="main_cate" onclick="location.replace('/testList.do')">시험응시</td>
-					<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+          			<td class="main_cate" onclick="location.replace('/mark.do')">출석 현황</td>
+					<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 신청</td>
+					<td class="main_cate" onclick="location.replace('/examList.do')">시험</td>
 				</tr>
 			</table>
 		</c:if> 
 		
-		 <!-- !!!!!!!!!!!강사 헤더!!!!!!!! -->
+		 
         <c:if test="${whatRole eq '강사'}">
           <div class="logo" onclick="location.replace('/teaMain.do')">
             <img src="">
@@ -169,12 +168,11 @@ function result(resultText){
 			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
 			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
-			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
           </table>
 		</c:if> 
 		
-		<!-- !!!!!!!!!!!관리자 헤더!!!!!!!! -->
+		
 		<c:if test="${whatRole eq '관리자'}">
           	<div class="logo" onclick="location.replace('/adminMain.do')">
 				<img src="">
@@ -235,7 +233,8 @@ function result(resultText){
 				</span>
 				</c:if>
 	</form>
-	<!-- 학생 수정팝업 -->
+	
+	
 	<form class='dayOffForm' id="updelForm">
 			<div class="dim">
 			<div class='dayOffForm_popup'>
@@ -280,7 +279,7 @@ function result(resultText){
 		</form>
 		</c:if>
 		
-		<!--  관리자 및 강사 !!!! -->
+		
 		  <c:if test="${whatRole eq '강사'||whatRole eq '관리자'}">
         <form class="dayOffList">
        <header>결재 내용 상세보기</header>
@@ -328,7 +327,7 @@ function result(resultText){
 				</c:if>
 				</c:if>
 	</form>
-	<!-- 강사 수정팝업 -->
+	
 	<form class='dayOffForm' id="updelForm">
 			<div class="dim">
 			<div class='dayOffForm_popup'>

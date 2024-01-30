@@ -201,7 +201,6 @@ public class AdminClassController {
 		try{
 			errorMsg = Util.getErrorMsgFromBindingResult(bindingResult);
 			if( errorMsg!=null && errorMsg.length()>0 ) {
-				System.out.println(errorMsg);
 				classRegCnt = -21;
 			}
 			else {

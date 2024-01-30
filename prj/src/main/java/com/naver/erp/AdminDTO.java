@@ -9,10 +9,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
  
 public class AdminDTO {
-   // 추후 JSP 구현되면 추가
    private String id;
    
-   // 학생 등록, 수정, 삭제--------------------------
+   // 학생 등록, 수정, 삭제
    private String pwd;
    private String name;
    private String jumin_num1;
@@ -23,17 +22,17 @@ public class AdminDTO {
    private String emergency_phone;
    private String joinClass;
    private String etc;
-   // -----------------------------------------
    
-   // 학생 검색 ----------------------------------
+   
+   // 학생 검색
    private List<String> gender;
    private String min_regist_date;
    private String max_regist_date;
    private String min_age;
    private String max_age;
-   // -----------------------------------------
+  
    
-   // 강사 등록, 수정, 삭제 -------------------------
+   // 강사 등록, 수정, 삭제
    private String tea_id;
    private String tea_pwd;
    private String rePwd;
@@ -50,43 +49,23 @@ public class AdminDTO {
    private String fire_date;
    private String tea_joinClass;
    private String tea_etc;
-   // -----------------------------------------
+   
 
-   // 강사 검색 ----------------------------------
+   // 강사 검색
    private String min_career;
    private String max_career;
-   // -----------------------------------------
    
-   // 수업 -------------------------------------
+   
+   // 수업
    private String class_id;
-   
-   /* 
-   @Size(max=30, message="수업명은 2~30자 입니다.")
-   @Pattern(regexp="^[^ ]{2,30}$",message="수업명은 2~30자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")*/
    private String class_name;
-   
-   /*@NotEmpty(message="개강일은 필수 입력입니다.")
-   @NotNull (message="개강일은 필수 입력입니다.")*/
    private String class_start_date;
-
-   /*@NotEmpty(message="종강일은 필수 입력입니다.")
-   @NotNull (message="종강일은 필수 입력입니다.")*/
    private String class_end_date;
-
-   /*@NotEmpty(message="담당 감사명은 필수 입력입니다.")
-   @NotNull (message="담당 감사명은 필수 입력입니다.")*/
    private String take_charge_tea;
-
-   /*@NotEmpty(message="수업내용은 필수 입력입니다.")
-   @NotNull (message="수업내용은 필수 입력입니다.")
-   @NotBlank(message="공백으로 구성되면 안됩니다.")
-   @Size(min=1, max=500, message="수업내용은 1~500자 입니다.")	
-   @Pattern(regexp="^[^><]{1,500}$", 
-   message="수업 내용은 1~500자 이고 <또는>단어가 들어갈수 없습니다.재입력 요망")*/
    private String class_subject;
    private List<String> join_id;
    
-   // 수업 검색 ---------------------------------
+   // 수업 검색
    private String keyword1;
    private String keyword2;
    private String keywordS;
@@ -97,13 +76,13 @@ public class AdminDTO {
    private String min_end_date;
    private String max_end_date;
    
-   // -----------------------------------------
-   // 페이지 ------------------------------------
+   // 페이지
    private int selectPageNo;                              
    private int rowCntPerPage;                       
    private int begin_rowNo;                           
    private int end_rowNo;
-   // -----------------------------------------
+   
+   
    public String getId() {
       return id;
    }
@@ -174,7 +153,6 @@ public class AdminDTO {
       return gender;
    }
    public void setGender(List<String> gender) {
-      System.out.println(gender);
       this.gender = gender;
    }
    public String getMin_regist_date() {
@@ -397,7 +375,6 @@ public int getSelectPageNo() {
 		return keywordS;
 	}
 	public void setKeywordS(String keywordS) {
-		System.out.println(keywordS+"keywordS");
 		this.keywordS = keywordS;
 	}
 	public String getKeywordE() {

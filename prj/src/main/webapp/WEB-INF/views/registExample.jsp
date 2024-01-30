@@ -269,11 +269,10 @@ ajax(
       </div>
       <table>
           <tr class="cate_box">
-			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
-			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
-			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 신청</td>
-			<td class="main_cate active" onclick="location.replace('/examList.do')">시험 출제</td>
-			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
+				<td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
+				<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+				<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+				<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
           </tr>
       </table>
       <div class="welcome_user">

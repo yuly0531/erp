@@ -12,61 +12,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
-  /* $(function(){init();}); */
-/*   
-  function checkRadio(e) {
-    $(e).siblings('input').prop('checked', false);
-  }
 
-  function checkMax(e, max) {
-    var getName = $(e).attr('name');
-
-    if ($(e).val().length > max){
-      $(e).val($(e).val().slice(0, max));
-    }    
-  }
-
-  function dateEmpty(e, type) {
-      var getVal = $(e).siblings('input');
-
-      if(type=='date' || type=='text') {
-         getVal.val('');
-      }
-      if(type=='checkbox' || type=='radio') {
-         getVal.prop('checked', false);
-      }
-      if(type=='select') {
-         $(e).siblings('select').val('');
-      }
-      $('.search').val('검색');
-   }
-   
-  function dateNow() {
-	  var now = new Date(),
-	      offset = now.getTimezoneOffset() * 60000,
-	      adjustedDate = new Date(now.getTime() - offset),
-	      formattedDate = adjustedDate.toISOString().substring(0,16);
-
-	  $('.consultation_time').val(formattedDate)
-	};
-
-
-  function checkSpace(obj){ 
-    var a = $(obj),             
-        b = a.val().replace(/ /gi, ''); 
-    a.val(b); 
-    if(a.attr('type') == 'number') {
-      var maxLength = Number(a.attr('maxlength')),
-            orgLength = a.val().length;
-
-      if (orgLength > maxLength){
-          var c = a.val().slice(0, maxLength);
-          a.val(c);
-      } 
-    };
-  };
-   
-     */
 
  function goClassListForm(){
       document.classListForm.submit();

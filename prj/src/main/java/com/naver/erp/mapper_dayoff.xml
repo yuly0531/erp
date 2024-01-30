@@ -19,11 +19,7 @@
 </sql>
 
 <select id="getStuOffDetail" parameterType="java.lang.String" resultType="com.naver.erp.DayOffDTO" >
-	   <!--  이 mapper는 팝업 떴을 때 데이터 불러오는 구문. 팝업 다 채울수있게 해줘. 기본 베이스는 다했으니까
-	    긴급 연락처, 경력에서 데이터 볼수있게 추가해줘 
-	    ,신청일 ,휴가 시작일, 종료일, 휴가종류, 신청자 아이디, 신청자 이름, 내용, 
-	    결재상태
-	    -->
+
 select
 	to_char(d.APPLICATION_DATE,'YYYY-MM-DD AM HH:MI') "application_date" 
 	,to_char(d.DAYOFF_START,'YYYY-MM-DD AM HH:MI') "dayoff_start" 

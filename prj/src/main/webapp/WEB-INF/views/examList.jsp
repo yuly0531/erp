@@ -98,7 +98,7 @@ function closePopup(){
       <table>
       <c:if test="${whatRole eq '강사'}">
           <tr class="cate_box">
-         <td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
+         <td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
          <td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
          <td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
          <td class="main_cate active" onclick="location.replace('/examList.do')">시험 출제</td>
@@ -106,10 +106,9 @@ function closePopup(){
       </c:if>
       <c:if test="${whatRole eq '학생'}">
           <tr class="cate_box">
-	        <td class="main_cate" onclick="location.replace('/mark.do')">출석현황</td>
-			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가신청</td>
-			<td class="main_cate active" onclick="location.replace('/examList.do')">시험응시</td>
-			<td class="main_cate" onclick="location.replace('/checkGrade.do')">성적확인</td>
+	        <td class="main_cate" onclick="location.replace('/mark.do')">출석 현황</td>
+			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 신청</td>
+			<td class="main_cate active" onclick="location.replace('/examList.do')">시험</td>
           </tr>
       </c:if>
       </table>

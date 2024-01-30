@@ -58,7 +58,6 @@ public class ExamController {
 		if(examDTO.getClass_id()!=null && examDTO.getClass_id()!="" ) {
 		Map<String,Object> stuExamScoreListMap = getStuExamScoreList( examDTO );
 		mav.addObject(   "stuExamScoreListMap" , stuExamScoreListMap     );
-		System.out.println(stuExamScoreListMap);
 		}
 
 		mav.addObject(   "whatRole" , whatRole     );

@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
 		
 	}
 	
-///////////////////////////////////////////////////////////////////////////////////////
+
 	function stu_checkLogin(){	
 		var stu_id = $("[name='stu_id']").val();
 		if( typeof(stu_id)!="string" ) { stu_id=""; }
@@ -96,7 +96,7 @@ pageEncoding="UTF-8"%>
 				,$(".stu_login")
 				,function(idCnt){
 					if( idCnt==1 ){
-						location.replace("/studentMain.do");
+						location.replace("/stuMain.do");
 					} else {
 						alert("아이디 또는 암호가 틀립니다. 다시 입력하시오");
 						
@@ -105,7 +105,7 @@ pageEncoding="UTF-8"%>
 				}
 		);
 	}
-///////////////////////////////////////////////////////////////////////////////////////
+
 	
 	function tea_checkLogin(){	
 		var tea_id = $("[name='tea_id']").val();
@@ -140,7 +140,7 @@ pageEncoding="UTF-8"%>
 				}
 		);
 	}
-	///////////////////////////////////////////////////////////////////////////////////////
+	
 	function mana_checkLogin(){	
 		var mana_id = $("[name='mana_id']").val();
 		if( typeof(mana_id)!="string" ) { mana_id=""; }
@@ -186,7 +186,7 @@ pageEncoding="UTF-8"%>
  <div class="teaructor" style="float: left; padding: 25px ;margin-top: -18px; ">강사</div>
  <div class="manager" style="float: left;    padding: 25px; margin-top: -18px;">관리자</div>
  </div>
- <!------------------------  학생 로그인 ---------------------------------------------->
+ 		<!-- 학생 로그인 -->
 		<form class="stu_login">
 		<table>
         <div class="title">학생 로그인</div>
@@ -209,7 +209,8 @@ pageEncoding="UTF-8"%>
         <input type="button" value="Login" class="stu_loginBtn" onclick="stu_checkLogin()">
       </div>
       </form>
-		<!------------------  강사 로그인 --------------------------------->
+		
+		<!--  강사 로그인 -->
 		<form  class="tea_login">
 		<table>
         <div class="title">강사 로그인</div>
@@ -233,8 +234,7 @@ pageEncoding="UTF-8"%>
       </div>
       </form>
 		
-		<!-- ---------------- 관리자 로그인 -------------------------->
-		
+		<!-- 관리자 로그인 -->
 		<form  class="mana_login">
 		<table>
         <div class="title">관리자 로그인</div>

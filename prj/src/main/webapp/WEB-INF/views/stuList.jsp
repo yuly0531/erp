@@ -54,7 +54,6 @@
 				,"post"
 				,formObj
 				,function( stuDelCnt ){
-					alert(stuDelCnt)
 					if( stuDelCnt>=1 ){
 						alert("학생 정보가 삭제되었습니다.");
 						closePopup();
@@ -218,7 +217,7 @@
 		var formObj = $("[name='searchStuForm']")
 		var checkObj_keywordS = formObj.find("[name='keywordS']");                            
 		var checkObj_keywordE = $("[name='keywordE']");
-		//var checkObj_gender = formObj.find("[name='gender']");
+		var checkObj_gender = formObj.find("[name='gender']");
 		var checkObj_min_regist_date = formObj.find("[name='min_regist_date']");
 		var checkObj_max_regist_date = formObj.find("[name='max_regist_date']");
 		var checkObj_min_age = formObj.find("[name='min_age']");
@@ -313,11 +312,10 @@
           </div>
           <table>
             <tr class="cate_box">
-			<td class="main_cate" onclick="location.replace('/??.do')">수업 관리(출석)</td>
-			<td class="main_cate active" onclick="location.replace('/stuList.do')">학생 관리</td>
-			<td class="main_cate" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+			<td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
+			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
+			<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
 			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
-			<td class="main_cate" onclick="location.replace('/??.do')">근태 관리</td>
           </tr>
           </table>
 		</c:if> 
@@ -363,7 +361,7 @@
 													<option value="and">and
 										</select>
 										<input type="text" name="keywordE" maxlength="30">
-										<input onclick="dateEmpty(this, 'text')" type="button" name="grad_reset" value="비움">
+										
 										<input type="button" onClick="search()" name="Search" class="search" value="검색">
 									</td>
 								</tr>
@@ -389,7 +387,7 @@
 															<td>
 																<input type="date" name="min_regist_date"> ~
 																<input type="date" name="max_regist_date">
-																<input onclick="dateEmpty(this, 'checkbox')" type="button" name="role_reset" value="비움">
+																<input onclick="dateEmpty(this, 'date')" type="button" name="role_reset" value="비움">
 															</td>
 									</tr>  
 								</div>
