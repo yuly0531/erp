@@ -275,7 +275,6 @@ public class DayOffController {
 						List<Map<String,String>> dayoffList;
 						int dayoffListCnt;
 						int dayoffListCntAll;
-					
 						Map<String,Integer> pagingMap;
 						
 						dayoffListCntAll =  this.dayoffDAO.getStuOffCntAll();
@@ -285,7 +284,7 @@ public class DayOffController {
 						pagingMap = Util.getPagingMap(
 								dayoffDTO.getSelectPageNo()
 								, dayoffDTO.getRowCntPerPage()
-								, dayoffListCnt
+								, dayoffListCntAll
 						);
 						
 

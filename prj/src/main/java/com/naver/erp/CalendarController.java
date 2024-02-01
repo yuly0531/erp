@@ -31,6 +31,11 @@ public class CalendarController{
 	private MainDAO mainDAO;
 	@Autowired
 	private AdminDAO adminDAO;
+	@Autowired
+	private DayOffDAO dayOffDAO;
+	@Autowired
+	private ExamDAO examDAO;
+	
 	
 
 	
@@ -39,18 +44,24 @@ public class CalendarController{
 			HttpSession session
 			,CalendarDTO calendarDTO
 			,AdminDTO adminDTO
+			,DayOffDTO dayoffDTO
+			,ExamDTO examDTO
 			
 	){
 		session.getAttribute("stu_id");
 		Map<String, Object> studentMainMap = StudentMainList();
 		Map<String, Object> selectCalendarMap = selectCalendar(calendarDTO);
 		List<Map<String, String>> classListMap = adminDAO.getClassList(adminDTO);
+		List<Map<String, String>> stu = this.dayOffDAO.getStuOff(dayoffDTO);
+		List<Map<String, String>> exam = this.examDAO.getExamList(examDTO);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("studentMain.jsp");
 	    mav.addObject("studentMainMap", studentMainMap);
 	    mav.addObject("selectCalendarMap", selectCalendarMap);
 	    mav.addObject("classListMap",classListMap);
+	    mav.addObject("stu",stu);
+	    mav.addObject("exam",exam);
 		return mav;}
 	
 
@@ -59,7 +70,7 @@ public class CalendarController{
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 List<Map<String, String>> StudentMainMap; 
 		StudentMainMap = this.mainDAO.StudentMainList();
-		resultMap.put("studentMainMap", StudentMainMap); 
+		resultMap.put("StudentMainMap", StudentMainMap); 
 		return resultMap; 
 		 }
 	

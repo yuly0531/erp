@@ -459,7 +459,6 @@
 				<span style="cursor:pointer" onClick="pageNoClick(${pageNo})">[${pageNo}]</span>
 			</c:if>  
 	</c:forEach> 
-
 		<span onClick="pageNoClick(${requestScope.stuListMap.selectPageNo}+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 		<span onClick="pageNoClick(${requestScope.stuListMap.last_pageNo})"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></span>
 	</div>    

@@ -137,12 +137,11 @@ function pageNoClick( clickPageNo ){
                    var searchResultCnt = obj.find("#stuCntAll").html();
                    var searchResult = obj.find("#stu_search_list").html();
                    var pageNos = obj.find("#stu_pageNos").html();
-                
-                   $("#stuCntAll").html( searchResultCnt );
+                	$("#stuCntAll").html( searchResultCnt );
              		$("#stu_search_list").html( searchResult );
                    $("#stu_pageNos").html( pageNos );
-                   
-        		 }
+                   alert(pageNos)
+                 }
           );
           </c:if>
           <c:if test="${whatRole eq '강사'|| whatRole eq '관리자'}">
@@ -271,11 +270,10 @@ function pageNoClick( clickPageNo ){
 		</table>
 		<input type="hidden" name="selectPageNo" value="1">
 		
-		<input type="hidden" name="sort">
 		<table>
 	        <section class="count_desc">
 	          <section class="searchResultCnt">
- <div class="impect" id="stuCntAll">전체 : ${requestScope.getStuOff.dayoffListCntAll} 개 </div> 
+ <div class="impect" id="stuCntAll">전체 : ${getStuOff.dayoffListCnt} 개 </div> 
 	         </section>
 	      <section>
 	     <span  onclick="payment(this, '전체')">전체</span>
@@ -299,7 +297,7 @@ function pageNoClick( clickPageNo ){
                      </c:if>
 				<c:forEach var="board" items="${requestScope.getStuOff.dayoffList}" varStatus="vs">
 				<div onClick="gostuDetailForm(${board.day_id})" class="search_con">
-						<div class="b_no">${requestScope.getStuOff.begin_serialNo_desc-vs.index}</div> 
+						<div class="b_no">${getStuOff.begin_serialNo_desc-vs.index}</div> 
 						<div class="subject">${board.dayoff_kind}</div>
 						<div class="writer">${board.stu_name}</div>
 						<div class="view_i">
