@@ -76,7 +76,6 @@ function godayOffForm(){
 			    ,"post"
 			    ,formObj
 			    ,function(responseJson){
-					alert(responseJson)
 					if(responseJson>=1) {
 			          alert("삭제되었습니다.");
 			          godayOffForm();
@@ -92,7 +91,6 @@ function godayOffForm(){
 						    ,"post"
 						    ,formObj
 						    ,function(responseJson){
-								alert(responseJson)
 								if(responseJson>=1) {
 						          alert("삭제되었습니다.");
 						          godayOffForm();
@@ -117,9 +115,6 @@ function result(resultText){
 			,function(responseJson){
 				var stu_DayoffUpCnt = responseJson["stu_DayoffUpCnt"];
 				var tea_DayoffUpCnt = responseJson["tea_DayoffUpCnt"];
-				alert(stu_DayoffUpCnt)
-				alert(tea_DayoffUpCnt)
-				
 				if(stu_DayoffUpCnt>=1||tea_DayoffUpCnt>=1
 						){
 					alert(resultText+"완료 되었습니다.");

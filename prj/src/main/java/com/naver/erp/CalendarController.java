@@ -95,11 +95,9 @@ public class CalendarController{
 	public ModelAndView markTea(HttpSession session,
 			CalendarDTO calendarDTO,AdminDTO adminDTO){
 		session.getAttribute("tea_id");
-		AdminStuController astu = new AdminStuController();
 		Map<String,Object> getCalendarMap = getCalendar(calendarDTO);
 		List<Map<String, String>> getstuMap = adminDAO.getStuList(adminDTO);
 
-		System.out.println(getstuMap.get(0).get("phone_num"));
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("markTea.jsp");
 		mav.addObject("getCalendarMap",getCalendarMap);

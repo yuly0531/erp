@@ -84,8 +84,7 @@ public class DayOffController {
 		
 		responseMap.put("stu_DayoffUpCnt",stu_DayoffUpCnt+"");
 		responseMap.put("tea_DayoffUpCnt",tea_DayoffUpCnt+"");
-	System.out.println(stu_DayoffUpCnt);
-	System.out.println(tea_DayoffUpCnt);
+
 		return responseMap;
 	}
 	
@@ -118,34 +117,22 @@ public class DayOffController {
 		return mav;
 	}
 	
-	// 모든 결재리스트 불러오는 메소드
+	// 강사 결재리스트 불러오는 메소드
 			public Map<String,Object> getTeaOff(DayOffDTO dayoffDTO){
 				Map<String,Object> resultMap = new HashMap<String,Object>();
 				List<Map<String,String>> tea_dayoffList;
-				List<Map<String,String>> stu_dayoffList;
 				int tea_dayoffListCnt;
 				int tea_dayoffListCntAll;
-				int stu_dayoffListCnt;
-				int stu_dayoffListCntAll;
+		
 				Map<String,Integer> pagingMap;
-				Map<String,Integer> stu_pagingMap;
 				
 				tea_dayoffListCntAll =  this.dayoffDAO.getTeaOffCntAll();
 				tea_dayoffListCnt =  this.dayoffDAO.getTeaOffCnt(dayoffDTO);
-				stu_dayoffListCntAll =  this.dayoffDAO.getStuOffCntAll();
-				stu_dayoffListCnt =  this.dayoffDAO.getStuOffCnt(dayoffDTO);
 				
 				pagingMap = Util.getPagingMap(
 						dayoffDTO.getSelectPageNo()
 						, dayoffDTO.getRowCntPerPage()
 						, tea_dayoffListCnt 
-						
-				);
-				stu_pagingMap = Util.getPagingMap(
-						dayoffDTO.getSelectPageNo()
-						, dayoffDTO.getRowCntPerPage()
-						, stu_dayoffListCnt 
-						
 				);
 				
 
@@ -156,14 +143,11 @@ public class DayOffController {
 				
 				
 				tea_dayoffList = this.dayoffDAO.getTeaOff(dayoffDTO);
-				stu_dayoffList = this.dayoffDAO.getStuOff(dayoffDTO);
+				
 
 				resultMap.put(  "tea_dayoffList"       , tea_dayoffList        );
-				resultMap.put(  "stu_dayoffList"       , stu_dayoffList        );
 				resultMap.put(  "tea_dayoffListCnt"    , tea_dayoffListCnt     );
 				resultMap.put(  "tea_dayoffListCntAll" , tea_dayoffListCntAll  );
-				resultMap.put(  "stu_dayoffListCnt"    , stu_dayoffListCnt     );
-				resultMap.put(  "stu_dayoffListCntAll" , stu_dayoffListCntAll  );
 				resultMap.put(  "dayoffDTO"  , dayoffDTO );
 				
 				resultMap.put(  "begin_pageNo"          , pagingMap.get("begin_pageNo")        );
@@ -173,13 +157,7 @@ public class DayOffController {
 				resultMap.put(  "begin_serialNo_asc"    , pagingMap.get("begin_serialNo_asc")  );
 				resultMap.put(  "begin_serialNo_desc"   , pagingMap.get("begin_serialNo_desc") );
 				
-				resultMap.put(  "stu_begin_pageNo"          , stu_pagingMap.get("begin_pageNo")        );
-				resultMap.put(  "stu_end_pageNo"            , stu_pagingMap.get("end_pageNo")          );
-				resultMap.put(  "stu_selectPageNo"          , stu_pagingMap.get("selectPageNo")        );
-				resultMap.put(  "stu_last_pageNo"           , stu_pagingMap.get("last_pageNo")         );
-				resultMap.put(  "stu_begin_serialNo_asc"    , stu_pagingMap.get("begin_serialNo_asc")  );
-				resultMap.put(  "stu_begin_serialNo_desc"   , stu_pagingMap.get("begin_serialNo_desc") );
-				
+
 				return resultMap;
 			}
 
@@ -284,7 +262,7 @@ public class DayOffController {
 						pagingMap = Util.getPagingMap(
 								dayoffDTO.getSelectPageNo()
 								, dayoffDTO.getRowCntPerPage()
-								, dayoffListCntAll
+								, dayoffListCnt
 						);
 						
 

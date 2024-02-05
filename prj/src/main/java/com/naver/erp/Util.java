@@ -37,7 +37,6 @@ public class Util {
 				
 			}
 			int last_pageNo = totCnt/rowCntPerPage;
-			
 				if(totCnt%rowCntPerPage>0) {last_pageNo++;}
 				if(last_pageNo<selectPageNo) {selectPageNo=last_pageNo;} 
 			int end_rowNo = selectPageNo * rowCntPerPage;

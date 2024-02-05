@@ -19,7 +19,9 @@
  
  function init(){
  	hidePopup();
- 	show_and_hide()
+ 	show_and_hide();
+ 	search();
+ 	
  };
  
  function hidePopup(){
@@ -115,18 +117,20 @@ function pageNoClick( clickPageNo ){
 	<c:if test="${whatRole eq '학생'}">
 	 var formStu = $("#StudayOffList");
 	 formStu.find("[name='selectPageNo']").val(clickPageNo);
-          search();
           </c:if>
      <c:if test="${whatRole eq '강사'|| whatRole eq '관리자'}">
      var formAll = $("#AlldayOffList");
      formAll.find("[name='selectPageNo']").val(clickPageNo);
+     var formStu = $("#StudayOffList");
+	 formStu.find("[name='selectPageNo']").val(clickPageNo);
+     </c:if>
           search();
-          </c:if>
 };
        
      
     
        function search(){
+ 
     	   <c:if test="${whatRole eq '학생'}">
           ajax(
         		 "/dayOff.do"
@@ -140,7 +144,6 @@ function pageNoClick( clickPageNo ){
                 	$("#stuCntAll").html( searchResultCnt );
              		$("#stu_search_list").html( searchResult );
                    $("#stu_pageNos").html( pageNos );
-                   alert(pageNos)
                  }
           );
           </c:if>
@@ -157,7 +160,6 @@ function pageNoClick( clickPageNo ){
 				$("#tea_CntAll").html( tea_searchResultCnt );
                    $("#tea_search_list").html( tea_searchResult );
                    $("#tea_pageNos").html( tea_pageNos );
-                  
                   })
                   ,ajax(
         		 "/dayOff.do"
@@ -171,8 +173,7 @@ function pageNoClick( clickPageNo ){
                 	$("#stuCntAll").html( searchResultCnt );
              		$("#stu_search_list").html( searchResult );
                    $("#stu_pageNos").html( pageNos );
-                   
-        		 });
+                  });
           </c:if>
        };
        
@@ -411,7 +412,7 @@ function pageNoClick( clickPageNo ){
 			
 			</div>
 	</form>
-	<form id="StudayOffList" class="dayOffList">
+	 <form id="StudayOffList" class="dayOffList">
         <header>학생</header>
 		<table class="search_bar"> 
 			<tr>
@@ -419,25 +420,24 @@ function pageNoClick( clickPageNo ){
 				 <input type="text" name="keyword1">
 				 <input type="hidden" name="payment">
 					<input class="search_btn" type="button" value="검색" onclick="search()" onkeydown="search()">
-					<c:if test="${whatRole eq '강사'}">
-					<input class="search_btn" type="button" value="휴가 신청" onclick="showTeaPopup()">
-					</c:if>
+					<input class="search_btn" type="button" value="휴가 신청" onclick="showStuPopup()">
+					
 				</td>
 			</tr>
 		</table>
 		<input type="hidden" name="selectPageNo" value="1">
-		<input type="hidden" name="sort">
+		
 		<table>
 	        <section class="count_desc">
 	          <section class="searchResultCnt">
- <div class="impect" id="stuCntAll">전체 : ${requestScope.getStuOff.dayoffListCntAll} 개 </div> 
+ <div class="impect" id="stuCntAll">전체 : ${getStuOff.dayoffListCnt} 개 </div> 
 	         </section>
-		      <section>
-		     <span  onclick="payment(this, '전체')">전체</span>
-	         <span onclick="payment(this, '미결재')">미결</span>
-	         <span onclick="payment(this, '승인')">승인</span>
-	         <span  onclick="payment(this, '반려')">반려</span>
-	         </section>
+	      <section>
+	     <span  onclick="payment(this, '전체')">전체</span>
+         <span onclick="payment(this, '미결재')">미결</span>
+         <span onclick="payment(this, '승인')">승인</span>
+         <span  onclick="payment(this, '반려')">반려</span>
+         </section>
 	       <select name="rowCntPerPage" onChange="search()" class="rownum">
 	                  <option value="10">10 
 	                  <option value="15">15 
@@ -450,11 +450,11 @@ function pageNoClick( clickPageNo ){
 	<div class="search_list" id="stu_search_list">	
 			<div>
 			<c:if test="${empty requestScope.getStuOff.dayoffList}">
-                                 <span style="margin: 45%">검색결과가 없습니다.</span>
+                                 <span style="margin: 45%">정보가 없습니다.</span>
                      </c:if>
 				<c:forEach var="board" items="${requestScope.getStuOff.dayoffList}" varStatus="vs">
 				<div onClick="gostuDetailForm(${board.day_id})" class="search_con">
-						<div class="b_no">${requestScope.getStuOff.begin_serialNo_desc-vs.index}</div> 
+						<div class="b_no">${getStuOff.begin_serialNo_desc-vs.index}</div> 
 						<div class="subject">${board.dayoff_kind}</div>
 						<div class="writer">${board.stu_name}</div>
 						<div class="view_i">

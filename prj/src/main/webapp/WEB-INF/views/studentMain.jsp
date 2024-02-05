@@ -7,7 +7,7 @@
 <head>
 <title>학생페이지</title>
 <link href="css/mainpage.css" rel="stylesheet">
-<link rel="stylesheet" href="/js/main.min.css">
+<link rel="stylesheet" href="/css/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/main.min.js"></script>
  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
@@ -16,20 +16,8 @@
 </head>
 <script>
 $(function(){
-	  
-	   window.onpageshow = function(event) {
-	   if (event.persisted) {
-	              ﻿location.reload(true);﻿
-		    }
-		}
-		$(window).bind("pageshow", function(event) {
-		if (event.originalEvent && event.originalEvent.persisted){
-		              //todo
-		              ﻿location.reload(true);﻿
-		    }
-		});﻿
-
-})
+	 
+});
 
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -67,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 function godayForm(){
      document.dayOffFormLink.submit();
-  }
+  };
  
 </script>
 		<body>
@@ -156,7 +144,7 @@ function godayForm(){
 			          </div>
 			          <div class="flex">
 			             <form class="boardForm">
-						<c:forEach var="stu" items="${stu}" varStatus="vs" end="5">
+						<c:forEach var="stu" items="${stu}" varStatus="vs" end="9">
 					<c:if test="${sessionScope.stu_id==stu.stu_id}" >
 					<li style="font-size: 13px;">이름 : ${stu.stu_name} / 신청일 : ${stu.application_date} / 종류 : ${stu.dayoff_kind} / 승인여부 : ${stu.payment_status}</li><br>
 					</c:if>
@@ -185,7 +173,7 @@ ATTEND_STATUS.push("${map.stu_name}")
 </c:forEach>
 
 new Chart(document.getElementById("chart"), {
-    type: 'pie',
+    type: 'bar',
     data: {
       labels: ['출석','지각','조퇴','결석'],
       datasets: [{ 
