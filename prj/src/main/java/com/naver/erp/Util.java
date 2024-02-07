@@ -14,9 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class Util {
 
 	
-	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-	// 검색 화면에서 필요한 [페이징 처리 관련 데이터]를 HashMap 객체에 저장해 리턴하는 메소드
-	//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	public static Map<String,Integer>   getPagingMap(
 		int selectPageNo       // 선택한 페이지 번호
 		, int rowCntPerPage    // 페이지 당 보여줄 검색 행의 개수
@@ -51,9 +48,6 @@ public class Util {
 			}
 			//-----------------------------------------------------
 			int last_pageNo = totCnt/rowCntPerPage;
-					// 아래 처럼도 가능
-					// int last_pageNo = totCnt/rowCntPerPage + (totCnt%rowCntPerPage==0?0:1);
-					// int last_pageNo = (int)(Math.ceil(totCnt*1.0/rowCntPerPage));
 				if( totCnt%rowCntPerPage>0 ) { last_pageNo++; }
 				if( last_pageNo<selectPageNo ) { selectPageNo = last_pageNo; }
 			//-----------------------------------------------------
