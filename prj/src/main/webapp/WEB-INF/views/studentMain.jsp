@@ -143,9 +143,9 @@ function godayForm(){
 			            </div>
 			          </div>
 			          <div class="flex">
-			             <form class="boardForm">
-						<c:forEach var="stu" items="${stu}" varStatus="vs" end="9">
-					<c:if test="${sessionScope.stu_id==stu.stu_id}" >
+			           <form class="boardForm">
+					<c:forEach var="stu" items="${stu}" varStatus="vs">
+					<c:if test="${stu_id==stu.stu_id}" >
 					<li style="font-size: 13px;">이름 : ${stu.stu_name} / 신청일 : ${stu.application_date} / 종류 : ${stu.dayoff_kind} / 승인여부 : ${stu.payment_status}</li><br>
 					</c:if>
 					</c:forEach>
@@ -156,7 +156,7 @@ function godayForm(){
 			        </div>
 			        </div>
 				
-			<form name="dayOffFormLink" method="post" action="/dayOff.do"></form> 
+<form name="dayOffFormLink" method="post" action="/dayOff.do"></form> 
  </body>
 </body>
 <script>

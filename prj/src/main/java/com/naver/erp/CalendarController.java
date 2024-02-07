@@ -51,7 +51,7 @@ public class CalendarController{
 		session.getAttribute("stu_id");
 		Map<String, Object> studentMainMap = StudentMainList();
 		Map<String, Object> selectCalendarMap = selectCalendar(calendarDTO);
-		List<Map<String, String>> stu = this.dayOffDAO.getStuOff(dayoffDTO);
+		List<Map<String, String>> stu = this.dayOffDAO.getStuOffMain(dayoffDTO);
 		List<Map<String, String>> exam = this.examDAO.getExamList(examDTO);
 		
 		ModelAndView mav = new ModelAndView();
@@ -60,7 +60,8 @@ public class CalendarController{
 	    mav.addObject("selectCalendarMap", selectCalendarMap);
 	    mav.addObject("stu",stu);
 	    mav.addObject("exam",exam);
-		return mav;}
+		return mav;
+		}
 	
 
 	   public Map<String, Object> StudentMainList(

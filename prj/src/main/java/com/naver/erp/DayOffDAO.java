@@ -19,6 +19,7 @@ public interface DayOffDAO {
 	int insertStuOff(DayOffDTO dayoffDTO);
 	int deleteStuOff(DayOffDTO dayoffDTO);
 	int upStuOff(DayOffDTO dayoffDTO);
+	List<Map<String,String>> getStuOffMain(DayOffDTO dayoffDTO);
 	
 	int updateStuDayoffStatus (DayOffDTO dayoffDTO);
 	int updateTeaDayoffStatus (DayOffDTO dayoffDTO);
