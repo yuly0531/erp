@@ -20,13 +20,12 @@
  function init(){
  	hidePopup();
  	show_and_hide();
- 	search();
- 	
  };
  
  function hidePopup(){
  	$("#stuOff").hide();
  	$("#teaOff").hide();
+ 	search();
  };
  
 
@@ -141,9 +140,9 @@ function pageNoClick( clickPageNo ){
                    var searchResultCnt = obj.find("#stuCntAll").html();
                    var searchResult = obj.find("#stu_search_list").html();
                    var pageNos = obj.find("#stu_pageNos").html();
-                	$("#stuCntAll").html( searchResultCnt );
-             		$("#stu_search_list").html( searchResult );
-                   $("#stu_pageNos").html( pageNos );
+                	$("#stuCntAll").html(searchResultCnt);
+             		$("#stu_search_list").html(searchResult);
+                   $("#stu_pageNos").html( pageNos);
                  }
           );
           </c:if>
@@ -161,7 +160,7 @@ function pageNoClick( clickPageNo ){
                    $("#tea_search_list").html( tea_searchResult );
                    $("#tea_pageNos").html( tea_pageNos );
                   })
-                  ,ajax(
+                  ajax(
         		 "/dayOff.do"
                 ,"post"
                 ,$("#StudayOffList")

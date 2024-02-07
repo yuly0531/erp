@@ -38,7 +38,7 @@ select
  </select> 
 
 
-<select id="getStuOffCnt" resultType="int" >
+<select id="getStuOffCnt"  parameterType="com.naver.erp.DayOffDTO"  resultType="int" >
 	     select
 	       count(*)
          from dayoff d
@@ -52,7 +52,8 @@ select
 	     from dayoff
 </select>
 
-<select id="getStuOff" resultType="java.util.Map" >
+<select id="getStuOff"  parameterType="com.naver.erp.DayOffDTO"  resultType="java.util.Map" >
+ select * from ( select  rownum RNUM, zxcvb.* from  (
 select
 	d.day_id		"day_id"
 	,(select stu_name from student st where st.stu_id= d.stu_id) "stu_name" 
@@ -65,7 +66,10 @@ select
 from dayoff  d 
 	where 1=1
     <include refid="dayoffWhere"/>
-    order by d.day_id desc
+    order by day_id desc
+    <![CDATA[
+			) zxcvb) where  RNUM  >= #{begin_rowNo}  and RNUM <= #{end_rowNo}
+		]]>
 </select>
 
 

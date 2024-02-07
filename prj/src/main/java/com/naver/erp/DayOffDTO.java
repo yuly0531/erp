@@ -38,7 +38,7 @@ public class DayOffDTO {
 		 
 		 //결재 검색
 		 private String keyword1;
-		   private String keyword2;
+		 private String keyword2;
 		  
 		private String payment;
 		   private String orand;
