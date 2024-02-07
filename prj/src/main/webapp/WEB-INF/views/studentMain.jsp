@@ -172,6 +172,13 @@ ATTEND_STATUS.push("${map.stu_name}")
 </c:if>
 </c:forEach>
 
+var Class = [];
+<c:forEach var="map" items="${classListMap}" varStatus="vs">
+<c:if test="${sessionScope.stu_id==map.stu_id}">
+ATTEND_STATUS.push("${map.class_name}")
+</c:if>
+</c:forEach>
+
 new Chart(document.getElementById("chart"), {
     type: 'bar',
     data: {
@@ -198,7 +205,7 @@ new Chart(document.getElementById("chart"), {
         position:'bottom',
         fontSize: 15,
         fontStyle:'bold',
-        text: ATTEND_STATUS[0]+ '님의 출석률입니다.',
+        text: '현재'+ATTEND_STATUS[0]+ '님이 듣고 계신 수업은 '+'${class_name}'+'입니다.',
       }
     }
   });
