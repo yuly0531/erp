@@ -19,7 +19,7 @@
  
  function init(){
  	 hidePopup(); 
- 	show_and_hide()
+ 	show_and_hide();
  };
  
  function hidePopup(){
@@ -126,24 +126,23 @@ function pageNoClick( clickPageNo ){
        
      
     
-       function search(){
-    	   <c:if test="${whatRole eq '학생'}">
-          ajax(
-        		 "/dayOff.do"
-                ,"post"
-                ,$("#StudayOffList")
-                ,function(responseHtml){
-                   var obj = $(responseHtml);
-                   var searchResultCnt = obj.find("#stuCntAll").html();
-                   var searchResult = obj.find("#stu_search_list").html();
-                   var pageNos = obj.find("#stu_pageNos").html();
-                
-                   $("#stuCntAll").html( searchResultCnt );
-             		$("#stu_search_list").html( searchResult );
-                   $("#stu_pageNos").html( pageNos );
-                   
-        		 }
-          );
+		function search(){
+			   <c:if test="${whatRole eq '학생'}">
+		   ajax(
+		 		 "/dayOff.do"
+		         ,"post"
+		         ,$("#StudayOffList")
+		         ,function(responseHtml){
+		            var obj = $(responseHtml);
+		            var searchResultCnt = obj.find("#stuCntAll").html();
+		            var searchResult = obj.find("#stu_search_list").html();
+		            var pageNos = obj.find("#stu_pageNos").html();
+		         	$("#stuCntAll").html( searchResultCnt );
+		      		$("#stu_search_list").html( searchResult );
+		            $("#stu_pageNos").html( pageNos );
+
+		          }
+		   );
           </c:if>
           <c:if test="${whatRole eq '강사'|| whatRole eq '관리자'}">
           ajax(
@@ -177,11 +176,25 @@ function pageNoClick( clickPageNo ){
           </c:if>
        };
        
-       function gostuDetailForm(day_id){
-    	      $("[name='DetailForm'] [name='day_id']").val(day_id);
-    	      document.DetailForm.submit();
+       function gostuDetailForm(day_id,stu_id){
+    	   <c:if test="${whatRole eq '학생'}">
+    	   if("${stu_id}"!=stu_id){
+    		   alert("본인이 작성한 결재만 확인 가능합니다.")
+    		   return;
     	   }
-       function goteaDetailForm(tea_day_id){
+    	   </c:if>
+    	   $("[name='DetailForm'] [name='day_id']").val(day_id);
+ 	      document.DetailForm.submit();
+    	   }
+       
+       function goteaDetailForm(tea_day_id,tea_id){
+    	   <c:if test="${whatRole eq '강사'}">
+    	    if("${tea_id}"!=tea_id){
+    	    	alert(tea_id)
+    		   alert("본인이 작성한 결재만 확인 가능합니다.")
+    		   return;
+    	   }
+    	   </c:if>
  	      $("[name='DetailForm'] [name='tea_day_id']").val(tea_day_id);
  	      document.DetailForm.submit();
  	   }
@@ -228,6 +241,8 @@ function pageNoClick( clickPageNo ){
 			<td class="main_cate" onclick="location.replace('/markTea.do')">수업 관리(출석)</td>
 			<td class="main_cate" onclick="location.replace('/stuList.do')">학생 관리</td>
 			<td class="main_cate active" onclick="location.replace('/dayOff.do')">휴가 관리</td>
+			<td class="tea" name="tea" align="center" style="float: left;" onclick="AlldayOffList">ㄴ강사</td>
+        	<td class="stu" name="stu" align="center" style="float: left;" onclick="StudayOffList">ㄴ학생</td>
 			<td class="main_cate" onclick="location.replace('/examList.do')">시험 출제</td>
           </tr>
           </table>
@@ -282,7 +297,7 @@ function pageNoClick( clickPageNo ){
 		<table>
 	        <section class="count_desc">
 	          <section class="searchResultCnt">
- <div class="impect" id="stuCntAll">전체 : ${requestScope.getStuOff.dayoffListCntAll} 개 </div> 
+<div class="impect" id="stuCntAll">전체 : ${getStuOff.dayoffListCnt} 개 </div>
 	         </section>
 	      <section>
 	     <span  onclick="payment(this, '전체')">전체</span>
@@ -305,8 +320,9 @@ function pageNoClick( clickPageNo ){
                                  <span style="margin: 45%">정보가 없습니다.</span>
                      </c:if>
 				<c:forEach var="board" items="${requestScope.getStuOff.dayoffList}" varStatus="vs">
-				<div onClick="gostuDetailForm(${board.day_id})" class="search_con">
-						<div class="b_no">${requestScope.getStuOff.begin_serialNo_desc-vs.index}</div> 
+
+				<div onClick="gostuDetailForm('${board.day_id}','${board.stu_id}')" class="search_con">
+						<div class="b_no">${getStuOff.begin_serialNo_desc-vs.index}</div> 
 						<div class="subject">${board.dayoff_kind}</div>
 						<div class="writer">${board.stu_name}</div>
 						<div class="view_i">
@@ -319,6 +335,7 @@ function pageNoClick( clickPageNo ){
 							</div> 
 						</div>
 					</div>
+			
 				</c:forEach>
 			</div>
 		</div>
@@ -339,9 +356,7 @@ function pageNoClick( clickPageNo ){
 		</form>
 	</c:if>
 	
-	
-	 
-        <c:if test="${whatRole eq '강사'||whatRole eq '관리자'}">
+	<c:if test="${whatRole eq '강사'||whatRole eq '관리자'}">
         <form id="AlldayOffList" class="dayOffList">
         <header>강사</header>
 		<table class="search_bar"> 
@@ -384,7 +399,7 @@ function pageNoClick( clickPageNo ){
                                  <span style="margin: 45%">정보가 없습니다.</span>
                      </c:if>
 			<c:forEach var="board" items="${requestScope.getTeaOff.tea_dayoffList}" varStatus="vs">
-					<div onClick="goteaDetailForm(${board.tea_day_id})" class="search_con">
+					<div onClick="goteaDetailForm('${board.tea_day_id}','${board.tea_id}')" class="search_con">
 						<div class="b_no">${requestScope.getTeaOff.begin_serialNo_desc-vs.index}</div> 
 						<div class="subject">${board.tea_dayoff_kind}</div>
 						<div class="writer">${board.tea_name}</div>

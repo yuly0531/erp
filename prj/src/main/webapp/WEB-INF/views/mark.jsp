@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             	<c:if test="${sessionScope.stu_id==calendar.stu_id}">
             {
             	
-            	title:"${calendar.stu_name}"+"-"+"${calendar.attend_status}",
+            	title:"${calendar.class_name}"+"-"+"${calendar.stu_name}"+"-"+"${calendar.attend_status}",
                 start:"${calendar.attend_date}",
                 color:
                 <c:if test="${calendar.attend_status eq '출석'}">

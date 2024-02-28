@@ -134,7 +134,9 @@ function deleteData(){
 					<header>
 					반갑습니다 ${tea_id}님
 					</header>
-		<div id="calendar" style="width: 70%"></div></form>
+					
+		<div id="calendar" style="width: 70%"></div>
+		</form>
     <form class='calendarForm' id="insertForm">
 	<div class="dim">
 	<div name="insert_check" class='calendar_popup'>
@@ -166,6 +168,7 @@ function deleteData(){
 	   <br>
    <div>
     	<input type="button" value="취소" onClick="hidePopup()">
+    	<input type="hidden" name="tea_id" value="${tea_id}">
     	<input type="button" class="save_btn" onClick="saveData()" value="제출">
     </div> 
   </div>
@@ -210,8 +213,9 @@ function deleteData(){
 <form name="markTeaForm" method="post" action="/markTea.do"></form> 	
 </body>
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
-	
+
     var calendarEl = document.getElementById('calendar');
     	var calendar = new FullCalendar.Calendar(calendarEl, {
     		initialView: 'dayGridMonth',
@@ -230,7 +234,10 @@ document.addEventListener('DOMContentLoaded', function() {
     		    },
     		    locale:'ko',
     		    timeZone: 'Asia/Seoul',
-            events:[ <c:forEach var="calendar" items="${getCalendarMap.getCalendar}" varStatus="vs">
+            events:[
+            
+            	<c:forEach var="calendar" items="${getCalendarMap.getCalendar}" varStatus="vs">
+            	<c:if test="${tea_id==calendar.tea_id}">
             {
             	id:"${calendar.att_id}",
             	title:"${calendar.stu_name}"+"-"+"${calendar.attend_status}",
@@ -249,7 +256,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 "green"
                 </c:if>
        		},
+       	 </c:if>
             </c:forEach>
+       	
             ],
           
             eventClick: function(info) {
@@ -263,7 +272,9 @@ document.addEventListener('DOMContentLoaded', function() {
               }
         });
         calendar.render();
+       
     });
+
 </script>
 
 

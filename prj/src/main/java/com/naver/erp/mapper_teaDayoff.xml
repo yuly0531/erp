@@ -52,17 +52,18 @@ select
 
 <select id="getTeaOff" resultType="java.util.Map" >
 select
-	day_id		"tea_day_id"
+	to_number(day_id)		"tea_day_id"
 	,(select tea_name from teacher te where te.tea_id= sd.tea_id) "tea_name"                     
     ,to_char(APPLICATION_DATE,'yyyy-mm-dd')         "tea_application_date"  
     ,to_char(DAYOFF_START,'yyyy-mm-dd')             "tea_dayoff_start"
     ,to_char(DAYOFF_END,'yyyy-mm-dd')               "tea_dayoff_end"
     ,PAYMENT_STATUS     "tea_payment_status"               
     ,TEA_DAYOFF_KIND "tea_dayoff_kind"
+     ,TEA_ID "tea_id"
 from tea_dayoff  sd 
 	where 1=1
     <include refid="teaDayoffWhere"/>
-    order by day_id desc
+    order by to_number(day_id) desc
 </select>
 
 

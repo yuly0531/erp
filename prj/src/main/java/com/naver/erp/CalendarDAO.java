@@ -13,7 +13,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface CalendarDAO {
 	 List<Map<String,Object>> selectCalendar(CalendarDTO calendarDTO);
-	 List<Map<String,Object>> getCalendar(CalendarDTO calendarDTO);
+	 List<Map<String,Object>> getCalendar();
+	 List<Map<String,Object>> getAttend();
+
+
 	 int insertCalendar(CalendarDTO calendarDTO);
 	 int updateCalendar(CalendarDTO calendarDTO);
 	 int deleteCalendar(CalendarDTO calendarDTO);

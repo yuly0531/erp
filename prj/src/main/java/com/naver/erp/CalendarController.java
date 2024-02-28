@@ -31,6 +31,10 @@ public class CalendarController{
 	private MainDAO mainDAO;
 	@Autowired
 	private AdminDAO adminDAO;
+	@Autowired
+	private DayOffDAO dayOffDAO;
+	@Autowired
+	private ExamDAO examDAO;
 	
 
 	
@@ -39,18 +43,26 @@ public class CalendarController{
 			HttpSession session
 			,CalendarDTO calendarDTO
 			,AdminDTO adminDTO
+			,DayOffDTO dayoffDTO
+			,ExamDTO examDTO
 			
 	){
 		session.getAttribute("stu_id");
 		Map<String, Object> studentMainMap = StudentMainList();
 		Map<String, Object> selectCalendarMap = selectCalendar(calendarDTO);
+		Map<String, Object> getAttend = getAttend(calendarDTO);
 		List<Map<String, String>> classListMap = adminDAO.getClassList(adminDTO);
+		List<Map<String, String>> stu = this.dayOffDAO.getStuOff(dayoffDTO);
+		List<Map<String, String>> exam = this.examDAO.getExamList(examDTO);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("stuMain.jsp");
+		mav.setViewName("studentMain.jsp");
 	    mav.addObject("studentMainMap", studentMainMap);
 	    mav.addObject("selectCalendarMap", selectCalendarMap);
+	    mav.addObject("getAttend", getAttend);
 	    mav.addObject("classListMap",classListMap);
+	    mav.addObject("stu",stu);
+	    mav.addObject("exam",exam);
 		return mav;}
 	
 
@@ -59,7 +71,7 @@ public class CalendarController{
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 List<Map<String, String>> StudentMainMap; 
 		StudentMainMap = this.mainDAO.StudentMainList();
-		resultMap.put("studentMainMap", StudentMainMap); 
+		resultMap.put("StudentMainMap", StudentMainMap);
 		return resultMap; 
 		 }
 	
@@ -84,10 +96,10 @@ public class CalendarController{
 	public ModelAndView markTea(HttpSession session,
 			CalendarDTO calendarDTO,AdminDTO adminDTO){
 		session.getAttribute("tea_id");
-		AdminStuController astu = new AdminStuController();
 		Map<String,Object> getCalendarMap = getCalendar(calendarDTO);
 		List<Map<String, String>> getstuMap = adminDAO.getStuList(adminDTO);
-		
+
+		System.out.println(getstuMap.get(0).get("phone_num"));
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("markTea.jsp");
 		mav.addObject("getCalendarMap",getCalendarMap);
@@ -146,6 +158,7 @@ public class CalendarController{
 				catch(Exception ex){
 					calendarRegCnt = -1;
 				}
+			System.out.println(calendarRegCnt);
 				return calendarRegCnt;
 				
 			};
@@ -161,29 +174,40 @@ public class CalendarController{
 					calendarRegCnt = this.calendarDAO.deleteCalendar(calendarDTO);
 								}
 					catch(Exception ex){
+						System.out.println(ex);
 						calendarRegCnt = -1;
 					}
 					return calendarRegCnt;
 					
 				}
 			
-			// 모든 일정 불러오기	
+// 모든 일정 불러오기
+
 			public Map<String, Object> getCalendar(
 					 CalendarDTO calendarDTO   ) {
 				 Map<String, Object> resultMap = new HashMap<String, Object>();
 				 List<Map<String, Object>> getCalendar; 
-				 getCalendar = this.calendarDAO.getCalendar(calendarDTO);
+				 getCalendar = this.calendarDAO.getCalendar();
 				resultMap.put("getCalendar", getCalendar); 
 				return resultMap; 
 				 }
 			
-			// 선택된 일정 불러오기 (학생 페이지)
+
 			 public Map<String, Object> selectCalendar(
 					 CalendarDTO calendarDTO   ) {
 				 Map<String, Object> resultMap = new HashMap<String, Object>();
 				 List<Map<String, Object>> selectCalendar; 
 				 selectCalendar = this.calendarDAO.selectCalendar(calendarDTO);
 				resultMap.put("selectCalendar", selectCalendar); 
+				return resultMap; 
+				 }
+			 
+			 public Map<String, Object> getAttend(
+					 CalendarDTO calendarDTO   ) {
+				 Map<String, Object> resultMap = new HashMap<String, Object>();
+				 List<Map<String, Object>> getAttend; 
+				 getAttend = this.calendarDAO.getAttend();
+				resultMap.put("getAttend", getAttend); 
 				return resultMap; 
 				 }
 			
