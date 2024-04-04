@@ -221,6 +221,7 @@ input[type='button']:not(.classSearch, .search) {
   border-bottom: 1px solid lightgray;
   border: 1px solid #A4A4A4;
   box-shadow: 0 6px 10px -2px #A4A4A4;
+  
 }
 .searchDetail,
 .resultCate > div {

@@ -34,9 +34,9 @@ public class Util {
 				map.put("begin_pageNo", 0);
 				map.put("end_pageNo", 0);
 				return map;
+				
 			}
 			int last_pageNo = totCnt/rowCntPerPage;
-			
 				if(totCnt%rowCntPerPage>0) {last_pageNo++;}
 				if(last_pageNo<selectPageNo) {selectPageNo=last_pageNo;} 
 			int end_rowNo = selectPageNo * rowCntPerPage;
